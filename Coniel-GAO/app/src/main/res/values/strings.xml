@@ -16,5 +16,32 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_splash">splash</string>
+    <string name="title_activity_menu">Menu Principal</string>
+    <string name="lblrelleno" />
+    <string name="lblautor"> GAO - Coniel V1.0 2014</string>
+    <string name="btningresarficha"> Nuevo </string>
+    <string name="btnbusqueda"> Buscar </string>
+    <string name="btnfoto">Fotos</string>
+    <string name="btnLocalizacion">Ubicación</string>
+    <string name="btnChat">Chat</string>
+    <string name="btnAjustes">Ajustes</string>
+    <string name="btnmenufilter"> </string>
+
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item >Acerca de </item>
+        <item >Salir</item>
+    </string-array>
+
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item></item>
+        <item></item>
+
+    </array>
+
+    <!-- Content Description -->
+    <string name="desc_list_item_icon">Item Icon</string>
 
 </resources>

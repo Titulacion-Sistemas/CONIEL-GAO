@@ -25,6 +25,9 @@
     <style name="ButtonStilo">
         <item name="android:background">@drawable/boton_estilo</item> </style>
 
+    <style name="BotonMenuP">
+        <item name="android:background">@drawable/boton_menu</item> </style>
+
     <style name="LayoutStilo">
         <item name="android:background">@drawable/layout_estilo</item>
     </style>

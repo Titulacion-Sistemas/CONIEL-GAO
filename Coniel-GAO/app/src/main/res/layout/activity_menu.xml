@@ -1,0 +1,168 @@
+<ScrollView
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="90dp"
+        android:orientation="horizontal"
+        android:background="#64bddb"
+        android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Menú Principal"
+                android:id="@+id/textView"
+                android:layout_gravity="right"
+                android:textAlignment="center"
+                android:padding="10dp"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="#ffffff" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/button10"
+                android:gravity="left"
+                android:drawableTop="@drawable/ic_drawer"
+                android:background="@android:color/transparent"
+                android:clickable="true"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btningresarficha"
+                android:id="@+id/button"
+                android:clickable="true"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="50dp"
+                android:drawableTop="@drawable/ic_action_copy"
+                android:textStyle="bold"
+                style="@style/BotonMenuP"
+                android:padding="20dp"
+                android:layout_marginBottom="25dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnbusqueda"
+                android:id="@+id/button2"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="50dp"
+                android:clickable="true"
+                android:drawableTop="@drawable/ic_action_search"
+                android:textStyle="bold"
+                style="@style/BotonMenuP"
+                android:padding="20dp"
+                android:layout_marginBottom="25dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnfoto"
+                android:id="@+id/button6"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="60dp"
+                android:clickable="true"
+                android:drawableTop="@drawable/ic_action_camera"
+                android:textStyle="bold"
+                style="@style/BotonMenuP"
+                android:padding="20dp"
+                android:layout_marginBottom="25dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnChat"
+                android:id="@+id/button8"
+                android:clickable="true"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="50dp"
+                android:drawableTop="@drawable/ic_action_chat"
+                android:textStyle="bold"
+                style="@style/BotonMenuP"
+                android:padding="20dp"
+                android:layout_marginBottom="25dp"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnLocalizacion"
+                android:id="@+id/button7"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="30dp"
+                android:clickable="true"
+                android:drawableTop="@drawable/ic_action_place"
+                android:textStyle="bold"
+                style="@style/BotonMenuP"
+                android:padding="20dp"
+                android:layout_marginBottom="25dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btnAjustes"
+                android:id="@+id/button9"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="30dp"
+                android:clickable="true"
+                android:drawableTop="@drawable/ic_action_settings"
+                android:textStyle="bold"
+                style="@style/BotonMenuP"
+                android:padding="20dp"
+                android:layout_marginBottom="25dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:background="#a2d7e9"
+            android:layout_marginBottom="0dp"
+            android:gravity="center"
+            android:layout_gravity="center">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/lblautor"
+                android:id="@+id/textView2"
+                android:textAlignment="center"
+                android:gravity="center" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
