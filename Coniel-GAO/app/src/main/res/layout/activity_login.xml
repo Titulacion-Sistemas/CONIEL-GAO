@@ -1,5 +1,5 @@
 <ScrollView
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 <LinearLayout
@@ -10,7 +10,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:paddingBottom="25dp"
         android:background="@android:color/transparent">
@@ -40,19 +40,17 @@
      <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginBottom="70dp"
-            android:paddingTop="40dp"
+            android:layout_marginTop="20dp"
+            android:paddingTop="10dp"
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
             android:paddingBottom="40dp"
-            style="@style/LayoutStilo"
-            >
-
+            style="@style/LayoutStilo">
+    <!--android:layout_marginBottom="70dp"-->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -69,7 +67,6 @@
                     android:id="@+id/txtusuario"
                     android:text="@string/txtusuario"
                     android:hint="@string/usuario"
-                    android:padding="20dp"
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -88,8 +85,6 @@
                     android:text="@string/txtcontrasenia"
                     android:hint="@string/contrasenia"
                     android:fontFamily="@string/txtusuario"
-                    android:padding="20dp"
-
                     />
 
                 <TextView
