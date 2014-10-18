@@ -31,4 +31,12 @@
     <style name="LayoutStilo">
         <item name="android:background">@drawable/layout_estilo</item>
     </style>
+    <style name="CustomActionBarTheme"
+        parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+    </style>
+    <style name="MyActionBar"
+        parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">#64bddb</item>
+    </style>
 </resources>

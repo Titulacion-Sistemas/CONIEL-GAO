@@ -1,131 +1,145 @@
-<ScrollView
+<!--<ScrollView
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    xmlns:android="http://schemas.android.com/apk/res/android">-->
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:paddingBottom="25dp"
-        android:background="@android:color/transparent">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/img_logo"
-            android:scaleType="center"
-            android:src="@drawable/splash_screen"
-            android:background="#64bddb"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:gravity="center_horizontal"
-            android:textAlignment="center"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/lbInicio"
-            android:id="@+id/textView"
-            android:layout_gravity="center_horizontal"
-            android:textSize="@dimen/titulo"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-     <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="20dp"
-            android:paddingTop="10dp"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:paddingBottom="40dp"
-            style="@style/LayoutStilo">
-    <!--android:layout_marginBottom="70dp"-->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/lblusuario"
-                    android:id="@+id/lblusuario"
-                    android:textStyle="normal"
-                    android:padding="20dp"
-                    />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/txtusuario"
-                    android:text="@string/txtusuario"
-                    android:hint="@string/usuario"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/lblContrasenia"
-                    android:id="@+id/textView5"
-                    android:textStyle="normal"
-                    android:padding="20dp"/>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:id="@+id/txtclave"
-                    android:text="@string/txtcontrasenia"
-                    android:hint="@string/contrasenia"
-                    android:fontFamily="@string/txtusuario"
-                    />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/titulo"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text=""
-                    android:id="@+id/textView6" />
-
-                <Button
-                    android:layout_width="135dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/btnInicioSesion"
-                    android:id="@+id/btnInicio"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="10dp"
-                    android:textStyle="bold"
-                    android:textAlignment="gravity"
-                    android:textColor="#fefef0"
-                    android:textSize="25dp"
-                    style="@style/ButtonStilo"
-                    android:clickable="true" />
-
-
-        </LinearLayout>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="vertical"
-            android:background="#a2d7e9"
-            android:layout_marginTop="115dp"
-            >
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
 
-             <TextView
+            <ScrollView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical">
+
+                <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:orientation="vertical"
+                 android:layout_gravity="center_vertical"
+                 android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/img_logo"
+                        android:scaleType="center"
+                        android:src="@drawable/splash_screen"
+                        android:background="#64bddb"/>
+
+                    <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:gravity="center_horizontal"
+                         android:textAlignment="center"
+                         android:textAppearance="?android:attr/textAppearanceLarge"
+                         android:text="@string/lbInicio"
+                         android:id="@+id/textView"
+                         android:layout_gravity="center_horizontal"
+                         android:textSize="20dp"
+                         android:textStyle="bold"
+                         android:padding="10dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:padding="15dp">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            xmlns:android="http://schemas.android.com/apk/res/android"
+                            style="@style/LayoutStilo"
+                            android:padding="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:text="@string/lblusuario"
+                                android:id="@+id/lblusuario"
+                                android:textStyle="normal"
+                                android:padding="10dp" />
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/txtusuario"
+                                android:text="@string/txtusuario"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:text="@string/lblContrasenia"
+                                android:id="@+id/textView5"
+                                android:textStyle="normal"
+                                android:padding="10dp"/>
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPassword"
+                                android:id="@+id/txtclave"
+                                android:text="@string/txtcontrasenia"
+                                android:fontFamily="@string/txtusuario"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/titulo"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:text=""
+                                android:id="@+id/textView6" />
+
+                            <Button
+                                android:layout_width="135dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/btnInicioSesion"
+                                android:id="@+id/btnInicio"
+                                android:layout_gravity="right"
+                                android:layout_marginRight="10dp"
+                                android:textStyle="bold"
+                                android:textAlignment="gravity"
+                                android:textColor="#fefef0"
+                                android:textSize="25dp"
+                                style="@style/ButtonStilo"
+                                android:clickable="true" />
+
+                    </LinearLayout>
+
+                    </LinearLayout>
+            </LinearLayout>
+
+            </ScrollView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="bottom">
+
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/lblautor"
                 android:id="@+id/textView4"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="#a2d7e9" />
         </LinearLayout>
-</LinearLayout>
-</ScrollView>
+
+    </LinearLayout>

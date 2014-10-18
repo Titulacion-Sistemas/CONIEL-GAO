@@ -1,5 +1,6 @@
 package com.gao.coniel.coniel_gao;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,7 +20,12 @@ public class menu extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
+        // Inflate the menu items for use in the action bar
+
+       /* MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);*/
     }
 
     @Override
