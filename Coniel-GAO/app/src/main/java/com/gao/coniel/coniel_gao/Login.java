@@ -5,13 +5,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.R.*;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 
 public class Login extends Activity {
@@ -35,10 +32,10 @@ public class Login extends Activity {
             @Override
             public void onClick(View v) {
                 if(editName.getText().toString().equals(name) && editPass.getText().toString().equals(pass)){
-                    Intent intent = new Intent(Login.this , menu.class);
+                    Intent intent = new Intent(Login.this , Contenedor.class);
                     startActivity(intent);
                     finish();
-                   /* Intent intent = new Intent(activity_menu.this, menu.class);
+                   /* Intent intent = new Intent(activity_menu.this, Menu.class);
                         startActivity(intent);
                         finish();*/
                  }
@@ -67,8 +64,8 @@ public class Login extends Activity {
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        // Inflate the Menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.login, menu);
         return true;
     }

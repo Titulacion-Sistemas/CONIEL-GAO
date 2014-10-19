@@ -17,7 +17,6 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_splash">splash</string>
     <string name="title_activity_menu">Menu </string>
-    <string name="lblrelleno"></string>
     <string name="lblautor"> GAO - Coniel V1.0 2014</string>
     <string name="btningresarficha"> Nuevo </string>
     <string name="btnbusqueda"> Buscar </string>
@@ -26,23 +25,41 @@
     <string name="btnChat">Chat</string>
     <string name="btnAjustes">Ajustes</string>
     <string name="btnmenufilter"></string>
-
-    <!-- Content Description -->
-    <string name="desc_list_item_icon">Item Icon</string>
     <string name="title_activity_navegacion">Navegacion</string>
-    <string name="title_section1">Busqueda 1</string>
+    <string name="action_example">Navegación</string>
+
+
+    <!--Content Description-->
+    <string name="desc_list_item_icon">Item Icon</string>
+    <string name="tab1">Ingreso</string>
+    <string name="title_activity_contenedor">Contenedor</string>
+    <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Navegación</string>
-    <string name="tab1">Ingreso</string>
-    <string name="tab2">Buscar</string>
-    <string name="tab3">Fotos</string>
-    <string name="tab4">Chat</string>
-    <string name="tab5">Ubicación</string>
-    <string name="tab6">Salir</string>
 
+    <!-- Nombres de los items -->
+    <string-array name="nav_drawer_items">
+        <item >Menu</item>
+        <item >Ingresar</item>
+        <item >Buscar</item>
+        <item >Fotos</item>
+        <item >Chat</item>
+        <item >Ubicación</item>
+        <item >Ajustes</item>
+    </string-array>
+
+    <!-- Iconos de los items -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_drawer</item>
+        <item>@drawable/ic_action_copy</item>
+        <item>@drawable/ic_action_search</item>
+        <item>@drawable/ic_action_camera</item>
+        <item>@drawable/ic_action_chat</item>
+        <item>@drawable/ic_action_place</item>
+        <item>@drawable/ic_action_settings</item>
+    </array>
 
 
 </resources>

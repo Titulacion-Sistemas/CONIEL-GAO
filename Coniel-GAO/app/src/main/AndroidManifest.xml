@@ -13,7 +13,7 @@
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
         </activity>
         <activity
-            android:name=".splash"
+            android:name=".Splash"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
             <intent-filter>
@@ -23,11 +23,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".menu"
+            android:name=".Menu"
             android:label="@string/title_activity_menu"
-            android:theme="@style/CustomActionBarTheme">
-            <!--android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >-->
+            android:theme="@style/CustomActionBarTheme" >
 
+            <!-- android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" > -->
+
+        </activity>
+        <activity
+            android:name=".Contenedor"
+            android:label="@string/title_activity_contenedor" >
         </activity>
     </application>
 

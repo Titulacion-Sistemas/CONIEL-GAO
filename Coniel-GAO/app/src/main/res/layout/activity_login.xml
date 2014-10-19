@@ -1,60 +1,46 @@
-<!--<ScrollView
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">-->
 
-    <LinearLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="top"
+                android:gravity="top">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/img_logo"
+                    android:scaleType="center"
+                    android:src="@drawable/splash_screen"
+                    android:background="#64bddb"/>
+
+            </LinearLayout>
+
             <ScrollView
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_gravity="center_vertical">
 
-                <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:orientation="vertical"
-                 android:layout_gravity="center_vertical"
-                 android:gravity="center_vertical">
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/img_logo"
-                        android:scaleType="center"
-                        android:src="@drawable/splash_screen"
-                        android:background="#64bddb"/>
-
-                    <TextView
-                         android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
-                         android:gravity="center_horizontal"
-                         android:textAlignment="center"
-                         android:textAppearance="?android:attr/textAppearanceLarge"
-                         android:text="@string/lbInicio"
-                         android:id="@+id/textView"
-                         android:layout_gravity="center_horizontal"
-                         android:textSize="20dp"
-                         android:textStyle="bold"
-                         android:padding="10dp"/>
-
-                    <LinearLayout
+                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
-                        android:padding="15dp">
+                        android:padding="30dp">
 
                         <LinearLayout
                             android:orientation="vertical"
@@ -122,24 +108,9 @@
                     </LinearLayout>
 
                     </LinearLayout>
-            </LinearLayout>
 
             </ScrollView>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="bottom">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/lblautor"
-                android:id="@+id/textView4"
-                android:gravity="center"
-                android:background="#a2d7e9" />
-        </LinearLayout>
 
     </LinearLayout>
+
+</LinearLayout>

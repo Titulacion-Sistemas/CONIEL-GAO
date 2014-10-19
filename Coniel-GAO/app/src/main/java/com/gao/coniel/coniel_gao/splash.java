@@ -12,7 +12,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class splash extends Activity {
+public class Splash extends Activity {
 
    /** @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,7 @@ public class splash extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the Menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.splash, menu);
         return true;
     }
@@ -57,7 +57,7 @@ public class splash extends Activity {
             public void run() {
                               // Start the next activity
                     Intent mainIntent = new Intent().setClass(
-                            splash.this, Login.class);
+                            Splash.this, Login.class);
                     startActivity(mainIntent);
 
                     // Close the activity so the user won't able to go back this
