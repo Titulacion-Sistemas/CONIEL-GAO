@@ -34,6 +34,11 @@
             android:name=".Contenedor"
             android:label="@string/title_activity_contenedor" >
         </activity>
+        <activity
+            android:name=".Buscar"
+            android:label="@string/title_activity_buscar"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
+        </activity>
     </application>
 
 </manifest>

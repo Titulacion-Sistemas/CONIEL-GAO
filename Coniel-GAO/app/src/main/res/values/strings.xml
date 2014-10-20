@@ -28,8 +28,7 @@
     <string name="title_activity_navegacion">Navegacion</string>
     <string name="action_example">Navegación</string>
 
-
-    <!--Content Description-->
+    <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
     <string name="tab1">Ingreso</string>
     <string name="title_activity_contenedor">Contenedor</string>
@@ -41,13 +40,13 @@
 
     <!-- Nombres de los items -->
     <string-array name="nav_drawer_items">
-        <item >Menu</item>
-        <item >Ingresar</item>
-        <item >Buscar</item>
-        <item >Fotos</item>
-        <item >Chat</item>
-        <item >Ubicación</item>
-        <item >Ajustes</item>
+        <item>Menu</item>
+        <item>Ingresar</item>
+        <item>Buscar</item>
+        <item>Fotos</item>
+        <item>Chat</item>
+        <item>Ubicación</item>
+        <item>Ajustes</item>
     </string-array>
 
     <!-- Iconos de los items -->
@@ -61,5 +60,6 @@
         <item>@drawable/ic_action_settings</item>
     </array>
 
+    <string name="title_activity_buscar">Buscar</string>
 
 </resources>

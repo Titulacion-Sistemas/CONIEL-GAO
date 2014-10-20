@@ -176,10 +176,10 @@ public class Contenedor extends Activity {
             case 0:
                 fragment = new com.gao.coniel.coniel_gao.Menu();
                 break;
-            /*case 1:
-                fragment = new Seccion2();
+            case 1:
+                fragment = new Buscar();
                 break;
-            case 2:
+            /*case 2:
                 fragment = new Seccion3();
                 break;
             case 3:
