@@ -17,7 +17,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="15dp"
-                style="@style/LayoutStilo">
+                style="@style/LayoutStilo2">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -43,7 +43,6 @@
                     android:inputType="none"
                     android:padding="10dp"
                     android:singleLine="true"
-                    android:editable="false"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"/>
 

@@ -22,22 +22,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--
         <activity
             android:name=".Menu"
             android:label="@string/title_activity_menu"
             android:theme="@style/CustomActionBarTheme" >
-
-            <!-- android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" > -->
-
         </activity>
+        -->
+
         <activity
             android:name=".Contenedor"
             android:label="@string/title_activity_contenedor" >
         </activity>
+
+        <!--
         <activity
             android:name=".Buscar"
             android:label="@string/title_activity_buscar"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
+        </activity>
+        -->
+
+        <activity
+            android:name=".DetalleBusqueda"
+            android:label="@string/title_activity_detalle_busqueda" >
+        </activity>
+        <activity
+            android:name=".ContenedorBusqueda"
+            android:label="@string/title_activity_contenedor_busqueda" >
         </activity>
     </application>
 

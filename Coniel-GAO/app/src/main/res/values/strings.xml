@@ -61,5 +61,8 @@
     </array>
 
     <string name="title_activity_buscar">Buscar</string>
+    <string name="title_activity_detalle_busqueda">DetalleBusqueda</string>
+    <string name="Cuenta">Cuenta</string>
+    <string name="title_activity_contenedor_busqueda">ContenedorBusqueda</string>
 
 </resources>
