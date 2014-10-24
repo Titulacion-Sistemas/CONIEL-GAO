@@ -8,7 +8,6 @@ import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
@@ -36,8 +35,6 @@ public class Contenedor extends Activity {
 
     private ArrayList<NavigationDrawerFragment> navDrawerItems;
     private NavigationDrawerListAdapter adapter;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,14 +121,13 @@ public class Contenedor extends Activity {
     private void displayView(int position) {
         // update the main content by replacing fragments
         Fragment fragment = null;
-        FragmentActivity fragmentActivity= null;
 
         switch (position) {
             case 0:
                 fragment = new MenuPrincipal();
                 break;
             case 1:
-                fragmentActivity = new ContenedorBusqueda();
+                fragment = new ContenedorBusqueda();
                 break;
             /*case 2:
                 fragment = new Seccion3();
@@ -147,7 +143,7 @@ public class Contenedor extends Activity {
         if (fragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, fragment).commit();
+            .replace(R.id.container, fragment).commit();
             // update selected item and title, then close the drawer
             mDrawerList.setItemChecked(position, true);
             mDrawerList.setSelection(position);
@@ -155,15 +151,7 @@ public class Contenedor extends Activity {
             mDrawerLayout.closeDrawer(mDrawerList);
             Log.e("Andrea", "Contenedor creado");
         }
-        else if (fragmentActivity != null){
 
-            /*mDrawerList.setItemChecked(position, true);
-            mDrawerList.setSelection(position);
-            setTitle(navMenuTitles[position]);
-            mDrawerLayout.closeDrawer(mDrawerList);*/
-            mDrawerLayout.closeDrawers();
-            Log.e("Andrea", "Contenedor creado");
-        }
         else {
             // error in creating fragment
             Log.e("Andrea", "Contenedor - Error cuando se creo el fragment");
@@ -176,10 +164,6 @@ public class Contenedor extends Activity {
         getActionBar().setTitle(mTitle);
     }
 
-    /**
-     * When using the ActionBarDrawerToggle, you must call it during
-     * onPostCreate() and onConfigurationChanged()...
-     */
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {

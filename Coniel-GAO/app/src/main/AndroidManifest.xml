@@ -34,22 +34,13 @@
             android:name=".Contenedor"
             android:label="@string/title_activity_contenedor" >
         </activity>
-
-        <!--
         <activity
-            android:name=".Buscar"
-            android:label="@string/title_activity_buscar"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
-        </activity>
-        -->
-
-        <activity
-            android:name=".DetalleBusqueda"
-            android:label="@string/title_activity_detalle_busqueda" >
+            android:name=".BusquedaDatosAbonado"
+            android:label="@string/title_activity_busqueda_datos_abonado" >
         </activity>
         <activity
-            android:name=".ContenedorBusqueda"
-            android:label="@string/title_activity_contenedor_busqueda" >
+            android:name=".BusquedaDatosMedidor"
+            android:label="@string/title_activity_busqueda_datos_medidor" >
         </activity>
     </application>
 

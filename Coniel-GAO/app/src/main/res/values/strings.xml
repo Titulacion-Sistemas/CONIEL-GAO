@@ -27,6 +27,11 @@
     <string name="btnmenufilter"></string>
     <string name="title_activity_navegacion">Navegacion</string>
     <string name="action_example">Navegación</string>
+    <string name="Cuenta">Cuenta</string>
+    <string name="Nombre">Nombre</string>
+
+
+
 
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
@@ -60,9 +65,10 @@
         <item>@drawable/ic_action_settings</item>
     </array>
 
-    <string name="title_activity_buscar">Buscar</string>
-    <string name="title_activity_detalle_busqueda">DetalleBusqueda</string>
-    <string name="Cuenta">Cuenta</string>
-    <string name="title_activity_contenedor_busqueda">ContenedorBusqueda</string>
+    <!--   <string name="title_activity_buscar">Buscar</string>
+-    <string name="title_activity_contenedor_busqueda">ContenedorBusqueda</string>
+      <string name="hello_blank_fragment">Hello blank fragment</string>
+      <string name="title_activity_busqueda_datos_abonado">BusquedaDatosAbonado</string>
+      <string name="title_activity_busqueda_datos_medidor">BusquedaDatosMedidor</string>-->
 
 </resources>
