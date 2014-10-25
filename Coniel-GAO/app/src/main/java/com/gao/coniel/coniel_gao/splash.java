@@ -12,7 +12,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class Splash extends Activity {
+public class splash extends Activity {
 
    /** @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class Splash extends Activity {
             public void run() {
                               // Start the next activity
                     Intent mainIntent = new Intent().setClass(
-                            Splash.this, Login.class);
+                            splash.this, Login.class);
                     startActivity(mainIntent);
 
                     // Close the activity so the user won't able to go back this
