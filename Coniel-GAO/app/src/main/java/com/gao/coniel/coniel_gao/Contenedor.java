@@ -64,6 +64,7 @@ public class Contenedor extends Activity {
         navDrawerItems.add(new NavigationDrawerFragment(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
         navDrawerItems.add(new NavigationDrawerFragment(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
         navDrawerItems.add(new NavigationDrawerFragment(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
+        navDrawerItems.add(new NavigationDrawerFragment(navMenuTitles[7], navMenuIcons.getResourceId(7, -1)));
 
 
         // Recycle the typed array

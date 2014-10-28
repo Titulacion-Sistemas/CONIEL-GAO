@@ -27,8 +27,32 @@
     <string name="btnmenufilter"></string>
     <string name="title_activity_navegacion">Navegacion</string>
     <string name="action_example">Navegación</string>
-    <string name="Cuenta">Cuenta</string>
-    <string name="Nombre">Nombre</string>
+    <string name="cuenta">Cuenta</string>
+    <string name="nombre">Abonado</string>
+    <string name="ruCi">Ruc / Cédula</string>
+    <string name="geo">Geocódigo</string>
+    <string name="direccion">Dirección</string>
+    <string name="interseccion">Intersección</string>
+    <string name="urbanizacion">Urbanización</string>
+    <string name="estado">Estado</string>
+    <string name="deuda">Deuda</string>
+    <string name="mesesDeuda">Meses Adeudados</string>
+    <string name="numFabrica">Número de Fabrica</string>
+    <string name="numSerie">Número de Serie</string>
+    <string name="marca">Marca</string>
+    <string name="tipoMedidor">Tipo de Medidor</string>
+    <string name="tecnologia">Tecnología</string>
+    <string name="tensión">Tensión</string>
+    <string name="amperaje">Amperaje</string>
+    <string name="fases">Fases</string>
+    <string name="hilos">Hilos</string>
+    <string name="digitos">Digitos</string>
+    <string name="fechaInst">Fecha/Inst.</string>
+    <string name="lecturaInst">Lectura/Inst.</string>
+    <string name="fechaDesinst">Fecha/Desinst.</string>
+    <string name="lecturaDesinst">Lectura/Desinst.</string>
+
+
 
 
 
@@ -52,6 +76,7 @@
         <item>Chat</item>
         <item>Ubicación</item>
         <item>Ajustes</item>
+        <item>Salir</item>
     </string-array>
 
     <!-- Iconos de los items -->
@@ -62,6 +87,7 @@
         <item>@drawable/ic_action_camera</item>
         <item>@drawable/ic_action_chat</item>
         <item>@drawable/ic_action_place</item>
+        <item>@drawable/ic_action_settings</item>
         <item>@drawable/ic_action_settings</item>
     </array>
 

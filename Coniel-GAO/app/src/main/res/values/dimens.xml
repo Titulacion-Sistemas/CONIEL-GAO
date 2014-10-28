@@ -7,6 +7,6 @@
     <dimen name="titulo">28dp</dimen>
     <dimen name="subtitulo">24dp</dimen>
     <dimen name="navigation_drawer_width">240dp</dimen>
-    <dimen name="titulop">20dp</dimen>
+    <dimen name="titulop">17dp</dimen>
 
 </resources>

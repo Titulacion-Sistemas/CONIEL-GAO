@@ -11,10 +11,8 @@ import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.ksoap2.serialization.SoapObject;
@@ -51,26 +49,26 @@ public class Login extends Activity {
             @Override
             public void onClick(View v) {
 
-                asyncLogin auth = new asyncLogin(
-                        sfvTrack
-                );
-
-                auth.execute(
-                        editName.getText().toString(),
-                        editPass.getText().toString()
-                );
-
-//                if(editName.getText().toString().equals(name) && editPass.getText().toString().equals(pass)){
+//                asyncLogin auth = new asyncLogin(
+//                        sfvTrack
+//                );
 //
-//                    Intent intent = new Intent(Login.this , Contenedor.class);
-//                    startActivity(intent);
-//                    finish();
-//
-//                }
-//                else{
-//    //                    Toast.makeText(getApplicationContext(), "El usuario introducido no es correcto", Toast.LENGTH_LONG).show();
-//                       alerta("Nombre de Usuario o Contraseña incorrecta");
-//                    }
+//                auth.execute(
+//                        editName.getText().toString(),
+//                        editPass.getText().toString()
+//                );
+
+                if(editName.getText().toString().equals(name) && editPass.getText().toString().equals(pass)){
+
+                    Intent intent = new Intent(Login.this , Contenedor.class);
+                    startActivity(intent);
+                    finish();
+
+                }
+                else{
+    //                    Toast.makeText(getApplicationContext(), "El usuario introducido no es correcto", Toast.LENGTH_LONG).show();
+                       alerta("Nombre de Usuario o Contraseña incorrecta");
+                    }
                 }
 
         });
