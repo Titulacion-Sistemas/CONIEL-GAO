@@ -52,11 +52,6 @@
     <string name="fechaDesinst">Fecha/Desinst.</string>
     <string name="lecturaDesinst">Lectura/Desinst.</string>
 
-
-
-
-
-
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
     <string name="tab1">Ingreso</string>
@@ -92,9 +87,10 @@
     </array>
 
     <string name="title_activity_buscar">Buscar</string>
--    <string name="title_activity_contenedor_busqueda">ContenedorBusqueda</string>
-      <string name="hello_blank_fragment">Hello blank fragment</string>
-      <string name="title_activity_busqueda_datos_abonado">BusquedaDatosAbonado</string>
-      <string name="title_activity_busqueda_datos_medidor">BusquedaDatosMedidor</string>
+-        <string name="title_activity_contenedor_busqueda">ContenedorBusqueda</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_busqueda_datos_abonado">BusquedaDatosAbonado</string>
+    <string name="title_activity_busqueda_datos_medidor">BusquedaDatosMedidor</string>
+    <string name="title_activity_ingreso">Ingreso</string>
 
 </resources>

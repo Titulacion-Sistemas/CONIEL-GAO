@@ -40,7 +40,6 @@
                         android:textSize="@dimen/titulop"
                         android:id="@+id/txtcuenta"/>
 
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

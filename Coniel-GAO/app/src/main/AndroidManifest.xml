@@ -10,7 +10,7 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"  />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
     <application
         android:allowBackup="true"
@@ -51,6 +51,10 @@
         <activity
             android:name=".BusquedaDatosMedidor"
             android:label="@string/title_activity_busqueda_datos_medidor" >
+        </activity>
+        <activity
+            android:name=".Ingreso"
+            android:label="@string/title_activity_ingreso" >
         </activity>
     </application>
 

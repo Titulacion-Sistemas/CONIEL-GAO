@@ -105,10 +105,6 @@ public class Login extends Activity {
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
-
-
-
-
     //EN SEGUNDO PLANO
     private class asyncLogin extends AsyncTask<String, Float, Integer>{
 
