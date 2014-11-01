@@ -30,16 +30,17 @@
                     android:orientation="vertical"
                     android:padding="15dp">
 
-                    <GridView
-                        android:layout_width="wrap_content"
+                    <ListView
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/gridViewMedidores"
-                        android:gravity="center"
-                        android:columnWidth="90dp"
-                        android:numColumns="4"
-                        android:verticalSpacing="10dp"
-                        android:horizontalSpacing="10dp"
-                        android:stretchMode="columnWidth"/>
+                        android:id="@+id/listaCabeceraMedidor"
+                        android:background="@android:color/holo_blue_light"
+                        android:clickable="false"/>
+
+                    <ListView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/listaContenidoMedidor"/>
 
                 </LinearLayout>
 

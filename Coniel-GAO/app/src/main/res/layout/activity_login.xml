@@ -105,15 +105,17 @@
                         style="@style/ButtonStilo"
                         android:clickable="true"/>
 
+                    <SurfaceView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:id="@+id/cargando"
+                        android:layout_gravity="center_horizontal"
+                        android:clickable="false"
+                        android:layout_marginTop="4dp"/>
+
                 </LinearLayout>
 
-                <SurfaceView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:id="@+id/cargando"
-                    android:layout_gravity="center_horizontal"
-                    android:clickable="false"
-                    android:layout_marginTop="4dp"/>
+
 
             </LinearLayout>
 

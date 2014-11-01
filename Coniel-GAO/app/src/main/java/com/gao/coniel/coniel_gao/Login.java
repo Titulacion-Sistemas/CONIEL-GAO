@@ -11,16 +11,21 @@ import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.ksoap2.serialization.SoapObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import gif.decoder.GifRun;
 import serviciosWeb.SW;
 import serviciosWeb.Tupla;
-
 
 public class Login extends Activity {
 
@@ -30,6 +35,7 @@ public class Login extends Activity {
     EditText editPass;
     Button btnInicio;
     SurfaceView sfvTrack;
+    private Spinner spinnerLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +45,16 @@ public class Login extends Activity {
         editName = (EditText) findViewById(R.id.txtusuario);
         editPass = (EditText) findViewById(R.id.txtclave);
         btnInicio = (Button) findViewById(R.id.btnInicio);
+        spinnerLogin = (Spinner) findViewById(R.id.spinnerContrato);
 
-        sfvTrack  = (SurfaceView)findViewById(R.id.cargando);
+        sfvTrack = (SurfaceView) findViewById(R.id.cargando);
         sfvTrack.setZOrderOnTop(true);    // necessary
         SurfaceHolder sfhTrackHolder = sfvTrack.getHolder();
         sfhTrackHolder.setFormat(PixelFormat.TRANSPARENT);
+
+        //addDynamic();
+
+        spinnerLogin.setOnItemSelectedListener(contratoSeleccionado);
 
         btnInicio.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,18 +69,17 @@ public class Login extends Activity {
 //                        editPass.getText().toString()
 //                );
 
-                if(editName.getText().toString().equals(name) && editPass.getText().toString().equals(pass)){
+                if (editName.getText().toString().equals(name) && editPass.getText().toString().equals(pass)) {
 
-                    Intent intent = new Intent(Login.this , Contenedor.class);
+                    Intent intent = new Intent(Login.this, Contenedor.class);
                     startActivity(intent);
                     finish();
 
+                } else {
+                    //                    Toast.makeText(getApplicationContext(), "El usuario introducido no es correcto", Toast.LENGTH_LONG).show();
+                    alerta("Nombre de Usuario o Contraseña incorrecta");
                 }
-                else{
-    //                    Toast.makeText(getApplicationContext(), "El usuario introducido no es correcto", Toast.LENGTH_LONG).show();
-                       alerta("Nombre de Usuario o Contraseña incorrecta");
-                    }
-                }
+            }
 
         });
     }
@@ -81,12 +91,42 @@ public class Login extends Activity {
         dialog.setCancelable(true).setTitle("Error de Inicio de Sesión");
         dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
-                public void onClick(DialogInterface dialog,int id){
-                        dialog.cancel();
-                    }
-                });
-                dialog.create().show();
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        dialog.create().show();
     }
+
+    // Metodo Agregar datos a Spinner
+    public void addDynamic(String [] contratos){
+        List<String> dynamicList = new ArrayList<String>();
+        for (int i = 0; i < contratos.length; i++) {
+            dynamicList.add("item dynamic " + i);
+        }
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, dynamicList);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerLogin.setAdapter(dataAdapter);
+    }
+
+    private AdapterView.OnItemSelectedListener contratoSeleccionado = new Spinner.OnItemSelectedListener(){
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            Toast.makeText(
+                    parent.getContext(),
+                    "Item selected : "
+                            + parent.getItemAtPosition(position).toString(),
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
 
 
     @Override
