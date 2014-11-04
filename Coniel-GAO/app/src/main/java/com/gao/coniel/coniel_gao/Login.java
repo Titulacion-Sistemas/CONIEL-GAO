@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -36,6 +37,7 @@ public class Login extends Activity {
     Button btnInicio;
     SurfaceView sfvTrack;
     private Spinner spinnerLogin;
+    String[] contratos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,13 @@ public class Login extends Activity {
         SurfaceHolder sfhTrackHolder = sfvTrack.getHolder();
         sfhTrackHolder.setFormat(PixelFormat.TRANSPARENT);
 
-        //addDynamic();
+        try{
+            contratos = getIntent().getExtras().getStringArray("contratos");
+            addDynamic(contratos);
+        }catch (Exception e){
+            Log.e("Error al Cargar Contratos: ",""+e);
+        }
+
 
         spinnerLogin.setOnItemSelectedListener(contratoSeleccionado);
 
@@ -101,8 +109,9 @@ public class Login extends Activity {
     // Metodo Agregar datos a Spinner
     public void addDynamic(String [] contratos){
         List<String> dynamicList = new ArrayList<String>();
-        for (int i = 0; i < contratos.length; i++) {
-            dynamicList.add("item dynamic " + i);
+        for (int i = 1; i < contratos.length; i+=2) {
+            dynamicList.add(contratos[i]);
+            Log.e(contratos[i],contratos[i-1]);
         }
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
@@ -113,13 +122,15 @@ public class Login extends Activity {
 
     private AdapterView.OnItemSelectedListener contratoSeleccionado = new Spinner.OnItemSelectedListener(){
 
+
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            Toast.makeText(
-                    parent.getContext(),
-                    "Item selected : "
-                            + parent.getItemAtPosition(position).toString(),
-                    Toast.LENGTH_SHORT).show();
+//            Antiestético
+//            Toast.makeText(
+//                    parent.getContext(),
+//                    "Item selected : "
+//                            + parent.getItemAtPosition(position).toString(),
+//                    Toast.LENGTH_SHORT).show();
         }
 
         @Override

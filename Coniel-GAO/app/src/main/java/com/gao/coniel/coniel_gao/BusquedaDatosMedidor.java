@@ -63,7 +63,7 @@ public class BusquedaDatosMedidor extends Fragment {
 
         try {
 
-            adapterCabecera= new SimpleAdapter(getActivity().getApplicationContext(), miListaCabecera, R.layout.rowsMedidores,
+            adapterCabecera= new SimpleAdapter(getActivity().getApplicationContext(), miListaCabecera, R.layout.rowsmedidores,
                     new String[]{"tipo", "numero", "marca", "fecha"}, new int[]{
                     R.id.textViewDato1, R.id.textViewDato2, R.id.textViewDato3, R.id.textViewDato4});
             listaCabecera.setAdapter(adapterCabecera);

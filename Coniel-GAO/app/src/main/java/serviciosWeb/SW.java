@@ -2,6 +2,7 @@ package serviciosWeb;
 
 
 
+import android.util.Log;
 import android.util.Pair;
 
 import org.ksoap2.SoapEnvelope;
@@ -12,7 +13,8 @@ import org.ksoap2.transport.HttpTransportSE;
 public class SW {
 
     private String namespace = "serviciosWeb.views";
-    private String url="http://coniel.servehttp.com/sw/";
+    private String url="http://192.168.10.60/sw/";
+    //private String url="http://coniel.servehttp.com/sw/";
     private String soapAction = "";
     SoapObject request = null;
 
@@ -45,7 +47,7 @@ public class SW {
         }
         catch (Exception e)
         {
-            System.out.print("retorno falso");
+            Log.e("retorno falso", e.toString());
         }
 
         return null;
