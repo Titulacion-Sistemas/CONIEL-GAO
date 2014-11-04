@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SurfaceView;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -17,15 +16,13 @@ import org.ksoap2.serialization.SoapObject;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import gif.decoder.GifRun;
 import serviciosWeb.SW;
-import serviciosWeb.Tupla;
 
 
 public class splash extends Activity {
 
     String[] contratos = new String[0];
-
+    private static final long SPLASH_SCREEN_DELAY = 5000;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the Menu; this adds items to the action bar if it is present.
@@ -55,14 +52,39 @@ public class splash extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_splash);
 
-        asyncContratos atc = new asyncContratos();
-        atc.execute();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                asyncContratos atc = new asyncContratos();
+                atc.execute();
+                finish();
+            }
+         };
+
+        // Simulate a long loading process on application startup.
+        Timer timer = new Timer();
+        timer.schedule(task, SPLASH_SCREEN_DELAY);
+
+        //finish();
     }
 
 
     //EN SEGUNDO PLANO
     private class asyncContratos extends AsyncTask<String, Float, Integer> {
         public String toast;
+
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3500); // As I am using LENGTH_LONG in Toast
+                    System.exit(0);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
         @Override
         protected Integer doInBackground(String... params) {
             SW acc = new SW("usuarios.wsdl", "getContratos");
@@ -102,10 +124,10 @@ public class splash extends Activity {
                 Toast t = Toast.makeText(
                         getApplicationContext(),
                         "No existen Contratos disponibles...",
-                        Toast.LENGTH_SHORT
+                        Toast.LENGTH_LONG
                 );
                 t.show();
-                System.exit(0);
+                thread.start();
             }
         }
 
@@ -114,10 +136,11 @@ public class splash extends Activity {
             Toast t = Toast.makeText(
                     getApplicationContext(),
                     toast,
-                    Toast.LENGTH_SHORT
+                    Toast.LENGTH_LONG
             );
             t.show();
 
+            thread.start();
         }
     }
 

@@ -4,17 +4,28 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapPrimitive;
 
 import java.util.ArrayList;
+
+import gif.decoder.GifRun;
+import serviciosWeb.SW;
+import serviciosWeb.Tupla;
 
 
 public class Contenedor extends Activity {
@@ -22,6 +33,7 @@ public class Contenedor extends Activity {
     private ListView mDrawerList;
     private ActionBar actionBar;
     private ActionBarDrawerToggle mDrawerToggle;
+    private String[] sesion= new  String[0];
 
     // nav drawer title
     private CharSequence mDrawerTitle;
@@ -66,6 +78,12 @@ public class Contenedor extends Activity {
         navDrawerItems.add(new NavigationDrawerFragment(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
         navDrawerItems.add(new NavigationDrawerFragment(navMenuTitles[7], navMenuIcons.getResourceId(7, -1)));
 
+        //Obtener datos de sesion
+        try{
+            sesion = getIntent().getExtras().getStringArray("user");
+        }catch (Exception e){
+            Log.e("Error al Cargar datos de sesion: ",""+e);
+        }
 
         // Recycle the typed array
         navMenuIcons.recycle();
@@ -128,14 +146,18 @@ public class Contenedor extends Activity {
                 fragment = new MenuPrincipal();
                 break;
             case 1:
+                //fragment = new ContenedorBusqueda();
+                //break;
+            case 2:
                 fragment = new ContenedorBusqueda();
                 break;
             /*case 2:
                 fragment = new Seccion3();
-                break;
-            case 3:
-                fragment = new Seccion4();
                 break;*/
+            case 7:
+                asyncLogout acl = new asyncLogout();
+                acl.execute(sesion[1], sesion[2], sesion[3]);
+                return;
 
             default:
                 break;
@@ -178,6 +200,60 @@ public class Contenedor extends Activity {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    //EN SEGUNDO PLANO
+    private class asyncLogout extends AsyncTask<String, Float, Integer> {
+
+        String toast="";
+
+        @Override
+        protected Integer doInBackground(String... params) {
+            SW acc = new SW("usuarios.wsdl", "logout");
+            acc.asignarPropiedades(
+                    new Tupla[]{
+                            new Tupla<String, Object>("id", params[0]),
+                            new Tupla<String, Object>("u", params[1]),
+                            new Tupla<String, Object>("s", params[2])
+                    }
+            );
+            Object r = acc.ajecutar();
+            try{
+                SoapPrimitive data = (SoapPrimitive)r;
+                if (Boolean.parseBoolean(data+"")){
+                    return 0;
+                }
+            }catch (Exception e){
+                toast = "Error, No se ha podido Cerrar la sesión satisfactoriamente";
+                this.cancel(true);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+            if (integer == 0){
+                cerrar();
+            }
+
+        }
+
+        private void cerrar(){
+            finish();
+        }
+
+        @Override
+        protected void onCancelled() {
+            Toast t = Toast.makeText(
+                    getApplicationContext(),
+                    toast,
+                    Toast.LENGTH_SHORT
+            );
+            t.show();
+            cerrar();
+        }
     }
 
 }

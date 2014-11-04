@@ -18,12 +18,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import org.ksoap2.serialization.SoapObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import gif.decoder.GifRun;
 import serviciosWeb.SW;
 import serviciosWeb.Tupla;
@@ -38,6 +35,7 @@ public class Login extends Activity {
     SurfaceView sfvTrack;
     private Spinner spinnerLogin;
     String[] contratos;
+    String contratoActivo = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +54,7 @@ public class Login extends Activity {
 
         try{
             contratos = getIntent().getExtras().getStringArray("contratos");
-            addDynamic(contratos);
+            addDynamic();
         }catch (Exception e){
             Log.e("Error al Cargar Contratos: ",""+e);
         }
@@ -68,16 +66,17 @@ public class Login extends Activity {
             @Override
             public void onClick(View v) {
 
-//                asyncLogin auth = new asyncLogin(
-//                        sfvTrack
-//                );
-//
-//                auth.execute(
-//                        editName.getText().toString(),
-//                        editPass.getText().toString()
-//                );
+                asyncLogin auth = new asyncLogin(
+                        sfvTrack
+                );
 
-                if (editName.getText().toString().equals(name) && editPass.getText().toString().equals(pass)) {
+                auth.execute(
+                        editName.getText().toString(),
+                        editPass.getText().toString(),
+                        contratoActivo
+                );
+
+/*                if (editName.getText().toString().equals(name) && editPass.getText().toString().equals(pass)) {
 
                     Intent intent = new Intent(Login.this, Contenedor.class);
                     startActivity(intent);
@@ -86,7 +85,7 @@ public class Login extends Activity {
                 } else {
                     //                    Toast.makeText(getApplicationContext(), "El usuario introducido no es correcto", Toast.LENGTH_LONG).show();
                     alerta("Nombre de Usuario o Contraseña incorrecta");
-                }
+                }*/
             }
 
         });
@@ -107,7 +106,7 @@ public class Login extends Activity {
     }
 
     // Metodo Agregar datos a Spinner
-    public void addDynamic(String [] contratos){
+    public void addDynamic(){
         List<String> dynamicList = new ArrayList<String>();
         for (int i = 1; i < contratos.length; i+=2) {
             dynamicList.add(contratos[i]);
@@ -125,12 +124,7 @@ public class Login extends Activity {
 
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//            Antiestético
-//            Toast.makeText(
-//                    parent.getContext(),
-//                    "Item selected : "
-//                            + parent.getItemAtPosition(position).toString(),
-//                    Toast.LENGTH_SHORT).show();
+            contratoActivo=contratos[position*2];
         }
 
         @Override
@@ -182,6 +176,7 @@ public class Login extends Activity {
                 new Tupla[]{
                         new Tupla<String, Object>("u", params[0]),
                         new Tupla<String, Object>("p", params[1]),
+                        new Tupla<String, Object>("c", params[2])
                 }
             );
             Object r = acc.ajecutar();
@@ -206,6 +201,7 @@ public class Login extends Activity {
                 if (datos_de_Sesion[0].equals("True")){
                     toast+=datos_de_Sesion[4];
                     Intent intent = new Intent(Login.this , Contenedor.class);
+                    intent.putExtra("user", datos_de_Sesion);
                     startActivity(intent);
                     finish();
                 }
