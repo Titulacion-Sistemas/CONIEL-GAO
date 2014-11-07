@@ -116,7 +116,7 @@ public class splash extends Activity {
                         splash.this, Login.class);
                 mainIntent.putExtra("contratos", contratos);
                 startActivity(mainIntent);
-                // Close the activity so the user won't able to go back this
+                // Close the activity so the user won'tipo able to go back this
                 // activity pressing Back button
                 finish();
             }

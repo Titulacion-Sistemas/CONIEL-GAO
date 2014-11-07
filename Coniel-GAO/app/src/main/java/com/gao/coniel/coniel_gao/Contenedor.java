@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
@@ -12,18 +11,12 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
-
 import java.util.ArrayList;
-
-import gif.decoder.GifRun;
 import serviciosWeb.SW;
 import serviciosWeb.Tupla;
 
@@ -143,13 +136,13 @@ public class Contenedor extends Activity {
 
         switch (position) {
             case 0:
-                fragment = new MenuPrincipal();
+                fragment = new MenuPrincipal(sesion);
                 break;
             case 1:
                 //fragment = new ContenedorBusqueda();
                 //break;
             case 2:
-                fragment = new ContenedorBusqueda();
+                fragment = new ContenedorBusqueda(sesion);
                 break;
             /*case 2:
                 fragment = new Seccion3();

@@ -14,6 +14,12 @@ import android.view.ViewGroup;
 
 public class ContenedorBusqueda extends Fragment implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
 
+    String[] sesion = null;
+
+    public ContenedorBusqueda(String[] sesion){
+        this.sesion = sesion;
+    }
+
         SectionsPagerAdapter mSectionsPagerAdapter;
         ActionBar actionBar ;
         ViewPager mViewPager;
@@ -42,18 +48,42 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
-        public SectionsPagerAdapter(android.app.FragmentManager fm) { super(fm);}
+        Buscar b ;
+        BusquedaDatosAbonado b1;
+        BusquedaDatosMedidor b2;
+
+        public SectionsPagerAdapter(android.app.FragmentManager fm) {
+            super(fm);
+            b = new Buscar(sesion);
+            b1 = new BusquedaDatosAbonado();
+            b2 = new BusquedaDatosMedidor();
+        }
 
         @Override
         public Fragment getItem(int arg0) {
             Log.e("Andrea", "arg0" + arg0);
             switch (arg0) {
                 case 0:
-                    return new Buscar();
+                    if(b.getClientes()!=null){
+                        b.rellenar();
+                    }
+                    return b;
                 case 1:
-                    return new BusquedaDatosAbonado();
+                    if (b.getClientes()!=null){
+                        b1=new BusquedaDatosAbonado(b.getClientes()[0]);
+                    }
+                    else{
+                        b1 = new BusquedaDatosAbonado();
+                    }
+                    return b1;
                 case 2:
-                    return new BusquedaDatosMedidor();
+                    if (b.getClientes()!=null){
+                        b2=new BusquedaDatosMedidor(b.getClientes()[0].getMedidores());
+                    }
+                    else{
+                        b2 = new BusquedaDatosMedidor();
+                    }
+                    return b2;
                 default:
                     return null;
             }

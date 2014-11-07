@@ -48,7 +48,7 @@ public class Login extends Activity {
         spinnerLogin = (Spinner) findViewById(R.id.spinnerContrato);
 
         sfvTrack = (SurfaceView) findViewById(R.id.cargando);
-        sfvTrack.setZOrderOnTop(true);    // necessary
+        sfvTrack.setZOrderOnTop(true);
         SurfaceHolder sfhTrackHolder = sfvTrack.getHolder();
         sfhTrackHolder.setFormat(PixelFormat.TRANSPARENT);
 
@@ -75,17 +75,16 @@ public class Login extends Activity {
                         editPass.getText().toString(),
                         contratoActivo
                 );
-
-/*                if (editName.getText().toString().equals(name) && editPass.getText().toString().equals(pass)) {
-
+/*
+               //if (editName.getText().toString().equals(name) && editPass.getText().toString().equals(pass)) {
                     Intent intent = new Intent(Login.this, Contenedor.class);
                     startActivity(intent);
-                    finish();
+                    finish();*/
+               //} else
+               //{
+               //     alerta("Nombre de Usuario o Contraseña incorrecta");
+               //}
 
-                } else {
-                    //                    Toast.makeText(getApplicationContext(), "El usuario introducido no es correcto", Toast.LENGTH_LONG).show();
-                    alerta("Nombre de Usuario o Contraseña incorrecta");
-                }*/
             }
 
         });

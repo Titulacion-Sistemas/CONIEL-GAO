@@ -1,19 +1,44 @@
-package com.gao.coniel.coniel_gao;
+package clases;
 
-/**
- * Created by Jhonsson on 02/11/2014.
- */
 public class Abonado {
 
-    Integer ci, mesesAdeudado, cuenta;
-    String nombre, geocodigo, direccion, interseccion, urbanizacion, estado;
-    Float deuda;
+    Integer mesesAdeudado, cuenta;
+    String nombre, geocodigo, direccion, interseccion, urbanizacion, estado, ci;
+    String deuda;
+    private Medidor[] medidores = null;
 
-    public Integer getCi() {
+    public Abonado(
+            String ci,
+            Integer mesesAdeudado,
+            Integer cuenta,
+            String nombre,
+            String geocodigo,
+            String direccion,
+            String interseccion,
+            String urbanizacion,
+            String estado,
+            String deuda,
+            Medidor[] medidores
+    ){
+        this.ci = ci;
+        this.mesesAdeudado=mesesAdeudado;
+        this.cuenta=cuenta;
+        this.nombre=nombre;
+        this.geocodigo=geocodigo;
+        this.direccion=direccion;
+        this.interseccion=interseccion;
+        this.urbanizacion=urbanizacion;
+        this.estado=estado;
+        this.deuda=deuda;
+        this.setMedidores(medidores);
+    }
+
+
+    public String getCi() {
         return ci;
     }
 
-    public void setCi(Integer ci) {
+    public void setCi(String ci) {
         this.ci = ci;
     }
 
@@ -73,11 +98,11 @@ public class Abonado {
         this.estado = estado;
     }
 
-    public Float getDeuda() {
+    public String getDeuda() {
         return deuda;
     }
 
-    public void setDeuda(Float deuda) {
+    public void setDeuda(String deuda) {
         this.deuda = deuda;
     }
 
@@ -89,4 +114,11 @@ public class Abonado {
         this.cuenta = cuenta;
     }
 
+    public Medidor[] getMedidores() {
+        return medidores;
+    }
+
+    public void setMedidores(Medidor[] medidores) {
+        this.medidores = medidores;
+    }
 }

@@ -2,6 +2,7 @@ package com.gao.coniel.coniel_gao;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,12 @@ import android.widget.SimpleAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import clases.Medidor;
+
 
 public class BusquedaDatosMedidor extends Fragment {
 
+    private Medidor[] medidors=null;
     ListView listaContenido, listaCabecera;
     View viewRows;
 
@@ -24,28 +28,27 @@ public class BusquedaDatosMedidor extends Fragment {
 
     HashMap<String, String> map1, map2;
 
-    //String [] datos ;
-
-    String [] tipoMedidor ={"India", "Pakistan", "China", "Bangladesh","Afghanistan" };
-    String [] numMedidor={"New Delhi", "Islamabad", "Beijing", "Dhaka"," Kabul"};
-    String [] marca ={"India", "Pakistan", "China", "Bangladesh","Afghanistan" };
-    String [] fechaInst={"New Delhi", "Islamabad", "Beijing", "Dhaka"," Kabul"};
+    public BusquedaDatosMedidor(Medidor[] medidors){
+        this.medidors = medidors;
+    }
+    public BusquedaDatosMedidor(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_busqueda_datos_medidor, container, false);
 
-        listaCabecera = (ListView) rootView.findViewById(R.id.listaCabecera);
-        listaContenido = (ListView) rootView.findViewById(R.id.listaContenido);
+        listaCabecera = (ListView) rootView.findViewById(R.id.listaCabeceraMedidor);
+        listaContenido = (ListView) rootView.findViewById(R.id.listaContenidoMedidor);
 
-        showActivity();
+        if (medidors!=null)
+        rellenar();
 
 
         return rootView;
     }
 
-    public void showActivity() {
+    public void rellenar() {
 
         miLista = new ArrayList<HashMap<String, String>>();
         miListaCabecera = new ArrayList<HashMap<String, String>>();
@@ -68,19 +71,20 @@ public class BusquedaDatosMedidor extends Fragment {
                     R.id.textViewDato1, R.id.textViewDato2, R.id.textViewDato3, R.id.textViewDato4});
             listaCabecera.setAdapter(adapterCabecera);
         }
-        catch (Exception e) {}
+        catch (Exception e) {
+            Log.e("Error : ", e.toString());
+        }
 
         /********************************************************/
         /**********Display the contents************/
 
-        for (int i = 0; i < tipoMedidor.length; i++) {
+        for (Medidor medidor : medidors) {
             map2 = new HashMap<String, String>();
 
-            //map2.put("cliente", String.valueOf(i + 1));
-            map2.put("tipo", tipoMedidor[i]);
-            map2.put("numero", numMedidor[i]);
-            map2.put("marca", marca[i]);
-            map2.put("fecha", fechaInst[i]);
+            map2.put("tipo", medidor.getTipoMedidor());
+            map2.put("numero", medidor.getNumFabrica());
+            map2.put("marca", medidor.getMarca());
+            map2.put("fecha", medidor.getFechaDesinst());
             miLista.add(map2);
         }
 
@@ -90,7 +94,7 @@ public class BusquedaDatosMedidor extends Fragment {
                     R.id.textViewDato1, R.id.textViewDato2, R.id.textViewDato3, R.id.textViewDato4});
             listaContenido.setAdapter(adapterContenido);
         } catch (Exception e) {
-
+            Log.e("Error : ", e.toString());
         }
 
         /********************************************************/

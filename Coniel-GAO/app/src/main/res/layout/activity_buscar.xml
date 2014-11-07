@@ -11,16 +11,18 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            >
 
             <LinearLayout
+                android:layout_marginTop="40dp"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
                 android:orientation="vertical"
                 android:padding="25dp"
                 android:layout_gravity="center_vertical"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -61,7 +63,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:id="@+id/textViewvacio1"/>
+                        android:id="@+id/tvDatoBuscar"/>
 
                     <Button
                         android:layout_width="wrap_content"
@@ -80,11 +82,11 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="160dp"
                     android:orientation="vertical"
-                    android:paddingTop="50dp">
-                  <!--
+                    android:layout_marginTop="15dp">
+                    <!--
                     android:paddingRight="20dp"
                     android:paddingLeft="20dp"-->
 

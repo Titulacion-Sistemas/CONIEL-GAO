@@ -8,8 +8,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 public class MenuPrincipal extends Fragment{
+    private String[] sesion = null;
     Fragment fragment;
     Button btnIngreso, btnBuscar, btnChat, btnFotos, btnUbicacion, btnAjustes;
+
+    public  MenuPrincipal(String[] sesion ){
+        this.sesion = sesion;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,14 +31,14 @@ public class MenuPrincipal extends Fragment{
         btnIngreso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment = new Buscar();
+                fragment = new Buscar(sesion);
             }
         });
 
         btnBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment = new Buscar();
+                fragment = new Buscar(sesion);
             }
         });
         return rootView;
