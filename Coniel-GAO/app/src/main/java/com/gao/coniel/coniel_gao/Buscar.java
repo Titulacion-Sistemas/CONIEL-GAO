@@ -1,7 +1,7 @@
 package com.gao.coniel.coniel_gao;
-import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,8 +64,6 @@ public class Buscar extends Fragment {
         Button btnBuscar = (Button) rootView.findViewById(R.id.btnBuscarDatos);
         tvData = (TextView) rootView.findViewById(R.id.datoBuscar);
 
-        //rellenar();
-
         btnBuscar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -82,7 +80,10 @@ public class Buscar extends Fragment {
             }
         );
 
+        if (clientes!=null)
+            rellenar();
 
+        Log.i("Info", "creado fragment 0");
         return rootView;
     }
 
@@ -101,9 +102,15 @@ public class Buscar extends Fragment {
         }
     };
 
+
     public Abonado[] getClientes() {
         return clientes;
     }
+
+    public void setClientes(Abonado[] clientes) {
+        this.clientes = clientes;
+    }
+
 
 
     public void rellenar(){
@@ -130,7 +137,6 @@ public class Buscar extends Fragment {
         if (t==4) map1.put(CABECERAS[t-1][5], CABECERAS[t-1][5]);
 
         miListaCabecera.add(map1);
-
         try {
             adapterTitulo = new SimpleAdapter(
                     getActivity().getApplicationContext(),
@@ -149,7 +155,7 @@ public class Buscar extends Fragment {
         /********************************************************/
         /**********Display the contents************/
 
-        for (Abonado cliente : clientes) {
+        for (Abonado cliente : getClientes()) {
             map2 = new HashMap<String, String>();
             switch (t) {
                 case 1:
@@ -198,15 +204,16 @@ public class Buscar extends Fragment {
         } catch (Exception e) {
             Log.e("Error : ", e.toString());
         }
-
+        Log.i("Info", "rellenado fragment 0");
         /********************************************************/
     }
+
 
 
     //EN SEGUNDO PLANO
     private class asyncBuscar extends AsyncTask<String, Float, Integer> {
 
-        String toast="";
+        String toast=null;
         int tipo =0;
 
         @Override
@@ -227,58 +234,58 @@ public class Buscar extends Fragment {
                 //Llenando abonados...
                 SoapObject data = (SoapObject)r.getProperty(0);
                 int ncoincidencias = data.getPropertyCount()/(tipo ==4?6:5);
-                clientes= new Abonado[ncoincidencias];
+                setClientes(new Abonado[ncoincidencias]);
                 for (int i=0; i<ncoincidencias; i++) {
                     switch (tipo) {
                         case 1:
-                            clientes[i] = new Abonado(
-                                    "", Integer.parseInt(data.getProperty(4 + (i * 5)).toString().trim()),
+                            getClientes()[i] = new Abonado(
+                                    null, Integer.parseInt(data.getProperty(4 + (i * 5)).toString().trim()),
                                     Integer.parseInt(data.getProperty(i * 5).toString().trim()),
-                                    data.getProperty(1 + (i * 5)).toString(), "",
-                                    data.getProperty(2 + (i * 5)).toString(), "", "", "",
-                                    data.getProperty(3 + (i * 5)).toString(), null
+                                    data.getProperty(1 + (i * 5)).toString().trim(), null,
+                                    data.getProperty(2 + (i * 5)).toString().trim(), null, null, null,
+                                    data.getProperty(3 + (i * 5)).toString().trim(), null
                             );
                             break;
                         case 2:
-                            clientes[i] = new Abonado(
-                                    "", 0,
+                            getClientes()[i] = new Abonado(
+                                    null, 0,
                                     Integer.parseInt(data.getProperty(2 + (i * 5)).toString().trim()),
-                                    data.getProperty(3 + (i * 5)).toString(),
-                                    "", data.getProperty(4 + (i * 5)).toString(), "", "",
-                                    "", "",
+                                    data.getProperty(3 + (i * 5)).toString().trim(),
+                                    null, data.getProperty(4 + (i * 5)).toString(), null, null,
+                                    null, null,
                                     new Medidor[]{
                                             new Medidor(
                                                     data.getProperty(i * 5).toString().trim(),
-                                                    "", "", "", "", "", "", "", "", "", "", "",
+                                                    null, null, null, null, null, null, null, null, null, null, null,
                                                     data.getProperty(1 + (i * 5)).toString().trim(),
-                                                    "", ""
+                                                    null, null
                                             )
                                     }
                             );
                             break;
                         case 3:
-                            clientes[i] = new Abonado(
-                                    "", Integer.parseInt(data.getProperty(4 + (i * 5)).toString().trim()),
+                            getClientes()[i] = new Abonado(
+                                    null, Integer.parseInt(data.getProperty(4 + (i * 5)).toString().trim()),
                                     Integer.parseInt(data.getProperty(2 + (i * 5)).toString().trim()),
                                     data.getProperty(i * 5).toString().trim(),
-                                    "",
-                                    data.getProperty(1 + (i * 5)).toString().trim(), "", "", "",
+                                    null,
+                                    data.getProperty(1 + (i * 5)).toString().trim(), null, null, null,
                                     data.getProperty(3 + (i * 5)).toString().trim(), null
                             );
                             break;
                         case 4:
-                            clientes[i] = new Abonado(
-                                    "", 0,
+                            getClientes()[i] = new Abonado(
+                                    null, 0,
                                     Integer.parseInt(data.getProperty(1 + (i * 6)).toString().trim()),
                                     data.getProperty(2 + (i * 6)).toString().trim(),
                                     data.getProperty(i * 6).toString().trim(),
                                     data.getProperty(3 + (i * 6)).toString().trim(),
-                                    "", "", "",
+                                    null, null, null,
                                     data.getProperty(5 + (i * 6)).toString().trim(),
                                     new Medidor[]{
                                             new Medidor(
                                                     data.getProperty(4 + (i * 6)).toString().trim(),
-                                                    "", "", "", "", "", "", "", "", "", "", "", "", "", ""
+                                                    null, null, null, null, null, null, null, null, null, null, null, null, null, null
                                             )
                                     }
                             );
@@ -291,16 +298,16 @@ public class Buscar extends Fragment {
                 }
 
                 data=(SoapObject)r.getProperty(1);
-                clientes[0].setCi(data.getPropertyAsString(0));
-                clientes[0].setCuenta(Integer.parseInt(data.getPropertyAsString(1).trim()));
-                clientes[0].setNombre(data.getPropertyAsString(2));
-                clientes[0].setDireccion(data.getPropertyAsString(3));
-                clientes[0].setInterseccion(data.getPropertyAsString(4));
-                clientes[0].setUrbanizacion(data.getPropertyAsString(5));
-                clientes[0].setEstado(data.getPropertyAsString(6));
-                clientes[0].setGeocodigo(data.getPropertyAsString(7));
-                clientes[0].setMesesAdeudado(Integer.parseInt(data.getPropertyAsString(8).trim()));
-                clientes[0].setDeuda(data.getPropertyAsString(9));
+                getClientes()[0].setCi(data.getPropertyAsString(0).trim());
+                getClientes()[0].setCuenta(Integer.parseInt(data.getPropertyAsString(1).trim()));
+                getClientes()[0].setNombre(data.getPropertyAsString(2).trim());
+                getClientes()[0].setDireccion(data.getPropertyAsString(3).trim());
+                getClientes()[0].setInterseccion(data.getPropertyAsString(4).trim());
+                getClientes()[0].setUrbanizacion(data.getPropertyAsString(5).trim());
+                getClientes()[0].setEstado(data.getPropertyAsString(6).trim());
+                getClientes()[0].setGeocodigo(data.getPropertyAsString(7).trim());
+                getClientes()[0].setMesesAdeudado(Integer.parseInt(data.getPropertyAsString(8).trim()));
+                getClientes()[0].setDeuda(data.getPropertyAsString(9).trim());
 
                 data = (SoapObject)r.getProperty(2);
                 ncoincidencias=data.getPropertyCount()/14;
@@ -319,12 +326,12 @@ public class Buscar extends Fragment {
                             data.getProperty(1+(u*14)).toString().trim(),
                             data.getProperty(2+(u*14)).toString().trim(),
                             data.getProperty(3+(u*14)).toString().trim(),
-                            "",
+                            null,
                             data.getProperty(4+(u*14)).toString().trim(),
                             data.getProperty(5+(u*14)).toString().trim()
                     );
                 }
-                clientes[0].setMedidores(m);
+                getClientes()[0].setMedidores(m);
 
             }catch (Exception e){
                 toast = "Error, No se ha podido Buscar...";

@@ -17,17 +17,16 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_weight="2"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical">
 
                 <LinearLayout
-                    android:layout_width="130dp"
+                    android:layout_width="135dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:paddingLeft="10dp"
+                    android:paddingLeft="6dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp">
 
@@ -141,62 +140,82 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/titulop"
-                        android:id="@+id/EditTextCuenta" />
+                        android:id="@+id/EditTextCuenta"
+                        android:editable="false" />
 
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/titulop"
-                        android:id="@+id/EditTextAbonado" />
+                        android:id="@+id/EditTextAbonado"
+                        android:editable="false"
+                        />
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/titulop"
-                        android:id="@+id/EditTextCedulaRuc" />
+                        android:id="@+id/EditTextCedulaRuc"
+                        android:editable="false"
+                         />
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/titulop"
-                        android:id="@+id/EditTextGeocodigo" />
+                        android:id="@+id/EditTextGeocodigo"
+                        android:editable="false"
+                         />
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/titulop"
-                        android:id="@+id/EditTextDireccion" />
+                        android:id="@+id/EditTextDireccion"
+                        android:editable="false"
+                        
+                        android:focusable="false" />
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/titulop"
-                        android:id="@+id/EditTextInterseccion" />
+                        android:id="@+id/EditTextInterseccion"
+                        android:editable="false"
+                         />
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/titulop"
-                        android:id="@+id/EditTextUrbanizacion" />
+                        android:id="@+id/EditTextUrbanizacion"
+                        android:editable="false"
+                         />
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/titulop"
-                        android:id="@+id/EditTextEstado" />
+                        android:id="@+id/EditTextEstado"
+                        android:editable="false"
+                         />
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/titulop"
-                        android:id="@+id/EditTextDeuda"/>
+                        android:id="@+id/EditTextDeuda"
+                        android:editable="false"
+                         />
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/titulop"
-                        android:id="@+id/EditTextMesDeuda"/>
+                        android:id="@+id/EditTextMesDeuda"
+                        android:editable="false"
+                         />
 
                 </LinearLayout>
 

@@ -1,15 +1,19 @@
 package com.gao.coniel.coniel_gao;
 
 import android.app.ActionBar;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+
 import android.os.Bundle;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import clases.Abonado;
+import clases.SmartFragmentStatePagerAdapter;
 
 
 public class ContenedorBusqueda extends Fragment implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
@@ -19,6 +23,8 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
     public ContenedorBusqueda(String[] sesion){
         this.sesion = sesion;
     }
+
+    public ContenedorBusqueda(){}
 
         SectionsPagerAdapter mSectionsPagerAdapter;
         ActionBar actionBar ;
@@ -30,29 +36,27 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
         //setContentView(R.layout.activity_contenedor_busqueda);
         rootView = inflater.inflate(R.layout.activity_contenedor_busqueda, container, false);
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getActivity().getSupportFragmentManager());
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOnPageChangeListener(this);
+
         actionBar = getActivity().getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
         actionBar.addTab(actionBar.newTab().setText("Búsqueda").setTabListener(this));
-
         actionBar.addTab(actionBar.newTab().setText("Datos de Abonado").setTabListener(this));
-
         actionBar.addTab(actionBar.newTab().setText("Detalle Medidor").setTabListener(this));
 
         return rootView;
     }
-
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    private Abonado[] ab = null;
+    public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
         Buscar b ;
         BusquedaDatosAbonado b1;
         BusquedaDatosMedidor b2;
 
-        public SectionsPagerAdapter(android.app.FragmentManager fm) {
+        public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
             b = new Buscar(sesion);
             b1 = new BusquedaDatosAbonado();
@@ -61,34 +65,46 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
 
         @Override
         public Fragment getItem(int arg0) {
-            Log.e("Andrea", "arg0" + arg0);
             switch (arg0) {
                 case 0:
-                    if(b.getClientes()!=null){
-                        b.rellenar();
+                    if(ab!=null){
+                        b.setClientes(ab);
+                        b1=new BusquedaDatosAbonado(b.getClientes()[0]);
+                        b2=new BusquedaDatosMedidor(b.getClientes()[0].getMedidores());
                     }
+                    Log.i("Info","C0");
                     return b;
                 case 1:
-                    if (b.getClientes()!=null){
+                    if (b.getClientes()!=null ){
                         b1=new BusquedaDatosAbonado(b.getClientes()[0]);
-                    }
-                    else{
+                        b2=new BusquedaDatosMedidor(b.getClientes()[0].getMedidores());
+                        ab=b.getClientes();
+                    }else{
                         b1 = new BusquedaDatosAbonado();
                     }
+                    Log.i("Info","C1");
                     return b1;
                 case 2:
                     if (b.getClientes()!=null){
+                        b1=new BusquedaDatosAbonado(b.getClientes()[0]);
+                        getRegisteredFragment(1).onResume();
                         b2=new BusquedaDatosMedidor(b.getClientes()[0].getMedidores());
+                        ab=b.getClientes();
                     }
-                    else{
+                    else if( ab!=null ){
+                        b1=new BusquedaDatosAbonado(ab[0]);
+                        b2=new BusquedaDatosMedidor(ab[0].getMedidores());
+                    }else{
                         b2 = new BusquedaDatosMedidor();
                     }
+                    Log.i("Info","C2");
                     return b2;
+
                 default:
+                    Log.i("Info","Default");
                     return null;
             }
         }
-
 
         @Override
         public int getCount() {
@@ -100,6 +116,7 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
     @Override
     public void onPageScrolled(int i, float v, int i2) {  }
 
+
     @Override
     public void onPageSelected(int i) {
         getActivity().getActionBar().setSelectedNavigationItem(i);
@@ -108,23 +125,25 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
     @Override
     public void onPageScrollStateChanged(int i) {}
 
-    //implement tab listener
+
+
+
+
     @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+    public void onTabSelected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
         mViewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
 
     }
 
     @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+    public void onTabUnselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
 
     }
 
-    //public abstract android.app.Fragment getItem(int i);
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
+
+    }
 
 
 }

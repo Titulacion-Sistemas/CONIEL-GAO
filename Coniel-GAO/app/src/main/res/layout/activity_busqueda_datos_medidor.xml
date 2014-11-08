@@ -203,85 +203,113 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextnumFabrica"/>
+                            android:id="@+id/EditTextnumFabrica"
+                            android:editable="false"
+                            android:enabled="false"/>
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextnumSerie" />
+                            android:id="@+id/EditTextnumSerie"
+                            android:editable="false"
+                            android:enabled="false" />
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextMarca" />
+                            android:id="@+id/EditTextMarca"
+                            android:editable="false"
+                            android:enabled="false" />
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextTipoMedidor" />
+                            android:id="@+id/EditTextTipoMedidor"
+                            android:editable="false"
+                            android:enabled="false" />
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextTecnologia" />
+                            android:id="@+id/EditTextTecnologia"
+                            android:editable="false"
+                            android:enabled="false" />
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextTension" />
+                            android:id="@+id/EditTextTension"
+                            android:editable="false"
+                            android:enabled="false" />
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextAmperaje" />
+                            android:id="@+id/EditTextAmperaje"
+                            android:editable="false"
+                            android:enabled="false" />
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextFases" />
+                            android:id="@+id/EditTextFases"
+                            android:editable="false"
+                            android:enabled="false" />
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextHilos"/>
+                            android:id="@+id/EditTextHilos"
+                            android:editable="false"
+                            android:enabled="false" />
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextDigitos"/>
+                            android:id="@+id/EditTextDigitos"
+                            android:editable="false"
+                            android:enabled="false" />
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextfechaInst"/>
+                            android:id="@+id/EditTextfechaInst"
+                            android:editable="false"
+                            android:enabled="false" />
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextlecturaInst"/>
+                            android:id="@+id/EditTextlecturaInst"
+                            android:editable="false"
+                            android:enabled="false" />
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextfechaDesinst"/>
+                            android:id="@+id/EditTextfechaDesinst"
+                            android:editable="false"
+                            android:enabled="false" />
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextlecturaDesinst"/>
+                            android:id="@+id/EditTextlecturaDesinst"
+                            android:editable="false"
+                            android:enabled="false" />
 
                     </LinearLayout>
 

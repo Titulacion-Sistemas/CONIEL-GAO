@@ -1,13 +1,13 @@
 package com.gao.coniel.coniel_gao;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class MenuPrincipal extends Fragment{
+public class MenuPrincipal extends Fragment {
     private String[] sesion = null;
     Fragment fragment;
     Button btnIngreso, btnBuscar, btnChat, btnFotos, btnUbicacion, btnAjustes;

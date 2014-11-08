@@ -13,8 +13,8 @@ import org.ksoap2.transport.HttpTransportSE;
 public class SW {
 
     private String namespace = "serviciosWeb.views";
-    private String url="http://192.168.10.60/sw/";
-    //private String url="http://jhonsson.servehttp.com/sw/";
+    //private String url="http://192.168.10.60/sw/";
+    private String url="http://jhonsson.servehttp.com/sw/";
     //private String url="http://coniel.servehttp.com/sw/";
     private String soapAction = "";
     SoapObject request = null;

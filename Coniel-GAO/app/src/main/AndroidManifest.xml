@@ -44,14 +44,7 @@
             android:name=".Contenedor"
             android:label="@string/title_activity_contenedor" >
         </activity>
-        <activity
-            android:name=".BusquedaDatosAbonado"
-            android:label="@string/title_activity_busqueda_datos_abonado" >
-        </activity>
-        <activity
-            android:name=".BusquedaDatosMedidor"
-            android:label="@string/title_activity_busqueda_datos_medidor" >
-        </activity>
+
         <activity
             android:name=".Ingreso"
             android:label="@string/title_activity_ingreso" >
