@@ -1,4 +1,8 @@
 package com.gao.coniel.coniel_gao;
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,6 +29,7 @@ import serviciosWeb.Tupla;
 
 public class Buscar extends Fragment {
 
+    public static String ARG_SECTION_NUMBER;
     private Abonado[] clientes=null;
     private int t=0;
     private static String[][] CABECERAS ={
@@ -65,19 +70,18 @@ public class Buscar extends Fragment {
         tvData=(TextView) rootView.findViewById(R.id.datoBuscar);
 
         btnBuscar.setOnClickListener(new View.OnClickListener() {
-                                         @Override
-                                         public void onClick(View v) {
-                                             Log.e((spinnerBuscar.getSelectedItemPosition() + 1) + "", "posi");
-                                             asyncBuscar asb = new asyncBuscar();
-                                             asb.execute(
-                                                     sesion[1],
-                                                     sesion[3],
-                                                     (spinnerBuscar.getSelectedItemPosition() + 1) + "",
-                                                     getTvData().getText().toString()
-                                             );
-
-                                         }
-                                     }
+             @Override
+             public void onClick(View v) {
+                 Log.e((spinnerBuscar.getSelectedItemPosition() + 1) + "", "posi");
+                 asyncBuscar asb = new asyncBuscar();
+                 asb.execute(
+                         sesion[1],
+                         sesion[3],
+                         (spinnerBuscar.getSelectedItemPosition() + 1) + "",
+                         getTvData().getText().toString()
+                 );
+             }
+         }
         );
 
         if (clientes!=null)
@@ -336,6 +340,11 @@ public class Buscar extends Fragment {
                     );
                 }
                 getClientes()[0].setMedidores(m);
+                for (Fragment f:getActivity().getSupportFragmentManager().getFragments())
+                    try {
+                        ((ContenedorBusqueda) f).switchFragment(1);
+                    } catch (Exception ignored) {
+                    }
 
             }catch (Exception e){
                 toast = "Error, No se ha podido Buscar...";
@@ -366,6 +375,9 @@ public class Buscar extends Fragment {
             t.show();
         }
     }
+
+
+
 
 }
 

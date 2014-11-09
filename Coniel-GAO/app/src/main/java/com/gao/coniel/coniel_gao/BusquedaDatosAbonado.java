@@ -14,24 +14,32 @@ import clases.Abonado;
 
 public class BusquedaDatosAbonado extends Fragment {
 
+    private static String ARG_SECTION_NUMBER;
     private Abonado abonado=null;
 
     public BusquedaDatosAbonado(Abonado abonado) {
-        this.abonado = abonado;
+        this.setAbonado(abonado);
     }
 
     public BusquedaDatosAbonado() {}
 
     View rootView;
 
+    public static String getARG_SECTION_NUMBER() {
+        return ARG_SECTION_NUMBER;
+    }
+
+    public static void setARG_SECTION_NUMBER(String ARG_SECTION_NUMBER) {
+        BusquedaDatosAbonado.ARG_SECTION_NUMBER = ARG_SECTION_NUMBER;
+    }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.activity_busqueda_datos_abonado, container, false);
-        if (abonado!=null) {
-            rellenar(abonado);
+        if (getAbonado() !=null) {
+            rellenar(getAbonado());
         }
         Log.i("Info", "creado fragment 1");
         return rootView;
@@ -39,7 +47,7 @@ public class BusquedaDatosAbonado extends Fragment {
 
     public void rellenar(Abonado abonado) {
         EditText et = ((EditText)rootView.findViewById(R.id.EditTextCuenta));
-        et.setText(abonado.getCuenta(), TextView.BufferType.EDITABLE);
+        et.setText(abonado.getCuenta().toString(),TextView.BufferType.EDITABLE);
         ((EditText)rootView.findViewById(R.id.EditTextAbonado)).setText(abonado.getNombre(), TextView.BufferType.EDITABLE);
         ((EditText)rootView.findViewById(R.id.EditTextCedulaRuc)).setText(abonado.getCi(), TextView.BufferType.EDITABLE);
         ((EditText)rootView.findViewById(R.id.EditTextGeocodigo)).setText(abonado.getGeocodigo(), TextView.BufferType.EDITABLE);
@@ -48,9 +56,17 @@ public class BusquedaDatosAbonado extends Fragment {
         ((EditText)rootView.findViewById(R.id.EditTextUrbanizacion)).setText(abonado.getUrbanizacion(), TextView.BufferType.EDITABLE);
         ((EditText)rootView.findViewById(R.id.EditTextEstado)).setText(abonado.getEstado(), TextView.BufferType.EDITABLE);
         ((EditText)rootView.findViewById(R.id.EditTextDeuda)).setText(abonado.getDeuda(), TextView.BufferType.EDITABLE);
-        ((EditText)rootView.findViewById(R.id.EditTextMesDeuda)).setText(abonado.getMesesAdeudado(), TextView.BufferType.EDITABLE);
+        ((EditText)rootView.findViewById(R.id.EditTextMesDeuda)).setText(abonado.getMesesAdeudado().toString(), TextView.BufferType.EDITABLE);
         Log.i("Info", "rellenado fragment 1");
-        this.abonado=abonado;
+        this.setAbonado(abonado);
     }
 
+
+    public Abonado getAbonado() {
+        return abonado;
+    }
+
+    public void setAbonado(Abonado abonado) {
+        this.abonado = abonado;
+    }
 }

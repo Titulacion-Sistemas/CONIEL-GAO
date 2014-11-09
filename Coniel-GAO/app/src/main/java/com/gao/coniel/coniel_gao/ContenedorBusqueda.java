@@ -5,7 +5,6 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -17,13 +16,12 @@ import java.util.ArrayList;
 
 import clases.Abonado;
 import clases.PagerItem;
-import clases.SmartFragmentStatePagerAdapter;
 
 
 public class ContenedorBusqueda extends Fragment implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
 
     String[] sesion = null;
-    private Abonado[] ab = null;
+
     MiPagerAdapter mSectionsPagerAdapter;
     ActionBar actionBar ;
     ViewPager mViewPager;
@@ -47,14 +45,12 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
         pagerItems.add(new PagerItem("Fragment1", new BusquedaDatosAbonado()));
         pagerItems.add(new PagerItem("Fragment2", new BusquedaDatosMedidor()));
 
-        mSectionsPagerAdapter = new MiPagerAdapter(
-                getActivity().getSupportFragmentManager(),
-                pagerItems
-        );
-
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setAdapter(new MiPagerAdapter(
+                getActivity().getSupportFragmentManager(),
+                pagerItems
+        ));
         mViewPager.setOnPageChangeListener(this);
 
 
@@ -68,64 +64,95 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
         return rootView;
     }
 
+    public void switchFragment(int i) {
+        Log.i("Buscoooo","...");
+        MiPagerAdapter sa = (MiPagerAdapter) mViewPager
+                .getAdapter();
+        sa.setAb(((Buscar)sa.getItem(0)).getClientes());
+        ArrayList<PagerItem> pagerItems = new ArrayList<PagerItem>();
+        pagerItems.add(new PagerItem("Fragment0", sa.getItem(0)));
+        pagerItems.add(new PagerItem("Fragment1", new BusquedaDatosAbonado(sa.getAb()[0])));
+        pagerItems.add(new PagerItem("Fragment2", new BusquedaDatosMedidor(sa.getAb()[0].getMedidores())));
+        sa.setmPagerItems(pagerItems);
+        sa.notifyDataSetChanged();
+        mViewPager.setAdapter(
+                new MiPagerAdapter(
+                        getActivity().getSupportFragmentManager(),
+                        pagerItems
+                ));
+        mViewPager.setCurrentItem(0);
+    }
+
     public class MiPagerAdapter extends FragmentStatePagerAdapter {
 
         private FragmentManager mFragmentManager;
         private ArrayList<PagerItem> mPagerItems;
+        private Abonado[] ab = null;
 
         public MiPagerAdapter(FragmentManager fragmentManager, ArrayList<PagerItem> pagerItems) {
             super(fragmentManager);
             mFragmentManager = fragmentManager;
-            mPagerItems = pagerItems;
+            setmPagerItems(pagerItems);
         }
 
-        @Override
-        public Fragment getItem(int arg0) {
-            return mPagerItems.get(arg0).getFragment();
-            /*switch (arg0) {
-                case 0:
-                    if(ab!=null){
-                        b.setClientes(ab);
-                        b1=new BusquedaDatosAbonado(b.getClientes()[0]);
-                        b2=new BusquedaDatosMedidor(b.getClientes()[0].getMedidores());
-                    }
-                    Log.i("Info","C0");
-                    return b;
-                case 1:
-                    if (b.getClientes()!=null ){
-                        b1=new BusquedaDatosAbonado(b.getClientes()[0]);
-                        b2=new BusquedaDatosMedidor(b.getClientes()[0].getMedidores());
-                        ab=b.getClientes();
-                    }else{
-                        b1 = new BusquedaDatosAbonado();
-                    }
-                    Log.i("Info","C1");
-                    return b1;
-                case 2:
-                    if (b.getClientes()!=null){
-                        b1=new BusquedaDatosAbonado(b.getClientes()[0]);
-                        getRegisteredFragment(1).onResume();
-                        b2=new BusquedaDatosMedidor(b.getClientes()[0].getMedidores());
-                        ab=b.getClientes();
-                    }
-                    else if( ab!=null ){
-                        b1=new BusquedaDatosAbonado(ab[0]);
-                        b2=new BusquedaDatosMedidor(ab[0].getMedidores());
-                    }else{
-                        b2 = new BusquedaDatosMedidor();
-                    }
-                    Log.i("Info","C2");
-                    return b2;
 
-                default:
-                    Log.i("Info","Default");
-                    return null;
-            }*/
+        @Override
+        public Fragment getItem(int position) {
+
+            // getItem is called to instantiate the fragment for the given page.
+            // Return a DummySectionFragment (defined as a static inner class
+            // below) with the page number as its lone argument.
+            return getmPagerItems().get(position).getFragment();
+            /*Fragment fragment = null;
+            Bundle args = null;
+            switch (position) {
+                case 0:
+                    fragment = new Buscar(sesion);
+                    args = new Bundle();
+                    args.putInt(Buscar.ARG_SECTION_NUMBER, position + 1);
+                    break;
+                case 1:
+                    if (ab!=null) fragment = new BusquedaDatosAbonado(ab[0]);
+                    else fragment = new BusquedaDatosAbonado();
+                    args = new Bundle();
+                    args.putInt(BusquedaDatosAbonado.ARG_SECTION_NUMBER, position + 1);
+                    //args.putString(FragmentGraph.linkGraph, graphLink);
+                    break;
+                case 2:
+                    if (ab!=null) fragment = new BusquedaDatosMedidor(ab[0].getMedidores());
+                    else fragment = new BusquedaDatosMedidor();
+                    args = new Bundle();
+                    args.putInt(BusquedaDatosMedidor.ARG_SECTION_NUMBER, position + 1);
+                    break;
+            }
+            fragment.setArguments(args);
+            return fragment;*/
         }
 
         @Override
         public int getCount() {
             return mPagerItems.size();
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
+        }
+
+        public ArrayList<PagerItem> getmPagerItems() {
+            return mPagerItems;
+        }
+
+        public void setmPagerItems(ArrayList<PagerItem> mPagerItems) {
+            this.mPagerItems = mPagerItems;
+        }
+
+        public Abonado[] getAb() {
+            return ab;
+        }
+
+        public void setAb(Abonado[] ab) {
+            this.ab = ab;
         }
     }
 
@@ -136,25 +163,7 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
 
     @Override
     public void onPageSelected(int i) {
-        try {
-            if(i>0){
-                ab=((Buscar)mSectionsPagerAdapter.getItem(0)).getClientes();
-                if (ab!=null && !(((Buscar)mSectionsPagerAdapter.getItem(0)).getTvData()).getText().toString().equals("")) {
 
-                /**/    ArrayList<PagerItem> pagerItems = new ArrayList<PagerItem>();
-                    pagerItems.add(new PagerItem("Fragment0", mSectionsPagerAdapter.getItem(0)));
-                    pagerItems.add(new PagerItem("Fragment1", new BusquedaDatosAbonado(ab[0])));
-                    pagerItems.add(new PagerItem("Fragment2", new BusquedaDatosMedidor(ab[0].getMedidores())));
-
-                    //mViewPager.setAdapter(new MiPagerAdapter(getActivity().getSupportFragmentManager(), pagerItems));
-                    (((Buscar)mSectionsPagerAdapter.getItem(0)).getTvData()).setText("");
-                    ((BusquedaDatosAbonado)mSectionsPagerAdapter.getItem(1)).rellenar(ab[0]);
-                    Log.i("",(((Buscar)mSectionsPagerAdapter.getItem(0)).getTvData()).getText().toString()+"");
-                    //mViewPager.setCurrentItem(i);
-                }
-            }
-            ab=null;
-        }catch (Exception ignored){}
         getActivity().getActionBar().setSelectedNavigationItem(i);
 
     }

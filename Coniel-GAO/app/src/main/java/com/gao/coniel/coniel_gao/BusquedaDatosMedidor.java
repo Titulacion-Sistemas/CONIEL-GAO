@@ -21,9 +21,9 @@ import clases.Medidor;
 
 public class BusquedaDatosMedidor extends Fragment {
 
+    private static String ARG_SECTION_NUMBER;
     private Medidor[] medidors=null;
     ListView listaContenido, listaCabecera;
-    View viewRows;
 
     ArrayList<HashMap<String, String>> miLista, miListaCabecera;
 
@@ -34,9 +34,18 @@ public class BusquedaDatosMedidor extends Fragment {
     View rootView;
 
     public BusquedaDatosMedidor(Medidor[] medidors){
-        this.medidors = medidors;
+        this.setMedidors(medidors);
     }
     public BusquedaDatosMedidor(){}
+
+    public static String getARG_SECTION_NUMBER() {
+        return ARG_SECTION_NUMBER;
+    }
+
+    public static void setARG_SECTION_NUMBER(String ARG_SECTION_NUMBER) {
+        BusquedaDatosMedidor.ARG_SECTION_NUMBER = ARG_SECTION_NUMBER;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,8 +58,8 @@ public class BusquedaDatosMedidor extends Fragment {
         listaContenido.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (medidors!=null){
-                    rellenarMedidor(medidors[position]);
+                if (getMedidors() !=null){
+                    rellenarMedidor(getMedidors()[position]);
                 }
             }
 
@@ -60,8 +69,8 @@ public class BusquedaDatosMedidor extends Fragment {
             }
         });
 
-        if (medidors!=null){
-            rellenar(medidors);
+        if (getMedidors() !=null){
+            rellenar(getMedidors());
         }
 
         Log.i("Info", "creado fragment 2");
@@ -148,4 +157,12 @@ public class BusquedaDatosMedidor extends Fragment {
 
     }
 
+
+    public Medidor[] getMedidors() {
+        return medidors;
+    }
+
+    public void setMedidors(Medidor[] medidors) {
+        this.medidors = medidors;
+    }
 }
