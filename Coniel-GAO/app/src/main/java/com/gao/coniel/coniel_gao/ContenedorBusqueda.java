@@ -1,10 +1,11 @@
 package com.gao.coniel.coniel_gao;
 
 import android.app.ActionBar;
-
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -12,13 +13,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import clases.Abonado;
+import clases.PagerItem;
 import clases.SmartFragmentStatePagerAdapter;
 
 
 public class ContenedorBusqueda extends Fragment implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
 
     String[] sesion = null;
+    private Abonado[] ab = null;
+    MiPagerAdapter mSectionsPagerAdapter;
+    ActionBar actionBar ;
+    ViewPager mViewPager;
+    View rootView;
+
 
     public ContenedorBusqueda(String[] sesion){
         this.sesion = sesion;
@@ -26,23 +36,30 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
 
     public ContenedorBusqueda(){}
 
-        SectionsPagerAdapter mSectionsPagerAdapter;
-        ActionBar actionBar ;
-        ViewPager mViewPager;
-        View rootView;
 
     public View onCreateView (LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
         //super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_contenedor_busqueda);
         rootView = inflater.inflate(R.layout.activity_contenedor_busqueda, container, false);
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getActivity().getSupportFragmentManager());
+        ArrayList<PagerItem> pagerItems = new ArrayList<PagerItem>();
+        pagerItems.add(new PagerItem("Fragment0", new Buscar(sesion)));
+        pagerItems.add(new PagerItem("Fragment1", new BusquedaDatosAbonado()));
+        pagerItems.add(new PagerItem("Fragment2", new BusquedaDatosMedidor()));
+
+        mSectionsPagerAdapter = new MiPagerAdapter(
+                getActivity().getSupportFragmentManager(),
+                pagerItems
+        );
+
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOnPageChangeListener(this);
 
+
         actionBar = getActivity().getActionBar();
+        assert actionBar != null;
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.addTab(actionBar.newTab().setText("Búsqueda").setTabListener(this));
         actionBar.addTab(actionBar.newTab().setText("Datos de Abonado").setTabListener(this));
@@ -50,22 +67,22 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
 
         return rootView;
     }
-    private Abonado[] ab = null;
-    public class SectionsPagerAdapter extends SmartFragmentStatePagerAdapter {
-        Buscar b ;
-        BusquedaDatosAbonado b1;
-        BusquedaDatosMedidor b2;
 
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-            b = new Buscar(sesion);
-            b1 = new BusquedaDatosAbonado();
-            b2 = new BusquedaDatosMedidor();
+    public class MiPagerAdapter extends FragmentStatePagerAdapter {
+
+        private FragmentManager mFragmentManager;
+        private ArrayList<PagerItem> mPagerItems;
+
+        public MiPagerAdapter(FragmentManager fragmentManager, ArrayList<PagerItem> pagerItems) {
+            super(fragmentManager);
+            mFragmentManager = fragmentManager;
+            mPagerItems = pagerItems;
         }
 
         @Override
         public Fragment getItem(int arg0) {
-            switch (arg0) {
+            return mPagerItems.get(arg0).getFragment();
+            /*switch (arg0) {
                 case 0:
                     if(ab!=null){
                         b.setClientes(ab);
@@ -103,12 +120,12 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
                 default:
                     Log.i("Info","Default");
                     return null;
-            }
+            }*/
         }
 
         @Override
         public int getCount() {
-            return 3;
+            return mPagerItems.size();
         }
     }
 
@@ -119,7 +136,27 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
 
     @Override
     public void onPageSelected(int i) {
+        try {
+            if(i>0){
+                ab=((Buscar)mSectionsPagerAdapter.getItem(0)).getClientes();
+                if (ab!=null && !(((Buscar)mSectionsPagerAdapter.getItem(0)).getTvData()).getText().toString().equals("")) {
+
+                /**/    ArrayList<PagerItem> pagerItems = new ArrayList<PagerItem>();
+                    pagerItems.add(new PagerItem("Fragment0", mSectionsPagerAdapter.getItem(0)));
+                    pagerItems.add(new PagerItem("Fragment1", new BusquedaDatosAbonado(ab[0])));
+                    pagerItems.add(new PagerItem("Fragment2", new BusquedaDatosMedidor(ab[0].getMedidores())));
+
+                    //mViewPager.setAdapter(new MiPagerAdapter(getActivity().getSupportFragmentManager(), pagerItems));
+                    (((Buscar)mSectionsPagerAdapter.getItem(0)).getTvData()).setText("");
+                    ((BusquedaDatosAbonado)mSectionsPagerAdapter.getItem(1)).rellenar(ab[0]);
+                    Log.i("",(((Buscar)mSectionsPagerAdapter.getItem(0)).getTvData()).getText().toString()+"");
+                    //mViewPager.setCurrentItem(i);
+                }
+            }
+            ab=null;
+        }catch (Exception ignored){}
         getActivity().getActionBar().setSelectedNavigationItem(i);
+
     }
 
     @Override
@@ -136,7 +173,7 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
     }
 
     @Override
-    public void onTabUnselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
 
     }
 

@@ -60,8 +60,9 @@ public class BusquedaDatosMedidor extends Fragment {
             }
         });
 
-        if (medidors!=null)
-        rellenar();
+        if (medidors!=null){
+            rellenar(medidors);
+        }
 
         Log.i("Info", "creado fragment 2");
         return rootView;
@@ -69,7 +70,8 @@ public class BusquedaDatosMedidor extends Fragment {
 
 
     private void rellenarMedidor(Medidor m){
-        ((EditText)rootView.findViewById(R.id.EditTextnumFabrica)).setText(m.getNumFabrica(), TextView.BufferType.EDITABLE);
+        EditText et = ((EditText)rootView.findViewById(R.id.EditTextnumFabrica));
+        et.setText(m.getNumFabrica(), TextView.BufferType.EDITABLE);
         ((EditText)rootView.findViewById(R.id.EditTextnumSerie)).setText(m.getNumSerie(), TextView.BufferType.EDITABLE);
         ((EditText)rootView.findViewById(R.id.EditTextMarca)).setText(m.getMarca(), TextView.BufferType.EDITABLE);
         ((EditText)rootView.findViewById(R.id.EditTextTipoMedidor)).setText(m.getTipoMedidor(), TextView.BufferType.EDITABLE);
@@ -83,10 +85,10 @@ public class BusquedaDatosMedidor extends Fragment {
         ((EditText)rootView.findViewById(R.id.EditTextlecturaInst)).setText(m.getLecturaInst(), TextView.BufferType.EDITABLE);
         ((EditText)rootView.findViewById(R.id.EditTextfechaDesinst)).setText(m.getFechaDesinst(), TextView.BufferType.EDITABLE);
         ((EditText)rootView.findViewById(R.id.EditTextlecturaDesinst)).setText(m.getLecturaDesinst(), TextView.BufferType.EDITABLE);
-        Log.i("Info", "rellenado fragment 2(Lista)");
+        Log.i("Info", "rellenado fragment 2(Texts)");
     }
 
-    public void rellenar() {
+    public void rellenar(Medidor[] medidors) {
 
         miLista = new ArrayList<HashMap<String, String>>();
         miListaCabecera = new ArrayList<HashMap<String, String>>();

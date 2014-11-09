@@ -42,7 +42,7 @@ public class Buscar extends Fragment {
 
     private Spinner spinnerBuscar;
     ListView listaCont, listaCabecera;
-    TextView tvData;
+    private TextView tvData;
     View viewRows;
 
     ArrayList<HashMap<String, String>> miLista, miListaCabecera;
@@ -62,22 +62,22 @@ public class Buscar extends Fragment {
         listaCabecera = (ListView) rootView.findViewById(R.id.listaCabecera);
         listaCont = (ListView) rootView.findViewById(R.id.listaContenido);
         Button btnBuscar = (Button) rootView.findViewById(R.id.btnBuscarDatos);
-        tvData = (TextView) rootView.findViewById(R.id.datoBuscar);
+        tvData=(TextView) rootView.findViewById(R.id.datoBuscar);
 
         btnBuscar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.e((spinnerBuscar.getSelectedItemPosition()+1)+"", "posi");
-                    asyncBuscar asb = new asyncBuscar();
-                    asb.execute(
-                            sesion[1],
-                            sesion[3],
-                            (spinnerBuscar.getSelectedItemPosition()+1)+"",
-                            tvData.getText().toString()
-                    );
+                                         @Override
+                                         public void onClick(View v) {
+                                             Log.e((spinnerBuscar.getSelectedItemPosition() + 1) + "", "posi");
+                                             asyncBuscar asb = new asyncBuscar();
+                                             asb.execute(
+                                                     sesion[1],
+                                                     sesion[3],
+                                                     (spinnerBuscar.getSelectedItemPosition() + 1) + "",
+                                                     getTvData().getText().toString()
+                                             );
 
-                }
-            }
+                                         }
+                                     }
         );
 
         if (clientes!=null)
@@ -206,6 +206,10 @@ public class Buscar extends Fragment {
         }
         Log.i("Info", "rellenado fragment 0");
         /********************************************************/
+    }
+
+    public TextView getTvData() {
+        return tvData;
     }
 
 
