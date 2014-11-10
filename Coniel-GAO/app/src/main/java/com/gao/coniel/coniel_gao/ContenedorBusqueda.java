@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,6 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
 
     String[] sesion = null;
 
-    MiPagerAdapter mSectionsPagerAdapter;
     ActionBar actionBar ;
     ViewPager mViewPager;
     View rootView;
@@ -36,16 +36,12 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
 
 
     public View onCreateView (LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
-        //super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_contenedor_busqueda);
+
         rootView = inflater.inflate(R.layout.activity_contenedor_busqueda, container, false);
 
         ArrayList<PagerItem> pagerItems = new ArrayList<PagerItem>();
         pagerItems.add(new PagerItem("Fragment0", new Buscar(sesion)));
-        pagerItems.add(new PagerItem("Fragment1", new BusquedaDatosAbonado()));
-        pagerItems.add(new PagerItem("Fragment2", new BusquedaDatosMedidor()));
 
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
         mViewPager.setAdapter(new MiPagerAdapter(
                 getActivity().getSupportFragmentManager(),
@@ -53,34 +49,44 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
         ));
         mViewPager.setOnPageChangeListener(this);
 
-
-        actionBar = getActivity().getActionBar();
-        assert actionBar != null;
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionBar.addTab(actionBar.newTab().setText("Búsqueda").setTabListener(this));
-        actionBar.addTab(actionBar.newTab().setText("Datos de Abonado").setTabListener(this));
-        actionBar.addTab(actionBar.newTab().setText("Detalle Medidor").setTabListener(this));
+        getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        ActionBar bar = getActivity().getActionBar();
+        bar.addTab(bar.newTab().setText("Búsqueda").setTabListener(this));
+        bar.addTab(bar.newTab().setText("Datos de Abonado").setTabListener(this));
+        bar.addTab(bar.newTab().setText("Detalle Medidor").setTabListener(this));
 
         return rootView;
     }
 
-    public void switchFragment(int i) {
-        Log.i("Buscoooo","...");
-        MiPagerAdapter sa = (MiPagerAdapter) mViewPager
-                .getAdapter();
-        sa.setAb(((Buscar)sa.getItem(0)).getClientes());
+    public void reconstruirPager(){
+        MiPagerAdapter sa = (MiPagerAdapter) mViewPager.getAdapter();
+        ArrayList<PagerItem> pagerItems = new ArrayList<PagerItem>();
+        pagerItems.add(new PagerItem("Fragment0", sa.getItem(0)));
+        sa.notifyDataSetChanged();
+        mViewPager.setAdapter(new MiPagerAdapter(
+                getActivity().getSupportFragmentManager(),
+                pagerItems
+        ));
+    }
+
+    public void cargarPager() {
+        MiPagerAdapter sa = (MiPagerAdapter) mViewPager.getAdapter();
+        sa.setAb(((Buscar) sa.getItem(0)).getClientes());
+
         ArrayList<PagerItem> pagerItems = new ArrayList<PagerItem>();
         pagerItems.add(new PagerItem("Fragment0", sa.getItem(0)));
         pagerItems.add(new PagerItem("Fragment1", new BusquedaDatosAbonado(sa.getAb()[0])));
         pagerItems.add(new PagerItem("Fragment2", new BusquedaDatosMedidor(sa.getAb()[0].getMedidores())));
         sa.setmPagerItems(pagerItems);
         sa.notifyDataSetChanged();
+
+
         mViewPager.setAdapter(
                 new MiPagerAdapter(
                         getActivity().getSupportFragmentManager(),
                         pagerItems
-                ));
-        mViewPager.setCurrentItem(0);
+                )
+        );
     }
 
     public class MiPagerAdapter extends FragmentStatePagerAdapter {
@@ -163,9 +169,7 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
 
     @Override
     public void onPageSelected(int i) {
-
         getActivity().getActionBar().setSelectedNavigationItem(i);
-
     }
 
     @Override
@@ -174,16 +178,22 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
 
 
 
-
     @Override
     public void onTabSelected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
-        mViewPager.setCurrentItem(tab.getPosition());
-
+        if(((MiPagerAdapter)mViewPager.getAdapter()).getmPagerItems().size()>tab.getPosition()) {
+            mViewPager.setCurrentItem(tab.getPosition());
+        }else{
+            Toast t = Toast.makeText(
+                    getActivity().getApplicationContext(),
+                    "Debe realizar una busqueda...",
+                    Toast.LENGTH_SHORT
+            );
+            t.show();
+        }
     }
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
     }
 
     @Override

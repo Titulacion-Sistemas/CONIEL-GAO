@@ -121,4 +121,8 @@ public class Abonado {
     public void setMedidores(Medidor[] medidores) {
         this.medidores = medidores;
     }
+
+    public void limpiarMedidores(){
+        this.medidores=null;
+    }
 }

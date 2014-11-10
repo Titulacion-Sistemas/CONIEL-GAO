@@ -1,8 +1,4 @@
 package com.gao.coniel.coniel_gao;
-import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -72,6 +68,11 @@ public class Buscar extends Fragment {
         btnBuscar.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
+                 for (Fragment f:getActivity().getSupportFragmentManager().getFragments())
+                     try {
+                         ((ContenedorBusqueda) f).reconstruirPager();
+                     } catch (Exception ignored) {
+                     }
                  Log.e((spinnerBuscar.getSelectedItemPosition() + 1) + "", "posi");
                  asyncBuscar asb = new asyncBuscar();
                  asb.execute(
@@ -342,7 +343,7 @@ public class Buscar extends Fragment {
                 getClientes()[0].setMedidores(m);
                 for (Fragment f:getActivity().getSupportFragmentManager().getFragments())
                     try {
-                        ((ContenedorBusqueda) f).switchFragment(1);
+                        ((ContenedorBusqueda) f).cargarPager();
                     } catch (Exception ignored) {
                     }
 

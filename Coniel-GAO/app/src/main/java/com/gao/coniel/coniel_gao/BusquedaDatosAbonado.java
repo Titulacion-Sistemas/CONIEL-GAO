@@ -14,31 +14,20 @@ import clases.Abonado;
 
 public class BusquedaDatosAbonado extends Fragment {
 
-    private static String ARG_SECTION_NUMBER;
     private Abonado abonado=null;
+    private View rootView;
 
     public BusquedaDatosAbonado(Abonado abonado) {
-        this.setAbonado(abonado);
+        this.abonado=abonado;
     }
 
     public BusquedaDatosAbonado() {}
-
-    View rootView;
-
-    public static String getARG_SECTION_NUMBER() {
-        return ARG_SECTION_NUMBER;
-    }
-
-    public static void setARG_SECTION_NUMBER(String ARG_SECTION_NUMBER) {
-        BusquedaDatosAbonado.ARG_SECTION_NUMBER = ARG_SECTION_NUMBER;
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.activity_busqueda_datos_abonado, container, false);
-        if (getAbonado() !=null) {
+        if (abonado !=null) {
             rellenar(getAbonado());
         }
         Log.i("Info", "creado fragment 1");

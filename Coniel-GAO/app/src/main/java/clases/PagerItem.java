@@ -20,7 +20,6 @@ public class PagerItem {
     public void setTitle(String mTitle) {
         this.mTitle = mTitle;
     }
-
     public void setFragment(Fragment mFragment) {
         this.mFragment = mFragment;
     }
