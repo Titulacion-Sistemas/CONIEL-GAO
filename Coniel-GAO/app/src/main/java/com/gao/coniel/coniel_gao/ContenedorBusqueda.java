@@ -28,19 +28,21 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
     View rootView;
 
 
-    public ContenedorBusqueda(String[] sesion){
-        this.sesion = sesion;
-    }
-
     public ContenedorBusqueda(){}
 
 
     public View onCreateView (LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
 
+        try{
+            sesion = getActivity().getIntent().getExtras().getStringArray("user");
+        }catch (Exception e){
+            Log.e("Error al Cargar datos de sesion: ",""+e);
+        }
+
         rootView = inflater.inflate(R.layout.activity_contenedor_busqueda, container, false);
 
         ArrayList<PagerItem> pagerItems = new ArrayList<PagerItem>();
-        pagerItems.add(new PagerItem("Fragment0", new Buscar(sesion)));
+        pagerItems.add(new PagerItem("Fragment0", new Buscar()));
 
         mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
         mViewPager.setAdapter(new MiPagerAdapter(

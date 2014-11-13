@@ -36,11 +36,6 @@ public class Buscar extends Fragment {
     } ;
 
     String[] sesion=null;
-
-    public Buscar(String [] sesion){
-        this.sesion = sesion;
-    }
-
     private Spinner spinnerBuscar;
     ListView listaCont, listaCabecera;
     private TextView tvData;
@@ -56,6 +51,13 @@ public class Buscar extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_buscar, container, false);
+
+        try{
+            sesion = getActivity().getIntent().getExtras().getStringArray("user");
+        }catch (Exception e){
+            Log.e("Error al Cargar datos de sesion: ",""+e);
+        }
+
         viewRows = inflater.inflate(R.layout.rows, container, false);
 
         spinnerBuscar = (Spinner) rootView.findViewById(R.id.spinnerBuscar);
@@ -302,7 +304,6 @@ public class Buscar extends Fragment {
                         default:
                             cancel(true);
                             break;
-
                     }
                 }
 
@@ -350,7 +351,7 @@ public class Buscar extends Fragment {
             }catch (Exception e){
                 toast = "Error, No se ha podido Buscar...";
                 Log.e("Error : ", e.toString());
-                this.cancel(true);
+                cancel(true);
             }
 
             return null;

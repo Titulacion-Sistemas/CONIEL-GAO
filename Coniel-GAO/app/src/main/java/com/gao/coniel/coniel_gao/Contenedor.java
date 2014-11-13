@@ -138,13 +138,13 @@ public class Contenedor extends FragmentActivity {
 
         switch (position) {
             case 0:
-                fragment = new MenuPrincipal(sesion);
+                fragment = new MenuPrincipal();
                 break;
             case 1:
                 //fragment = new ContenedorBusqueda();
                 //break;
             case 2:
-                fragment = new ContenedorBusqueda(sesion);
+                fragment = new ContenedorBusqueda();
                 break;
             /*case 2:
                 fragment = new Seccion3();

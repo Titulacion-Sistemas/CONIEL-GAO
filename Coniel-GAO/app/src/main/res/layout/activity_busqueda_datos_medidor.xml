@@ -12,9 +12,32 @@
         android:layout_weight="2"
         android:orientation="vertical">
 
-        <ScrollView
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="2"
+            android:padding="10dp">
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/listaCabeceraMedidor"
+                android:background="@android:color/holo_blue_light"
+                android:clickable="false"/>
+
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/listaContenidoMedidor"/>
+
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -25,28 +48,67 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:orientation="vertical"
-                    android:padding="15dp">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <ListView
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/listaCabeceraMedidor"
-                        android:background="@android:color/holo_blue_light"
-                        android:clickable="false"/>
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/numFabrica"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/titulop"
+                            android:id="@+id/txtnumFabrica"/>
+                        <EditText
 
-                    <ListView
+                            android:layout_width="0"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/titulop"
+                            android:id="@+id/EditTextnumFabrica"
+                            android:editable="false"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/listaContenidoMedidor"/>
+                        android:orientation="horizontal">
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/numSerie"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/titulop"
+                            android:id="@+id/txtnumSerie"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/titulop"
+                            android:id="@+id/EditTextnumSerie"
+                            android:editable="false"/>
+
+                    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -56,22 +118,7 @@
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/numFabrica"
-                            android:padding="10dp"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/titulop"
-                            android:id="@+id/txtnumFabrica"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/numSerie"
-                            android:padding="10dp"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/titulop"
-                            android:id="@+id/txtnumSerie"/>
+
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -199,21 +246,9 @@
                         android:paddingBottom="10dp"
                         android:paddingRight="10dp">
 
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextnumFabrica"
-                            android:editable="false"
-                            android:enabled="false"/>
 
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextnumSerie"
-                            android:editable="false"
-                            android:enabled="false" />
+
+
 
                         <EditText
                             android:layout_width="match_parent"

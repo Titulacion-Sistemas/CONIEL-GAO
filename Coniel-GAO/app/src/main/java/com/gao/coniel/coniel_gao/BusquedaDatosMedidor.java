@@ -138,7 +138,7 @@ public class BusquedaDatosMedidor extends Fragment {
         }
 
         try {
-            adapterContenido = new SimpleAdapter(getActivity().getApplicationContext(), miLista, R.layout.rows,
+            adapterContenido = new SimpleAdapter(getActivity().getApplicationContext(), miLista, R.layout.rowsmedidores,
                     new String[] {"tipo", "numero", "marca", "fecha"}, new int[] {
                     R.id.textViewDato1, R.id.textViewDato2, R.id.textViewDato3, R.id.textViewDato4});
             listaContenido.setAdapter(adapterContenido);
