@@ -70,9 +70,10 @@ public class Buscar extends Fragment {
         btnBuscar.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
+                 int pos = spinnerBuscar.getSelectedItemPosition() + 1;
                  for (Fragment f:getActivity().getSupportFragmentManager().getFragments())
                      try {
-                         ((ContenedorBusqueda) f).reconstruirPager();
+                         ((ContenedorBusqueda) f).reconstruirPager(pos-1);
                      } catch (Exception ignored) {
                      }
                  Log.e((spinnerBuscar.getSelectedItemPosition() + 1) + "", "posi");
@@ -80,7 +81,7 @@ public class Buscar extends Fragment {
                  asb.execute(
                          sesion[1],
                          sesion[3],
-                         (spinnerBuscar.getSelectedItemPosition() + 1) + "",
+                         (pos) + "",
                          getTvData().getText().toString()
                  );
              }
@@ -378,7 +379,10 @@ public class Buscar extends Fragment {
         }
     }
 
-
+    public void cambiarOpcion(int pos){
+        if (spinnerBuscar!= null && pos<4)
+            spinnerBuscar.setSelection(pos);
+    }
 
 
 }

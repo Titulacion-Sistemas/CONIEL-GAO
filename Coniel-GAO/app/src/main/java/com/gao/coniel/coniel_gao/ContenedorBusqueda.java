@@ -60,15 +60,17 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
         return rootView;
     }
 
-    public void reconstruirPager(){
+    public void reconstruirPager(int seleccionado){
         MiPagerAdapter sa = (MiPagerAdapter) mViewPager.getAdapter();
         ArrayList<PagerItem> pagerItems = new ArrayList<PagerItem>();
-        pagerItems.add(new PagerItem("Fragment0", sa.getItem(0)));
+        pagerItems.add(new PagerItem("Fragment0", sa.getmPagerItems().get(0).getFragment()));
         sa.notifyDataSetChanged();
         mViewPager.setAdapter(new MiPagerAdapter(
                 getActivity().getSupportFragmentManager(),
                 pagerItems
         ));
+        sa = (MiPagerAdapter) mViewPager.getAdapter();
+        ((Buscar)sa.getItem(0)).cambiarOpcion(seleccionado);
     }
 
     public void cargarPager() {

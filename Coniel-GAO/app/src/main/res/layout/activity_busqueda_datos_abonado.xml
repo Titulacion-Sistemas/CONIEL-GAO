@@ -8,8 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <ScrollView
@@ -19,210 +18,275 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_gravity="center_vertical"
-                android:gravity="center_vertical">
+                android:orientation="vertical"
+                android:layout_marginTop="30dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
                 <LinearLayout
-                    android:layout_width="135dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingLeft="6dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="2"
                         android:text="@string/cuenta"
-                        android:padding="10dp"
                         android:textStyle="bold"
                         android:textSize="@dimen/titulop"
                         android:id="@+id/txtcuenta"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="@string/nombre"
-                        android:textStyle="bold"
+                        android:layout_weight="3"
                         android:textSize="@dimen/titulop"
-                        android:id="@+id/txtnombre"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:paddingLeft="10dp"
-                        android:text="@string/ruCi"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/titulop"
-                        android:id="@+id/txtCiRuc"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:paddingLeft="10dp"
-                        android:text="@string/geo"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/titulop"
-                        android:id="@+id/txtGeocodigo"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="@string/direccion"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/titulop"
-                        android:id="@+id/txtDireccion"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:paddingLeft="10dp"
-                        android:text="@string/interseccion"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/titulop"
-                        android:id="@+id/txtInterseccion"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="@string/urbanizacion"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/titulop"
-                        android:id="@+id/txtUrbanizacion"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="@string/estado"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/titulop"
-                        android:id="@+id/txtEstado"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:paddingLeft="10dp"
-                        android:text="@string/deuda"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/titulop"
-                        android:id="@+id/txtDeuda"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:paddingLeft="10dp"
-                        android:text="@string/mesesDeuda"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/titulop"
-                        android:id="@+id/txtMesDeuda"/>
+                        android:id="@+id/EditTextCuenta"
+                        android:editable="false" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:paddingRight="10dp">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
 
-                    <EditText
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/nombre"
+                        android:textStyle="bold"
                         android:textSize="@dimen/titulop"
-                        android:id="@+id/EditTextCuenta"
-                        android:editable="false" />
-
+                        android:id="@+id/txtnombre"/>
 
                     <EditText
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="3"
                         android:textSize="@dimen/titulop"
                         android:id="@+id/EditTextAbonado"
                         android:editable="false"
                         />
 
-                    <EditText
-                        android:layout_width="match_parent"
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/ruCi"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/titulop"
+                        android:id="@+id/txtCiRuc"/>
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
                         android:textSize="@dimen/titulop"
                         android:id="@+id/EditTextCedulaRuc"
                         android:editable="false"
-                         />
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/geo"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/titulop"
+                        android:id="@+id/txtGeocodigo"/>
 
                     <EditText
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="3"
                         android:textSize="@dimen/titulop"
                         android:id="@+id/EditTextGeocodigo"
                         android:editable="false"
-                         />
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/direccion"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/titulop"
+                        android:id="@+id/txtDireccion"/>
 
                     <EditText
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="3"
                         android:textSize="@dimen/titulop"
                         android:id="@+id/EditTextDireccion"
                         android:editable="false"
-                        
                         android:focusable="false" />
 
-                    <EditText
-                        android:layout_width="match_parent"
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/interseccion"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/titulop"
+                        android:id="@+id/txtInterseccion"/>
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
                         android:textSize="@dimen/titulop"
                         android:id="@+id/EditTextInterseccion"
                         android:editable="false"
-                         />
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/urbanizacion"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/titulop"
+                        android:id="@+id/txtUrbanizacion"/>
 
                     <EditText
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="3"
                         android:textSize="@dimen/titulop"
                         android:id="@+id/EditTextUrbanizacion"
                         android:editable="false"
-                         />
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/estado"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/titulop"
+                        android:id="@+id/txtEstado"/>
 
                     <EditText
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="3"
                         android:textSize="@dimen/titulop"
                         android:id="@+id/EditTextEstado"
                         android:editable="false"
-                         />
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/deuda"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/titulop"
+                        android:id="@+id/txtDeuda"/>
 
                     <EditText
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="3"
                         android:textSize="@dimen/titulop"
                         android:id="@+id/EditTextDeuda"
                         android:editable="false"
-                         />
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/mesesDeuda"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/titulop"
+                        android:id="@+id/txtMesDeuda"/>
 
                     <EditText
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="3"
                         android:textSize="@dimen/titulop"
                         android:id="@+id/EditTextMesDeuda"
                         android:editable="false"
-                         />
+                        />
 
                 </LinearLayout>
 
             </LinearLayout>
 
         </ScrollView>
+
     </LinearLayout>
 
 </LinearLayout>

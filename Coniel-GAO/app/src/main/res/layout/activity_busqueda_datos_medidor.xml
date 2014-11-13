@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:padding="10dp">
 
             <ListView
@@ -35,7 +35,7 @@
         </LinearLayout>
 
         <ScrollView
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -49,25 +49,28 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="5dp">
                         <TextView
-                            android:layout_width="0"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_weight="2"
                             android:text="@string/numFabrica"
                             android:textStyle="bold"
                             android:textSize="@dimen/titulop"
                             android:id="@+id/txtnumFabrica"/>
                         <EditText
 
-                            android:layout_width="0"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_weight="3"
                             android:textSize="@dimen/titulop"
                             android:id="@+id/EditTextnumFabrica"
                             android:editable="false"/>
@@ -77,12 +80,13 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_weight="2"
                             android:text="@string/numSerie"
                             android:textStyle="bold"
                             android:textSize="@dimen/titulop"
@@ -91,38 +95,23 @@
                         <EditText
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_weight="3"
                             android:textSize="@dimen/titulop"
                             android:id="@+id/EditTextnumSerie"
                             android:editable="false"/>
 
                     </LinearLayout>
 
-
-
-
-
-
-
-
-
-
-
-
-
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp">
-
-
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="2"
                             android:text="@string/marca"
                             android:paddingTop="10dp"
                             android:paddingLeft="10dp"
@@ -130,18 +119,54 @@
                             android:textSize="@dimen/titulop"
                             android:id="@+id/txtMarca"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <EditText
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:textSize="@dimen/titulop"
+                            android:id="@+id/EditTextMarca"
+                            android:editable="false"
+                             />
+                        
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
                             android:text="@string/tipoMedidor"
                             android:padding="10dp"
                             android:textStyle="bold"
                             android:textSize="@dimen/titulop"
                             android:id="@+id/txtTipoMedidor"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <EditText
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:textSize="@dimen/titulop"
+                            android:id="@+id/EditTextTipoMedidor"
+                            android:editable="false"
+                             />
+                        
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
                             android:text="@string/tecnologia"
                             android:paddingTop="10dp"
                             android:paddingLeft="10dp"
@@ -149,18 +174,54 @@
                             android:textSize="@dimen/titulop"
                             android:id="@+id/txtTecnologia"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <EditText
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:textSize="@dimen/titulop"
+                            android:id="@+id/EditTextTecnologia"
+                            android:editable="false"
+                             />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
                             android:text="@string/tensión"
                             android:padding="10dp"
                             android:textStyle="bold"
                             android:textSize="@dimen/titulop"
                             android:id="@+id/txtTension"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <EditText
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:textSize="@dimen/titulop"
+                            android:id="@+id/EditTextTension"
+                            android:editable="false"
+                             />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
                             android:text="@string/amperaje"
                             android:paddingTop="10dp"
                             android:paddingLeft="10dp"
@@ -168,18 +229,54 @@
                             android:textSize="@dimen/titulop"
                             android:id="@+id/txtAmperaje"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <EditText
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:textSize="@dimen/titulop"
+                            android:id="@+id/EditTextAmperaje"
+                            android:editable="false"
+                             />
+                        
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
                             android:text="@string/fases"
                             android:padding="10dp"
                             android:textStyle="bold"
                             android:textSize="@dimen/titulop"
                             android:id="@+id/txtFases"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <EditText
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:textSize="@dimen/titulop"
+                            android:id="@+id/EditTextFases"
+                            android:editable="false"
+                             />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
                             android:text="@string/hilos"
                             android:paddingTop="10dp"
                             android:paddingLeft="10dp"
@@ -187,9 +284,27 @@
                             android:textSize="@dimen/titulop"
                             android:id="@+id/txtHilos"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <EditText
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:textSize="@dimen/titulop"
+                            android:id="@+id/EditTextHilos"
+                            android:editable="false"
+                             />
+                    
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
                             android:text="@string/digitos"
                             android:paddingTop="10dp"
                             android:paddingLeft="10dp"
@@ -197,9 +312,27 @@
                             android:textSize="@dimen/titulop"
                             android:id="@+id/txtDigitos"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <EditText
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:textSize="@dimen/titulop"
+                            android:id="@+id/EditTextDigitos"
+                            android:editable="false"
+                             />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
                             android:text="@string/fechaInst"
                             android:paddingTop="10dp"
                             android:paddingLeft="10dp"
@@ -207,144 +340,96 @@
                             android:textSize="@dimen/titulop"
                             android:id="@+id/txtFechaInst"/>
 
+                        <EditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:textSize="@dimen/titulop"
+                            android:id="@+id/EditTextfechaInst"
+                            android:editable="false"
+                             />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="2"
                             android:text="@string/lecturaInst"
                             android:padding="10dp"
                             android:textStyle="bold"
                             android:textSize="@dimen/titulop"
                             android:id="@+id/txtlecturaInst"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <EditText
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:textSize="@dimen/titulop"
+                            android:id="@+id/EditTextlecturaInst"
+                            android:editable="false"
+                             />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
                             android:text="@string/fechaDesinst"
                             android:padding="10dp"
                             android:textStyle="bold"
                             android:textSize="@dimen/titulop"
                             android:id="@+id/txtfechaDesinst"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <EditText
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:textSize="@dimen/titulop"
+                            android:id="@+id/EditTextfechaDesinst"
+                            android:editable="false"
+                             />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
                             android:text="@string/lecturaDesinst"
                             android:padding="10dp"
                             android:textStyle="bold"
                             android:textSize="@dimen/titulop"
                             android:id="@+id/txtlecturaDesinst"/>
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:paddingRight="10dp">
-
-
-
-
-
                         <EditText
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextMarca"
-                            android:editable="false"
-                            android:enabled="false" />
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextTipoMedidor"
-                            android:editable="false"
-                            android:enabled="false" />
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextTecnologia"
-                            android:editable="false"
-                            android:enabled="false" />
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextTension"
-                            android:editable="false"
-                            android:enabled="false" />
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextAmperaje"
-                            android:editable="false"
-                            android:enabled="false" />
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextFases"
-                            android:editable="false"
-                            android:enabled="false" />
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextHilos"
-                            android:editable="false"
-                            android:enabled="false" />
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextDigitos"
-                            android:editable="false"
-                            android:enabled="false" />
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextfechaInst"
-                            android:editable="false"
-                            android:enabled="false" />
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextlecturaInst"
-                            android:editable="false"
-                            android:enabled="false" />
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/titulop"
-                            android:id="@+id/EditTextfechaDesinst"
-                            android:editable="false"
-                            android:enabled="false" />
-
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
                             android:textSize="@dimen/titulop"
                             android:id="@+id/EditTextlecturaDesinst"
                             android:editable="false"
-                            android:enabled="false" />
+                             />
 
                     </LinearLayout>
 
