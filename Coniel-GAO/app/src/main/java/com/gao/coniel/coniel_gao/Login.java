@@ -59,12 +59,14 @@ public class Login extends Activity {
             Log.e("Error al Cargar Contratos: ",""+e);
         }
 
-
         spinnerLogin.setOnItemSelectedListener(contratoSeleccionado);
 
         btnInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                editName.setEnabled(false);
+                editPass.setEnabled(false);
+                btnInicio.setEnabled(false);
 
                 asyncLogin auth = new asyncLogin(
                         sfvTrack
@@ -155,7 +157,7 @@ public class Login extends Activity {
         private SurfaceView img;
         private String toast="Bienvenido(a) ";
         private String[] datos_de_Sesion=null;
-        GifRun w;
+        private GifRun w;
 
         private asyncLogin(SurfaceView imgCargando){
             img = imgCargando;
@@ -216,11 +218,23 @@ public class Login extends Activity {
                 t.show();
             }
             w.DestroyGiff(img);
+            btnInicio.setEnabled(true);
+            editName.setEnabled(true);
+            editPass.setEnabled(true);
         }
 
         @Override
         protected void onCancelled() {
             w.DestroyGiff(img);
+            Toast t = Toast.makeText(
+                    getApplicationContext(),
+                    toast,
+                    Toast.LENGTH_LONG
+            );
+            t.show();
+            btnInicio.setEnabled(true);
+            editName.setEnabled(true);
+            editPass.setEnabled(true);
         }
     }
 }

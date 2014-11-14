@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import clases.Abonado;
 import clases.Medidor;
+import gif.decoder.GifRun;
 import serviciosWeb.SW;
 import serviciosWeb.Tupla;
 
@@ -35,21 +37,16 @@ public class Buscar extends Fragment {
             new String[]{"Secuencia", "Cliente", "Nombredel Cliente", "Dirección", "Medidor", "Deuda"}
     } ;
 
-    String[] sesion=null;
+    private String[] sesion=null;
     private Spinner spinnerBuscar;
-    ListView listaCont, listaCabecera;
+    private ListView listaCont, listaCabecera;
     private TextView tvData;
-    View viewRows;
-
-    ArrayList<HashMap<String, String>> miLista, miListaCabecera;
-
-    ListAdapter adapterTitulo, adapter;
-
-    HashMap<String, String> map1, map2;
+    private Button btnBuscar;
+    private SurfaceView sfvTrack;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        
         View rootView = inflater.inflate(R.layout.activity_buscar, container, false);
 
         try{
@@ -58,32 +55,41 @@ public class Buscar extends Fragment {
             Log.e("Error al Cargar datos de sesion: ",""+e);
         }
 
-        viewRows = inflater.inflate(R.layout.rows, container, false);
-
+        View viewRows = inflater.inflate(R.layout.rows, container, false);
         spinnerBuscar = (Spinner) rootView.findViewById(R.id.spinnerBuscar);
         spinnerBuscar.setOnItemSelectedListener(myItemSelected);
         listaCabecera = (ListView) rootView.findViewById(R.id.listaCabecera);
         listaCont = (ListView) rootView.findViewById(R.id.listaContenido);
-        Button btnBuscar = (Button) rootView.findViewById(R.id.btnBuscarDatos);
+        btnBuscar = (Button) rootView.findViewById(R.id.btnBuscarDatos);
         tvData=(TextView) rootView.findViewById(R.id.datoBuscar);
+
+        sfvTrack = (SurfaceView) rootView.findViewById(R.id.cargandoB);
+        sfvTrack.setZOrderOnTop(true);
 
         btnBuscar.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
+                 Log.e(
+                     "Inicianda Búsqueda",
+                     "Dato: "+tvData.getText()+", por "+spinnerBuscar.getSelectedItem().toString()
+                 );
                  int pos = spinnerBuscar.getSelectedItemPosition() + 1;
-                 for (Fragment f:getActivity().getSupportFragmentManager().getFragments())
+                 if(validar(pos-1,getTvData().getText().toString())) {
+                     habilitarComponentes(false);
+
+                     for (Fragment f:getActivity().getSupportFragmentManager().getFragments())
                      try {
                          ((ContenedorBusqueda) f).reconstruirPager(pos-1);
-                     } catch (Exception ignored) {
-                     }
-                 Log.e((spinnerBuscar.getSelectedItemPosition() + 1) + "", "posi");
-                 asyncBuscar asb = new asyncBuscar();
-                 asb.execute(
-                         sesion[1],
-                         sesion[3],
-                         (pos) + "",
-                         getTvData().getText().toString()
-                 );
+                     } catch (Exception ignored) {}
+
+                     asyncBuscar asb = new asyncBuscar(sfvTrack);
+                     asb.execute(
+                             sesion[1],
+                             sesion[3],
+                             (pos) + "",
+                             getTvData().getText().toString()
+                     );
+                 }
              }
          }
         );
@@ -122,8 +128,8 @@ public class Buscar extends Fragment {
 
 
     public void rellenar(){
-        miLista = new ArrayList<HashMap<String, String>>();
-        miListaCabecera = new ArrayList<HashMap<String, String>>();
+        ArrayList<HashMap<String, String>> miLista = new ArrayList<HashMap<String, String>>();
+        ArrayList<HashMap<String, String>> miListaCabecera = new ArrayList<HashMap<String, String>>();
         int[][] ints = new int[][]{
                 new int[] {
                         R.id.textViewDato1, R.id.textViewDato2, R.id.textViewDato3, R.id.textViewDato4, R.id.textViewDato5
@@ -135,23 +141,23 @@ public class Buscar extends Fragment {
 
         /**********Display the headings************/
 
-        map1 = new HashMap<String, String>();
+        HashMap<String, String> map1 = new HashMap<String, String>();
 
-        map1.put(CABECERAS[t-1][0], CABECERAS[t-1][0]);
-        map1.put(CABECERAS[t-1][1], CABECERAS[t-1][1]);
-        map1.put(CABECERAS[t-1][2], CABECERAS[t-1][2]);
-        map1.put(CABECERAS[t-1][3], CABECERAS[t-1][3]);
-        map1.put(CABECERAS[t-1][4], CABECERAS[t-1][4]);
-        if (t==4) map1.put(CABECERAS[t-1][5], CABECERAS[t-1][5]);
+        map1.put(CABECERAS[t - 1][0], CABECERAS[t - 1][0]);
+        map1.put(CABECERAS[t - 1][1], CABECERAS[t - 1][1]);
+        map1.put(CABECERAS[t - 1][2], CABECERAS[t - 1][2]);
+        map1.put(CABECERAS[t - 1][3], CABECERAS[t - 1][3]);
+        map1.put(CABECERAS[t - 1][4], CABECERAS[t - 1][4]);
+        if (t==4) map1.put(CABECERAS[t - 1][5], CABECERAS[t - 1][5]);
 
         miListaCabecera.add(map1);
         try {
-            adapterTitulo = new SimpleAdapter(
+            ListAdapter adapterTitulo = new SimpleAdapter(
                     getActivity().getApplicationContext(),
                     miListaCabecera,
                     R.layout.rows,
-                    CABECERAS[t-1],
-                    t==4?ints[1]:ints[0]
+                    CABECERAS[t - 1],
+                    t == 4 ? ints[1] : ints[0]
             );
             listaCabecera.setAdapter(adapterTitulo);
         }
@@ -164,7 +170,7 @@ public class Buscar extends Fragment {
         /**********Display the contents************/
 
         for (Abonado cliente : getClientes()) {
-            map2 = new HashMap<String, String>();
+            HashMap<String, String> map2 = new HashMap<String, String>();
             switch (t) {
                 case 1:
                     map2.put(CABECERAS[t - 1][0], cliente.getCuenta() + "");
@@ -202,11 +208,11 @@ public class Buscar extends Fragment {
         }
 
         try {
-            adapter = new SimpleAdapter(
+            ListAdapter adapter = new SimpleAdapter(
                     getActivity().getApplicationContext(),
                     miLista,
                     R.layout.rows,
-                    CABECERAS[t-1], t==4?ints[1]:ints[0]
+                    CABECERAS[t - 1], t == 4 ? ints[1] : ints[0]
             );
             listaCont.setAdapter(adapter);
         } catch (Exception e) {
@@ -225,8 +231,21 @@ public class Buscar extends Fragment {
     //EN SEGUNDO PLANO
     private class asyncBuscar extends AsyncTask<String, Float, Integer> {
 
-        String toast=null;
-        int tipo =0;
+        private String toast=null;
+        private int tipo =0;
+        private SurfaceView img;
+        private GifRun w;
+
+        public asyncBuscar(SurfaceView sfvTrack) {
+            img = sfvTrack;
+            w=new GifRun();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            w.LoadGiff(img, getActivity().getApplicationContext(), R.drawable.gifload);
+        }
 
         @Override
         protected Integer doInBackground(String... params) {
@@ -362,10 +381,10 @@ public class Buscar extends Fragment {
         protected void onPostExecute(Integer integer) {
             super.onPostExecute(integer);
             //Rellenando coincidencias
-
             t=tipo;
             rellenar();
-
+            w.DestroyGiff(img);
+            habilitarComponentes(true);
         }
 
         @Override
@@ -376,6 +395,8 @@ public class Buscar extends Fragment {
                     Toast.LENGTH_SHORT
             );
             t.show();
+            w.DestroyGiff(img);
+            habilitarComponentes(true);
         }
     }
 
@@ -384,6 +405,78 @@ public class Buscar extends Fragment {
             spinnerBuscar.setSelection(pos);
     }
 
+
+    private void habilitarComponentes(Boolean h){
+        btnBuscar.setEnabled(h);
+        spinnerBuscar.setEnabled(h);
+        tvData.setEnabled(h);
+    }
+
+    private boolean validar(int tipo, String dato){
+
+        String t = null;
+        switch (tipo){
+            case 0:
+                if(dato.isEmpty() || !isNumeric(dato) || dato.length()>8) {
+                    t = "Error, Cuenta ingresada no válida";
+                }
+                break;
+
+            case 1:
+                if (dato.isEmpty() || !isNumeric(dato) || dato.length() > 11) {
+                    t="Error, Número de medidor ingresado no válido.";
+                }
+                break;
+
+            case 2:
+                if (isNumeric(dato) || dato.length()>17) {
+                    t="Error, Nombre ingresado no válido.";
+                }
+                break;
+
+            case 3:
+                String[] sp = dato.split("\\.");
+                if (sp.length != 5
+                        || (!isNumeric(sp[0]))
+                        || (!isNumeric(sp[1]))
+                        || (!isNumeric(sp[2]))
+                        || (!isNumeric(sp[3]))
+                        || (!isNumeric(sp[4])))
+
+                t="Error, Geocódigo incorrecto.";
+
+                else if(sp[0].length() > 2 || sp[0].length() < 1
+                        || sp[1].length() > 2 || sp[1].length() < 1
+                        || sp[2].length() > 2 || sp[1].length() < 1
+                        || sp[3].length() > 3 || sp[1].length() < 1
+                        || sp[4].length() > 7 || sp[1].length() < 1)
+
+                t="Error, Geocódigo no válido.";
+                break;
+
+            default:
+                return false;
+
+        }
+        if(t!=null) {
+            (Toast.makeText(
+                    getActivity().getApplicationContext(),
+                    t,
+                    Toast.LENGTH_LONG
+            )).show();
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isNumeric(String cadena){
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe){
+            return false;
+        }
+    }
 
 }
 

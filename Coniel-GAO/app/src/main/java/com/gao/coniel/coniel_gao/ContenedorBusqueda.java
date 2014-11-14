@@ -206,4 +206,22 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
     }
 
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        ActionBar bar = getActivity().getActionBar();
+        bar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        bar.removeAllTabs();
+        bar.setTitle(R.string.title_activity_contenedor);
+        bar.setSubtitle(" Gestión de Actividades Operativas ");
+        try {
+            Contenedor c = ((Contenedor)getActivity());
+            c.getmDrawerList().setItemChecked(0, true);
+            c.getmDrawerList().setSelection(0);
+            c.setTitle(R.string.title_activity_contenedor);
+        }catch (Exception ignored){}
+
+        Log.i("Información", "Dtach de ContenedorBusqueda");
+    }
 }

@@ -34,14 +34,18 @@ public class MenuPrincipal extends Fragment {
         btnIngreso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment = new Buscar();
+                try {
+                    ((Contenedor)getActivity()).displayView(1);
+                }catch (Exception ignored){}
             }
         });
 
         btnBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment = new Buscar();
+                try {
+                    ((Contenedor)getActivity()).displayView(2);
+                }catch (Exception ignored){}
             }
         });
         return rootView;

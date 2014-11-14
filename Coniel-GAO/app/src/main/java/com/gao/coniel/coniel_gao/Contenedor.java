@@ -1,8 +1,5 @@
 package com.gao.coniel.coniel_gao;
 
-import android.app.ActionBar;
-
-import android.app.Activity;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
@@ -11,6 +8,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
@@ -26,52 +24,34 @@ import serviciosWeb.Tupla;
 public class Contenedor extends FragmentActivity {
     private DrawerLayout mDrawerLayout;;
     private ListView mDrawerList;
-    private ActionBar actionBar;
     private ActionBarDrawerToggle mDrawerToggle;
     private String[] sesion= new  String[0];
-
-    // nav drawer title
-    private CharSequence mDrawerTitle;
-
     // used to store app title
     private CharSequence mTitle;
-
     // slide menu items
     private String[] navMenuTitles;
-    private TypedArray navMenuIcons;
-
-    private ArrayList<NavigationDrawerFragment> navDrawerItems;
-    private NavigationDrawerListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getActionBar().setTitle("Coniel - GAO");
+        getActionBar().setSubtitle(" Gestión de Actividades Operativas ");
         setContentView(R.layout.activity_contenedor);
 
-        mTitle = mDrawerTitle = getTitle();
+        mTitle = getTitle();
 
         // load slide menu items
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
 
         // nav drawer icons from resources
-        navMenuIcons = getResources()
-                .obtainTypedArray(R.array.nav_drawer_icons);
-
+        TypedArray navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        setmDrawerList((ListView) findViewById(R.id.list_slidermenu));
+        ArrayList<NavigationDrawerFragment> navDrawerItems = new ArrayList<NavigationDrawerFragment>();
 
-        mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
-
-        navDrawerItems = new ArrayList<NavigationDrawerFragment>();
-
-
-        navDrawerItems.add(new NavigationDrawerFragment(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
-        navDrawerItems.add(new NavigationDrawerFragment(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
-        navDrawerItems.add(new NavigationDrawerFragment(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
-        navDrawerItems.add(new NavigationDrawerFragment(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
-        navDrawerItems.add(new NavigationDrawerFragment(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
-        navDrawerItems.add(new NavigationDrawerFragment(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
-        navDrawerItems.add(new NavigationDrawerFragment(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
-        navDrawerItems.add(new NavigationDrawerFragment(navMenuTitles[7], navMenuIcons.getResourceId(7, -1)));
+        for (int i=0;i<navMenuTitles.length;i++)
+            navDrawerItems.add(new NavigationDrawerFragment(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
 
         //Obtener datos de sesion
         try{
@@ -83,12 +63,14 @@ public class Contenedor extends FragmentActivity {
         // Recycle the typed array
         navMenuIcons.recycle();
 
-        mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
+        getmDrawerList().setOnItemClickListener(new SlideMenuClickListener());
 
         // setting the nav drawer list adapter
-        adapter = new NavigationDrawerListAdapter(getApplicationContext(),
-                navDrawerItems);
-        mDrawerList.setAdapter(adapter);
+        NavigationDrawerListAdapter adapter = new NavigationDrawerListAdapter(
+                getApplicationContext(),
+                navDrawerItems
+        );
+        getmDrawerList().setAdapter(adapter);
 
         // enabling action bar app icon and behaving it as toggle button
         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -106,7 +88,7 @@ public class Contenedor extends FragmentActivity {
             }
 
             public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(mDrawerTitle);
+                getActionBar().setTitle(navMenuTitles[0]);
                 // calling onPrepareOptionsMenu() to hide action bar icons
                 invalidateOptionsMenu();
             }
@@ -117,6 +99,26 @@ public class Contenedor extends FragmentActivity {
             // on first time display view for first nav item
             displayView(0);
         }
+
+        setTitle(R.string.title_activity_contenedor);
+
+
+        Log.i("Información", "Creada Activity Contenedor");
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("Información", "Continuando Activity Contenedor");
+    }
+
+    public ListView getmDrawerList() {
+        return mDrawerList;
+    }
+
+    public void setmDrawerList(ListView mDrawerList) {
+        this.mDrawerList = mDrawerList;
     }
 
     /**
@@ -132,7 +134,7 @@ public class Contenedor extends FragmentActivity {
         }
     }
 
-    private void displayView(int position) {
+    public void displayView(int position) {
         // update the main content by replacing fragments
         Fragment fragment = null;
 
@@ -142,7 +144,7 @@ public class Contenedor extends FragmentActivity {
                 break;
             case 1:
                 //fragment = new ContenedorBusqueda();
-                //break;
+                break;
             case 2:
                 fragment = new ContenedorBusqueda();
                 break;
@@ -160,13 +162,14 @@ public class Contenedor extends FragmentActivity {
 
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-            .replace(R.id.container, fragment).commit();
-            // update selected item and title, then close the drawer
-            mDrawerList.setItemChecked(position, true);
-            mDrawerList.setSelection(position);
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.container, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+            getmDrawerList().setItemChecked(position, true);
+            getmDrawerList().setSelection(position);
             setTitle(navMenuTitles[position]);
-            mDrawerLayout.closeDrawer(mDrawerList);
+            mDrawerLayout.closeDrawer(getmDrawerList());
             Log.e("Andrea", "Contenedor creado");
         }
 
@@ -251,4 +254,8 @@ public class Contenedor extends FragmentActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }
