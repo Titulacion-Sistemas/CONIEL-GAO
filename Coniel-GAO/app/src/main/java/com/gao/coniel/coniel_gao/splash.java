@@ -16,13 +16,14 @@ import org.ksoap2.serialization.SoapObject;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import clases.SessionManager;
 import serviciosWeb.SW;
 
 
 public class splash extends Activity {
 
     String[] contratos = new String[0];
-    private static final long SPLASH_SCREEN_DELAY = 5000;
+    private static final long SPLASH_SCREEN_DELAY = 4000;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the Menu; this adds items to the action bar if it is present.
@@ -45,27 +46,47 @@ public class splash extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Set portrait orientation
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // Hide title bar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_splash);
 
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                asyncContratos atc = new asyncContratos();
-                atc.execute();
-                finish();
-            }
-         };
+        if(!SessionManager.getManager(getApplicationContext()).getBooleanKey("Coniel-GAO")) {
+            TimerTask task = new TimerTask() {
+                @Override
+                public void run() {
+                    asyncContratos atc = new asyncContratos();
+                    atc.execute();
+                    finish();
+                }
+            };
 
-        // Simulate a long loading process on application startup.
-        Timer timer = new Timer();
-        timer.schedule(task, SPLASH_SCREEN_DELAY);
+            // Simulate a long loading process on application startup.
+            Timer timer = new Timer();
+            timer.schedule(task, SPLASH_SCREEN_DELAY);
+        }
+        else{
+            Intent intent = new Intent(splash.this , Contenedor.class);
+            //Guardar Sesion para evitar cierre
+            SessionManager s = SessionManager.getManager(getApplicationContext());
+            String [] datos_de_Sesion = {
+                    s.getBooleanKey("Coniel-GAO")+"",
+                    s.getStringKey(SessionManager.LOGIN_KEY),
+                    s.getStringKey(SessionManager.USER_KEY),
+                    s.getStringKey(SessionManager.SESSION_KEY),
+                    s.getStringKey(SessionManager.NAME_KEY)
+            };
+            intent.putExtra("user", datos_de_Sesion);
+            Toast.makeText(
+                    this,
+                    "Bienvenido de nuevo "+datos_de_Sesion[4],
+                    Toast.LENGTH_LONG
+            ).show();
+            finish();
+            startActivity(intent);
 
-        //finish();
+        }
     }
 
 

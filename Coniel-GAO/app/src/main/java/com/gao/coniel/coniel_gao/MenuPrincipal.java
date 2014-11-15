@@ -50,4 +50,10 @@ public class MenuPrincipal extends Fragment {
         });
         return rootView;
     }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        getActivity().finish();
+    }
 }

@@ -17,6 +17,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 import org.ksoap2.serialization.SoapPrimitive;
 import java.util.ArrayList;
+
+import clases.SessionManager;
 import serviciosWeb.SW;
 import serviciosWeb.Tupla;
 
@@ -239,6 +241,12 @@ public class Contenedor extends FragmentActivity {
         }
 
         private void cerrar(){
+            SessionManager.getManager(getApplicationContext())
+                    .saveKey("Coniel-GAO", false)
+                    .saveKey(SessionManager.LOGIN_KEY, "")
+                    .saveKey(SessionManager.USER_KEY, "")
+                    .saveKey(SessionManager.SESSION_KEY, "")
+                    .saveKey(SessionManager.NAME_KEY, "");
             finish();
         }
 

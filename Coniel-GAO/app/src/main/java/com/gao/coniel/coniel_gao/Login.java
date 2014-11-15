@@ -21,6 +21,8 @@ import android.widget.Toast;
 import org.ksoap2.serialization.SoapObject;
 import java.util.ArrayList;
 import java.util.List;
+
+import clases.SessionManager;
 import gif.decoder.GifRun;
 import serviciosWeb.SW;
 import serviciosWeb.Tupla;
@@ -203,6 +205,15 @@ public class Login extends Activity {
                     toast+=datos_de_Sesion[4];
                     Intent intent = new Intent(Login.this , Contenedor.class);
                     intent.putExtra("user", datos_de_Sesion);
+
+                    //Guardar Sesion para evitar cierre
+                    SessionManager.getManager(getApplicationContext())
+                            .saveKey("Coniel-GAO", true)
+                            .saveKey(SessionManager.LOGIN_KEY, datos_de_Sesion[1])
+                            .saveKey(SessionManager.USER_KEY, datos_de_Sesion[2])
+                            .saveKey(SessionManager.SESSION_KEY, datos_de_Sesion[3])
+                            .saveKey(SessionManager.NAME_KEY, datos_de_Sesion[4]);
+
                     startActivity(intent);
                     finish();
                 }
