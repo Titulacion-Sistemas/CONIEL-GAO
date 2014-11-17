@@ -1,4 +1,4 @@
-package serviciosWeb;
+package clases;
 /**
  * Created by Jhonsson on 25/10/2014.
  */

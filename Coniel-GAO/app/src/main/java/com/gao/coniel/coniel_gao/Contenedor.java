@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import clases.SessionManager;
 import serviciosWeb.SW;
-import serviciosWeb.Tupla;
+import clases.Tupla;
 
 
 public class Contenedor extends FragmentActivity {
@@ -234,15 +234,14 @@ public class Contenedor extends FragmentActivity {
         @Override
         protected void onPostExecute(Integer integer) {
             super.onPostExecute(integer);
-            if (integer == 0){
+
                 cerrar();
-            }
 
         }
 
         private void cerrar(){
             SessionManager.getManager(getApplicationContext())
-                    .saveKey("Coniel-GAO", false)
+                    .saveKey("Coniel-GAO", "")
                     .saveKey(SessionManager.LOGIN_KEY, "")
                     .saveKey(SessionManager.USER_KEY, "")
                     .saveKey(SessionManager.SESSION_KEY, "")
@@ -252,13 +251,14 @@ public class Contenedor extends FragmentActivity {
 
         @Override
         protected void onCancelled() {
+            cerrar();
             Toast t = Toast.makeText(
                     getApplicationContext(),
                     toast,
                     Toast.LENGTH_SHORT
             );
             t.show();
-            cerrar();
+
         }
     }
 

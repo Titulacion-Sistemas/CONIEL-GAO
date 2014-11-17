@@ -25,7 +25,7 @@ import java.util.List;
 import clases.SessionManager;
 import gif.decoder.GifRun;
 import serviciosWeb.SW;
-import serviciosWeb.Tupla;
+import clases.Tupla;
 
 public class Login extends Activity {
 

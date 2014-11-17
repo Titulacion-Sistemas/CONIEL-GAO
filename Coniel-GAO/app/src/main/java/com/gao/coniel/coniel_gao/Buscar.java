@@ -22,7 +22,7 @@ import clases.Abonado;
 import clases.Medidor;
 import gif.decoder.GifRun;
 import serviciosWeb.SW;
-import serviciosWeb.Tupla;
+import clases.Tupla;
 
 
 public class Buscar extends Fragment {
