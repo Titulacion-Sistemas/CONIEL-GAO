@@ -28,9 +28,6 @@ public class ContenedorBusqueda extends Fragment implements ActionBar.TabListene
     View rootView;
 
 
-    public ContenedorBusqueda(){}
-
-
     public View onCreateView (LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
 
         try{

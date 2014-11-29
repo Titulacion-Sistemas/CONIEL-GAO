@@ -1,5 +1,6 @@
 package com.gao.coniel.coniel_gao;
 
+import android.app.ActionBar;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
@@ -137,6 +138,13 @@ public class Contenedor extends FragmentActivity {
     }
 
     public void displayView(int position, Bundle arguments) {
+
+        ActionBar bar = getActionBar();
+        bar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        bar.removeAllTabs();
+        bar.setTitle(R.string.title_activity_contenedor);
+        bar.setSubtitle(" Gestión de Actividades Operativas ");
+
         // update the main content by replacing fragments
         Fragment fragment = null;
 
@@ -178,7 +186,8 @@ public class Contenedor extends FragmentActivity {
             transaction.commit();
             getmDrawerList().setItemChecked(position, true);
             getmDrawerList().setSelection(position);
-            setTitle(navMenuTitles[position]);
+            if(position<=6)
+                setTitle(navMenuTitles[position]);
             mDrawerLayout.closeDrawer(getmDrawerList());
             Log.e("Andrea", "Contenedor creado");
         }

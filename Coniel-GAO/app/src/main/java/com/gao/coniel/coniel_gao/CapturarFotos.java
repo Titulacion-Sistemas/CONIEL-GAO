@@ -1,5 +1,6 @@
 package com.gao.coniel.coniel_gao;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -47,11 +49,16 @@ public class CapturarFotos extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        Log.i("Info","Pasando por onCreate de CapturarFotos");
+
         rootView = inflater.inflate(R.layout.activity_capturar_fotos, container, false);
 
         //Captura de datos enviados de la actividad anterior
        final String fecha = getArguments().getString("fecha"); //getIntent().getStringExtra("fecha");
 
+        getActivity().getActionBar().setTitle(fecha);
+        getActivity().getActionBar().setSubtitle("Fotos tomadas esta fecha...");
 
         listaGaleriaCuenta = (ListView)rootView.findViewById(R.id.lvCuentasGaleria);
 
@@ -117,9 +124,11 @@ public class CapturarFotos extends Fragment {
                 i.putExtra("ruta", lg.itemCuenta.get(position));
                 startActivity(i);*/
 
+
                 Bundle parametro = new Bundle();
                 parametro.putString("ruta",lg.itemCuenta.get(position));
                 ((Contenedor) getActivity()).displayView(9, parametro);
+              //  finish();
 
             }
         });
@@ -287,6 +296,7 @@ public class CapturarFotos extends Fragment {
     void ListDir(File directorio){
         File[] files = ordenarPrFecha(directorio.listFiles());
         Log.i("Informacion", "valor files" +files);
+        fileList.clear();
         for (File file : files) {
             fileList.add(file.getPath());
         }
@@ -307,5 +317,17 @@ public class CapturarFotos extends Fragment {
             return sortedByDate;
         }
         return sortedByDate;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        ActionBar bar = getActivity().getActionBar();
+        bar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        bar.setTitle("Fotos");
+        bar.setSubtitle(" Gestión de Actividades Operativas ");
+
+        Log.i("Información", "Dtach de Capturar Fotos");
     }
 }

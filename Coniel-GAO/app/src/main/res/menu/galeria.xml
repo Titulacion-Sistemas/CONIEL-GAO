@@ -11,7 +11,7 @@
     <item
         android:id="@+id/menu_geo"
         android:showAsAction="ifRoom"
-        android:icon="@drawable/ic_action_location"
+        android:icon="@drawable/ic_action_location2"
         android:title= "@string/textactualizargeo"/>
 
     <item
