@@ -51,6 +51,20 @@
     <string name="lecturaInst">Lectura/Inst.</string>
     <string name="fechaDesinst">Fecha/Desinst.</string>
     <string name="lecturaDesinst">Lectura/Desinst.</string>
+    <string name="strTomaFoto">Capturar</string>
+    <string name="title_activity_my">MyActivity</string>
+    <string name="titulo">Ingrese los Datos</string>
+    <string name="dato">Cuenta</string>
+    <string name="textoBoton2">Borrar</string>
+    <string name="textoBoton">Nuevo</string>
+    <string name="tituloApp"> Fotos de Campo </string>
+    <string name="title_activity_lista_galeria_diaria">ListaGaleriaDiaria</string>
+    <string name="title_activity_principal">Control de Fotos de Campo</string>
+    <string name="title_activity_cuentas">Cuentas</string>
+    <string name="title_activity_galeria">Galeria</string>
+    <string name="textibtnagregar">Agregar</string>
+    <string name="textobtnEliminar">Eliminar</string>
+    <string name="textactualizargeo">Cambiar Ubicación</string>
 
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
@@ -92,6 +106,7 @@
     <string name="title_activity_busqueda_datos_abonado">BusquedaDatosAbonado</string>
     <string name="title_activity_busqueda_datos_medidor">BusquedaDatosMedidor</string>
     <string name="title_activity_ingreso">Ingreso</string>
+    <string name="salir">Salir</string>
 
     <string-array name="spinnerbusqueda">
         <item>Cuenta</item>

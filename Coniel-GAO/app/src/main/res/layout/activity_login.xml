@@ -95,7 +95,8 @@
                             android:layout_height="wrap_content"
                             android:spinnerMode="dropdown"
                             android:layout_marginBottom="10dp"
-                            android:id="@+id/spinnerContrato"/>
+                            android:id="@+id/spinnerContrato"
+                          />
 
                         <LinearLayout
                             android:orientation="horizontal"

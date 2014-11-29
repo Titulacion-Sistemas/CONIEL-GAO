@@ -11,7 +11,7 @@ import android.widget.Button;
 public class MenuPrincipal extends Fragment {
     private String[] sesion = null;
     Fragment fragment;
-    Button btnIngreso, btnBuscar, btnChat, btnFotos, btnUbicacion, btnAjustes;
+    Button btnIngreso, btnBuscar, btnFotos, btnUbicacion, btnAjustes;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,7 +26,6 @@ public class MenuPrincipal extends Fragment {
 
         btnIngreso = (Button) rootView.findViewById(R.id.btnIngresar);
         btnBuscar = (Button) rootView.findViewById(R.id.btnBuscar);
-        btnChat = (Button) rootView.findViewById(R.id.btnChat);
         btnFotos = (Button) rootView.findViewById(R.id.btnFotos);
         btnUbicacion = (Button) rootView.findViewById(R.id.btnUbicacion);
         btnAjustes = (Button) rootView.findViewById(R.id.btnAjustes);
@@ -35,7 +34,7 @@ public class MenuPrincipal extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
-                    ((Contenedor)getActivity()).displayView(1);
+                    ((Contenedor)getActivity()).displayView(1, null);
                 }catch (Exception ignored){}
             }
         });
@@ -44,10 +43,21 @@ public class MenuPrincipal extends Fragment {
             @Override
             public void onClick(View v) {
                 try {
-                    ((Contenedor)getActivity()).displayView(2);
+                    ((Contenedor)getActivity()).displayView(2, null);
                 }catch (Exception ignored){}
             }
         });
+
+        btnFotos.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                try {
+                    ((Contenedor)getActivity()).displayView(3, null);
+                }catch (Exception ignored){}
+            }
+        });
+
         return rootView;
     }
 

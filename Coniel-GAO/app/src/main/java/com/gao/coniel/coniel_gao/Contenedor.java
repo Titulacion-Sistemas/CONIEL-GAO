@@ -99,7 +99,7 @@ public class Contenedor extends FragmentActivity {
 
         if (savedInstanceState == null) {
             // on first time display view for first nav item
-            displayView(0);
+            displayView(0, null);
         }
 
         setTitle(R.string.title_activity_contenedor);
@@ -132,11 +132,11 @@ public class Contenedor extends FragmentActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position,
                                 long id) {
             // display view for selected nav drawer item
-            displayView(position);
+            displayView(position, null);
         }
     }
 
-    public void displayView(int position) {
+    public void displayView(int position, Bundle arguments) {
         // update the main content by replacing fragments
         Fragment fragment = null;
 
@@ -150,9 +150,15 @@ public class Contenedor extends FragmentActivity {
             case 2:
                 fragment = new ContenedorBusqueda();
                 break;
-            /*case 2:
-                fragment = new Seccion3();
-                break;*/
+            case 3:
+                fragment = new Fotos();
+                break;
+            case 8:
+                fragment = new CapturarFotos();
+                break;
+            case 9:
+                fragment = new Galeria();
+                break;
             case 7:
                 asyncLogout acl = new asyncLogout();
                 acl.execute(sesion[1], sesion[2], sesion[3]);
@@ -165,6 +171,8 @@ public class Contenedor extends FragmentActivity {
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
+            if(arguments != null)
+                fragment.setArguments(arguments);
             transaction.replace(R.id.container, fragment);
             transaction.addToBackStack(null);
             transaction.commit();
