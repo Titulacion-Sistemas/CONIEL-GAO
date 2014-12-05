@@ -11,8 +11,8 @@ import clases.Tupla;
 public class SW {
 
     private String namespace = "serviciosWeb.views";
-    private String url="http://192.168.10.60/sw/";
-    //private String url="http://coniel.servehttp.com:8000/sw/";
+   // private String url="http://192.168.10.60/sw/";
+    private String url="http://coniel.servehttp.com:8000/sw/";
     //private String url="http://coniel.servehttp.com/sw/";
     private String soapAction = "";
     SoapObject request = null;

@@ -36,7 +36,8 @@
         </activity>
              <activity
             android:name=".Contenedor"
-            android:label="@string/title_activity_contenedor" >
+            android:label="@string/title_activity_contenedor"
+            android:configChanges="orientation|screenSize">
         </activity>
 
         <activity

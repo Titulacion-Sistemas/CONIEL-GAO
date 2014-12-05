@@ -66,7 +66,7 @@ public class Login extends Activity {
         btnInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-         /*       editName.setEnabled(false);
+               editName.setEnabled(false);
                 editPass.setEnabled(false);
                 btnInicio.setEnabled(false);
 
@@ -78,16 +78,16 @@ public class Login extends Activity {
                         editName.getText().toString(),
                         editPass.getText().toString(),
                         contratoActivo
-                );*/
+                );
 //esto comentar
-           if (editName.getText().toString().equals(name) && editPass.getText().toString().equals(pass)) {
+           /*if (editName.getText().toString().equals(name) && editPass.getText().toString().equals(pass)) {
                    Intent intent = new Intent(Login.this, Contenedor.class);
                     startActivity(intent);
                    finish();
               } else
               {
                  alerta("Nombre de Usuario o Contraseña incorrecta");
-              }
+              }*/
 
             }
 

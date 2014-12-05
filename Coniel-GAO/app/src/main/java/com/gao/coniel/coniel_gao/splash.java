@@ -23,7 +23,7 @@ import serviciosWeb.SW;
 public class splash extends Activity {
 
     String[] contratos = new String[0];
-    private static final long SPLASH_SCREEN_DELAY = 4000;
+    private static final long SPLASH_SCREEN_DELAY = 3000;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the Menu; this adds items to the action bar if it is present.
