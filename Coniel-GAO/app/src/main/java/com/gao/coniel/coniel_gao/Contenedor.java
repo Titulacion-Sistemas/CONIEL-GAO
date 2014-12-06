@@ -161,6 +161,9 @@ public class Contenedor extends FragmentActivity {
             case 3:
                 fragment = new Fotos();
                 break;
+            case 4:
+                fragment = new Geolocalizacion();
+                break;
             case 8:
                 fragment = new CapturarFotos();
                 break;

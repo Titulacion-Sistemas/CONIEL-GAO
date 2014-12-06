@@ -58,6 +58,15 @@ public class MenuPrincipal extends Fragment {
             }
         });
 
+        btnUbicacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    ((Contenedor)getActivity()).displayView(4, null);
+                }catch (Exception ignored){}
+            }
+        });
+
         return rootView;
     }
 
