@@ -23,11 +23,13 @@
                     android:orientation="horizontal"
                     android:layout_centerInParent="true">
 
+
                     <Spinner
                         android:layout_width="0dp"
                         android:layout_weight="0.2"
                         android:layout_height="wrap_content"
                         android:id="@+id/spinicio"
+                        android:layout_gravity="center"
                         android:dropDownSelector="@color/celeste"
                         android:spinnerMode="dropdown"/>
 
@@ -36,6 +38,7 @@
                         android:layout_weight="0.2"
                         android:layout_height="wrap_content"
                         android:id="@+id/spfin"
+                        android:layout_gravity="center"
                         android:dropDownSelector="@color/celeste"
                         android:spinnerMode="dropdown"/>
 
@@ -44,9 +47,9 @@
                         android:layout_width="0dp"
                         android:layout_weight="0.1"
                         android:layout_height="wrap_content"
-                        android:text="Ruta"
                         android:padding="10dp"
-                        android:layout_gravity="right"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:background="@drawable/ic_action_directions"/>
 
                 </LinearLayout>

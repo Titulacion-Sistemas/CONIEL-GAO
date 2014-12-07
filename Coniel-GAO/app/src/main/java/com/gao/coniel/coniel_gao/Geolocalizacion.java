@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ZoomControls;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -67,6 +68,7 @@ public class Geolocalizacion extends android.support.v4.app.Fragment {
 
             LatLng machala = new LatLng(-3.2587988, -79.9589356);
             map.setMyLocationEnabled(true);
+
 
 
             //SetOnClickListener Mapa La Mejor Ruta
@@ -142,9 +144,10 @@ public class Geolocalizacion extends android.support.v4.app.Fragment {
 
             CameraPosition cameraPosition = CameraPosition.builder()
                     .target(machala)
-                    .zoom(13)
+                    .zoom(15)
                     .bearing(90)
                     .build();
+
 
             // Animate the change in camera view over 2 seconds
             map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
@@ -323,7 +326,7 @@ public class Geolocalizacion extends android.support.v4.app.Fragment {
 
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
-                lineOptions.width(2);
+                lineOptions.width(3);
                 lineOptions.color(Color.RED);
             }
             txtDistancia.setText("Distancia: " +distancia);
