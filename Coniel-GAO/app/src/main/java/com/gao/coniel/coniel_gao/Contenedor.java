@@ -1,6 +1,7 @@
 package com.gao.coniel.coniel_gao;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
@@ -154,6 +155,9 @@ public class Contenedor extends FragmentActivity {
                 break;
             case 1:
                 //fragment = new ContenedorBusqueda();
+                Intent intent = new Intent(Contenedor.this, Ingreso.class);
+                startActivity(intent);
+
                 break;
             case 2:
                 fragment = new ContenedorBusqueda();
