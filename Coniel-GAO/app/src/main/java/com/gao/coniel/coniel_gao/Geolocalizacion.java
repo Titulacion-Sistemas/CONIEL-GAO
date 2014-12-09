@@ -12,12 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ZoomControls;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -49,7 +46,6 @@ public class Geolocalizacion extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         rootView = inflater.inflate(R.layout.activity_geolocalizacion, container, false);
         btnDraw = (Button) rootView.findViewById(R.id.btn_draw);
         txtDistancia = (TextView) rootView.findViewById(R.id.txt_distancia);
@@ -64,11 +60,11 @@ public class Geolocalizacion extends android.support.v4.app.Fragment {
                     .commit();*/
 
             // Get a handle to the Map Fragment
-            map = ((SupportMapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+            map = ((MapFragment) getActivity().getFragmentManager()
+                    .findFragmentById(R.id.map)).getMap();
 
             LatLng machala = new LatLng(-3.2587988, -79.9589356);
             map.setMyLocationEnabled(true);
-
 
 
             //SetOnClickListener Mapa La Mejor Ruta
