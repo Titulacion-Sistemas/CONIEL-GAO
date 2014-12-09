@@ -95,6 +95,7 @@ public class Login extends Activity {
     }
 
 
+
     public void alerta(String cadena) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setMessage(cadena);
