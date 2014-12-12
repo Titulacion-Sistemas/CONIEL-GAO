@@ -1,7 +1,6 @@
 package com.gao.coniel.coniel_gao;
 
 import android.app.ActionBar;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
@@ -17,15 +16,17 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import org.ksoap2.serialization.SoapPrimitive;
+
 import java.util.ArrayList;
 
 import clases.SessionManager;
-import serviciosWeb.SW;
 import clases.Tupla;
+import serviciosWeb.SW;
 
 
-public class Contenedor extends FragmentActivity {
+public class Contenedor extends FragmentActivity implements ListaPasos.OnPasoSelectedListener {
     private DrawerLayout mDrawerLayout;;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -110,6 +111,16 @@ public class Contenedor extends FragmentActivity {
         Log.i("Información", "Creada Activity Contenedor");
     }
 
+    public void OnPasoSelected(Fragment id) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.container, id);
+        //modifique era android.R.id.content
+        transaction.addToBackStack(null);
+        transaction.commit();
+
+    }
+
 
     @Override
     protected void onResume() {
@@ -154,10 +165,7 @@ public class Contenedor extends FragmentActivity {
                 fragment = new MenuPrincipal();
                 break;
             case 1:
-                //fragment = new ContenedorBusqueda();
-                Intent intent = new Intent(Contenedor.this, Ingreso.class);
-                startActivity(intent);
-
+                fragment = new ListaPasos();
                 break;
             case 2:
                 fragment = new ContenedorBusqueda();
@@ -174,7 +182,7 @@ public class Contenedor extends FragmentActivity {
             case 9:
                 fragment = new Galeria();
                 break;
-            case 7:
+            case 5:
                 asyncLogout acl = new asyncLogout();
                 acl.execute(sesion[1], sesion[2], sesion[3]);
                 return;

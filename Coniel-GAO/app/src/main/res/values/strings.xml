@@ -65,6 +65,36 @@
     <string name="textibtnagregar">Agregar</string>
     <string name="textobtnEliminar">Eliminar</string>
     <string name="textactualizargeo">Cambiar Ubicación</string>
+    <string name="tiposolicitud">Tipo de Solicitud</string>
+    <string name="fecha">Fecha</string>
+    <string name="hora">Hora</string>
+    <string name="instalador">Instalador</string>
+    <string name="cuadrilla">Cuadrilla</string>
+    <string name="enbodega">En bodega</string>
+    <string name="fabricainst">Fabrica</string>
+    <string name="serialins">Serial</string>
+    <string name="marca">Marca</string>
+    <string name="tipo">Tipo</string>
+    <string name="lectura">Lectura</string>
+    <string name="materialRed">Material de la Red</string>
+    <string name="formaConexion">Forma de Conexión</string>
+    <string name="estadoInstalacion">Estado de Instalación</string>
+    <string name="tipoConstruccion">Tipo de Construcción</string>
+    <string name="ubicaciónMedidor">Ubicación del Medidor</string>
+    <string name="tipoAcometida">Tipo de Acometida</string>
+    <string name="calibreRed">Calibre de Red</string>
+    <string name="usoEnergia">Uso de Energía</string>
+    <string name="claseRed">Clase de Red</string>
+    <string name="tipoServicio">Tipo de Servicio</string>
+    <string name="usoInmueble">Uso del Inmueble</string>
+    <string name="demando">Demanda</string>
+    <string name="nivel">Nivel Socioeconómico</string>
+    <string name="materiales">Materiales</string>
+    <string name="cant">Cantidad</string>
+    <string name="reubicacion">Reubicación</string>
+    <string name="contrastacion">Contrastación</string>
+    <string name="directo">Directo</string>
+    <string name="ubicacion">Ubicación</string>
 
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
@@ -95,11 +125,10 @@
         <item>@drawable/ic_action_place</item>
         <item>@drawable/ic_action_undo</item>
         <item>@drawable/ic_action_about</item>
-
     </array>
 
     <string name="title_activity_buscar">Buscar</string>
--   <string name="title_activity_contenedor_busqueda">ContenedorBusqueda</string>
+-                   <string name="title_activity_contenedor_busqueda">ContenedorBusqueda</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_busqueda_datos_abonado">BusquedaDatosAbonado</string>
     <string name="title_activity_busqueda_datos_medidor">BusquedaDatosMedidor</string>
@@ -113,7 +142,15 @@
         <item>Nombre</item>
         <item>Geocodigo</item>
     </string-array>
+    <string-array name="solicitudes">
+        <item>Cambio de Materiales</item>
+        <item>Cambio de Medidor</item>
+        <item>Servicio Nuevo</item>
+    </string-array>
 
-
+    <string name="title_activity_ingreso_actividad_instalador">IngresoActividadInstalador</string>
+    <string name="title_activity_ingreso_medidor_instalado">IngresoMedidorInstalado</string>
+    <string name="title_activity_ingreso_materiales">IngresoMateriales</string>
+    <string name="title_activity_ingresos_referencias">IngresosReferencias</string>
 
 </resources>

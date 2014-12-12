@@ -17,50 +17,62 @@
     <permission
         android:name="in.wptrafficanalyzer.locationdistancetimemapv2.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="in.wptrafficanalyzer.locationdistancetimemapv2.permission.MAPS_RECEIVE" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_app"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
-
+        android:theme="@style/AppTheme" >
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="5208000" />
-
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCE8D29ttljHoy3VpZBAhcOpVphhMQDGXY"/>
+            android:value="AIzaSyCE8D29ttljHoy3VpZBAhcOpVphhMQDGXY" />
 
         <activity
             android:name=".Login"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".splash"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-             <activity
+        <activity
             android:name=".Contenedor"
-            android:label="@string/title_activity_contenedor"
-            android:configChanges="orientation|screenSize">
+            android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_contenedor" >
         </activity>
-
         <activity
             android:name=".Ingreso"
             android:label="@string/title_activity_ingreso" >
         </activity>
-
+        <activity
+            android:name=".IngresoActividadInstalador"
+            android:label="@string/title_activity_ingreso_actividad_instalador" >
+        </activity>
+        <activity
+            android:name=".IngresoMedidorInstalado"
+            android:label="@string/title_activity_ingreso_medidor_instalado" >
+        </activity>
+        <activity
+            android:name=".IngresoMateriales"
+            android:label="@string/title_activity_ingreso_materiales" >
+        </activity>
+        <activity
+            android:name=".IngresosReferencias"
+            android:label="@string/title_activity_ingresos_referencias" >
+        </activity>
     </application>
 
 </manifest>
