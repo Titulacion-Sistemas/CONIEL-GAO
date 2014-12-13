@@ -30,12 +30,15 @@ public class IngresoActividadInstalador extends Fragment {
         spinerInstalador = (Spinner) view.findViewById(R.id.spinnerInstalador);
         spinerCuadrilla = (Spinner) view.findViewById(R.id.spinnerCuadrilla);
 
-
         SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
         String [] se = s.getStringKey("FECHA").split("/");
+        String [] st = s.getStringKey("HORA").split(":");
         fecha.updateDate(Integer.parseInt(se[2]),Integer.parseInt(se[1]), Integer.parseInt(se[0]));
-        //tiem
-       // Nombre.setText(s.getStringKey("NOMBRE"));
+        tiempo.setCurrentHour(Integer.parseInt(st[0]));
+        tiempo.setCurrentMinute(Integer.parseInt(st[1]));
+        spinerSolicitud.setSelection(Integer.parseInt(s.getStringKey("SOLICITUD")));
+        spinerInstalador.setSelection(Integer.parseInt(s.getStringKey("INSTALADOR")));
+        spinerCuadrilla.setSelection(Integer.parseInt(s.getStringKey("CUADRILLA")));
 
         return view;
     }
@@ -54,7 +57,7 @@ public class IngresoActividadInstalador extends Fragment {
         SessionManagerIngreso.getManager(getActivity().getApplicationContext())
                 .saveKey("Coniel-GAO", true)
                 .saveKey("FECHA", fecha.getDayOfMonth() + "/" + fecha.getMonth() + "/" + fecha.getYear())
-                .saveKey("TIEMPO", tiempo.getCurrentHour() + tiempo.getCurrentMinute())
+                .saveKey("TIEMPO", tiempo.getCurrentHour() + ":" + tiempo.getCurrentMinute())
                 .saveKey("SOLICITUD", spinerSolicitud.getSelectedItem().toString())
                 .saveKey("INSTALADOR", spinerInstalador.getSelectedItem().toString())
                 .saveKey("CUADRILLA", spinerCuadrilla.getSelectedItem().toString());

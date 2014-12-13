@@ -135,7 +135,7 @@
                         android:text=""
                         android:layout_width="wrap_content"
                         android:layout_height="100dp"
-                        android:id="@+id/edtCantidad"/>
+                        android:id="@+id/listMatAgregados"/>
 
                 </LinearLayout>
 
@@ -277,7 +277,7 @@
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/btnAgregar"
+                        android:id="@+id/btnAgregarSello"
                         android:background="@drawable/ic_action_new"
                         android:layout_gravity="center_vertical"/>
 
@@ -301,7 +301,7 @@
                         android:text=""
                         android:layout_width="wrap_content"
                         android:layout_height="100dp"
-                        android:id="@+id/edtCantidad"/>
+                        android:id="@+id/listaSellos"/>
 
                 </LinearLayout>
 
