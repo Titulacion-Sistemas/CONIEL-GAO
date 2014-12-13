@@ -28,7 +28,7 @@ public class IngresoMateriales extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_ingreso_detalle_instalacion, container, false);
+        View view = inflater.inflate(R.layout.activity_ingreso_materiales, container, false);
 
         spMedidores = (Spinner) view.findViewById(R.id.spinnerMedidores);
         edtCant = (EditText) view.findViewById(R.id.edtCantidad);
@@ -44,12 +44,14 @@ public class IngresoMateriales extends Fragment {
 
         //Guardar Variables de Sesion
         SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
-        spMaterialRed.setSelection(Integer.parseInt(s.getStringKey("MATERIALRED")));
-        spFormaConexion.setSelection(Integer.parseInt(s.getStringKey("FORMACONEXION")));
-        spEstadoInst.setSelection(Integer.parseInt(s.getStringKey("ESTADOINST")));
-        spTipoConst.setSelection(Integer.parseInt(s.getStringKey("TIPOCONST")));
-
-
+        spMedidores.setSelection(Integer.parseInt(s.getStringKey("MEDIDORES")));
+        edtCant.setText(s.getStringKey("CANTIDAD"));
+        checkDirecto.setChecked(s.getBooleanKey("CHECKDIRECTO"));
+        checkContrastacion.setChecked(s.getBooleanKey("CHECKCONTRASTACION"));
+        checkReubicacion.setChecked(s.getBooleanKey("CHECKREUBICACION"));
+        spSellos.setSelection(s.getIntKey("SELLOS"));
+        spUbicacionSello.setSelection(s.getIntKey("UBICACIONSELLO"));
+        //FALTA EL SET DE LA LISTA
         return view;
     }
 
@@ -63,12 +65,13 @@ public class IngresoMateriales extends Fragment {
                 .saveKey("Coniel-GAO", true)
                 .saveKey("MEDIDORES", spMedidores.getSelectedItem().toString())
                 .saveKey("CANTIDAD", edtCant.getText().toString())
-                .saveKey("LISTAMATERIALES", listaMat.get)
-                .saveKey("CHECKDIRECTO", spTipoConst.getSelectedItem().toString())
-                .saveKey("CHECKCONTRASTACION", spUbicacionMed.getSelectedItem().toString())
-                .saveKey("CHECKREUBICACION", spTipoAcometida.getSelectedItem().toString())
-                .saveKey("SELLOS", spCalibreRed.getSelectedItem().toString())
-                .saveKey("UBICACIONSELLO", spTipoServicio.getSelectedItem().toString())
-                .saveKey("LISTASELLO", spUsoInmueble.getSelectedItem().toString());
+                //.saveKey("LISTAMATERIALES", listaMat.get)
+                //.saveKey("LISTASELLOS", lista)
+                .saveKey("CHECKDIRECTO", checkDirecto.isChecked())
+                .saveKey("CHECKCONTRASTACION", checkContrastacion.isChecked())
+                .saveKey("CHECKREUBICACION", checkReubicacion.isChecked())
+                .saveKey("SELLOS",spSellos.getSelectedItemPosition())
+                .saveKey("UBICACIONSELLO", spUbicacionSello.getSelectedItemPosition());
+        //falta la lista
     }
 }

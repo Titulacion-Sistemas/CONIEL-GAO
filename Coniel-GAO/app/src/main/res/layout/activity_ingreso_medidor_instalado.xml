@@ -2,18 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.gao.coniel.coniel_gao.IngresoMedidorInstalado">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
         android:id="@+id/relative1">
 
         <TextView
@@ -30,41 +24,45 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="20dp"
         android:layout_below="@+id/relative1">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:id="@+id/rel1">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp">
+                android:padding="10dp"
+                android:id="@+id/rel1">
 
-                <TextView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:textStyle="bold"
-                    android:id="@+id/txtenBodega"
-                    android:text="@string/enbodega"
-                    android:textSize="@dimen/dato"
-                    android:layout_gravity="center"/>
+                    android:orientation="horizontal"
+                    android:padding="5dp">
 
-                <Spinner
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:id="@+id/spinnerMedidores"
-                    android:layout_gravity="center"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:id="@+id/txtenBodega"
+                        android:text="@string/enbodega"
+                        android:textSize="@dimen/dato"
+                        android:layout_gravity="center"/>
+
+                    <Spinner
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:id="@+id/spinnerMedidoresBodega"
+                        android:layout_gravity="center"/>
 
             </LinearLayout>
 
@@ -85,7 +83,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:textStyle="bold"
                     android:id="@+id/txtnumFabrica"
                     android:text="@string/fabricainst"
@@ -96,8 +94,9 @@
                     android:text=""
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:id="@+id/edtFabrica"/>
+                    android:layout_weight="2"
+                    android:id="@+id/edtFabricaBodega"
+                    android:singleLine="true"/>
 
             </LinearLayout>
 
@@ -118,7 +117,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:textStyle="bold"
                     android:id="@+id/txtnumSerie"
                     android:text="@string/serialins"
@@ -129,8 +128,9 @@
                     android:text=""
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:id="@+id/edtSerie"/>
+                    android:layout_weight="2"
+                    android:id="@+id/edtSerieBodega"
+                    android:singleLine="true"/>
 
             </LinearLayout>
 
@@ -151,7 +151,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:textStyle="bold"
                     android:id="@+id/txtMarca"
                     android:text="@string/marca"
@@ -162,8 +162,9 @@
                     android:text=""
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:id="@+id/edtMarca"/>
+                    android:layout_weight="2"
+                    android:id="@+id/edtMarcaBodega"
+                    android:singleLine="true"/>
 
             </LinearLayout>
 
@@ -184,7 +185,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:textStyle="bold"
                     android:id="@+id/txtTipo"
                     android:text="@string/tipo"
@@ -195,8 +196,9 @@
                     android:text=""
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:id="@+id/edtTipo"/>
+                    android:layout_weight="2"
+                    android:id="@+id/edtTipoBodega"
+                    android:singleLine="true"/>
 
             </LinearLayout>
 
@@ -217,7 +219,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:textStyle="bold"
                     android:id="@+id/txtLectura"
                     android:text="@string/lectura"
@@ -228,13 +230,14 @@
                     android:text=""
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:id="@+id/edtLectura"/>
+                    android:layout_weight="2"
+                    android:id="@+id/edtLecturaBodega"
+                    android:singleLine="true"/>
 
             </LinearLayout>
 
         </RelativeLayout>
 
     </LinearLayout>
-
+    </ScrollView>
 </RelativeLayout>

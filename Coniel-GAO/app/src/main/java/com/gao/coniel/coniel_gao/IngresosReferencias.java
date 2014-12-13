@@ -2,35 +2,58 @@ package com.gao.coniel.coniel_gao;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+
+import clases.SessionManagerIngreso;
 
 
-public class IngresosReferencias extends Activity {
+public class IngresosReferencias extends Fragment {
+
+    EditText edtFabricaRef, edtSerialRef, edtMarcaRef, edtCuentaRef;
+    Button btnBuscarRef;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ingresos_referencias);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_ingresos_referencias, container, false);
+
+        btnBuscarRef = (Button) view.findViewById(R.id.btnBuscarRef);
+        edtFabricaRef = (EditText) view.findViewById(R.id.edtFabricaRef);
+        edtSerialRef = (EditText) view.findViewById(R.id.edtSerialRef);
+        edtMarcaRef = (EditText) view.findViewById(R.id.edtMarcaRef);
+        edtCuentaRef = (EditText) view.findViewById(R.id.edtCuentaRef);
+
+        //Guardar Variables de Sesion
+        SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
+        edtFabricaRef.setText(s.getStringKey("FABRICAREF"));
+        edtSerialRef.setText(s.getStringKey("SERIALREF"));
+        edtMarcaRef.setText(s.getStringKey("MARCAREF"));
+        edtCuentaRef.setText(s.getStringKey("CUENTAREF"));
+
+        return view;
+    }
+
+    //El Fragment ha sido quitado de su Activity y ya no está disponible
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.i("Se ha ejecutado el ", "  ONSTOP");
+
+        //Guardar Sesion para evitar cierre
+        SessionManagerIngreso.getManager(getActivity().getApplicationContext())
+                .saveKey("Coniel-GAO", true)
+                .saveKey("FABRICAREF", edtFabricaRef.getText().toString())
+                .saveKey("SERIALREF", edtSerialRef.getText().toString())
+                .saveKey("MARCAREF", edtMarcaRef.getText().toString())
+                .saveKey("CUENTAREF", edtCuentaRef.getText().toString());
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.ingresos_referencias, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

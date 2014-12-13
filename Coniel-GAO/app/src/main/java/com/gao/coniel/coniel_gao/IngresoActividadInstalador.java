@@ -34,11 +34,12 @@ public class IngresoActividadInstalador extends Fragment {
         String [] se = s.getStringKey("FECHA").split("/");
         String [] st = s.getStringKey("HORA").split(":");
         fecha.updateDate(Integer.parseInt(se[2]),Integer.parseInt(se[1]), Integer.parseInt(se[0]));
+        Log.e("Fecha1", fecha.toString());
         tiempo.setCurrentHour(Integer.parseInt(st[0]));
         tiempo.setCurrentMinute(Integer.parseInt(st[1]));
-        spinerSolicitud.setSelection(Integer.parseInt(s.getStringKey("SOLICITUD")));
-        spinerInstalador.setSelection(Integer.parseInt(s.getStringKey("INSTALADOR")));
-        spinerCuadrilla.setSelection(Integer.parseInt(s.getStringKey("CUADRILLA")));
+        spinerSolicitud.setSelection(s.getIntKey("SOLICITUD"));
+        spinerInstalador.setSelection(s.getIntKey("INSTALADOR"));
+        spinerCuadrilla.setSelection(s.getIntKey("CUADRILLA"));
 
         return view;
     }
@@ -53,13 +54,17 @@ public class IngresoActividadInstalador extends Fragment {
     public void onStop(){
         super.onStop();
         Log.i("Se ha ejecutado el ", "  ONSTOP");
+
         //Guardar Sesion para evitar cierre
         SessionManagerIngreso.getManager(getActivity().getApplicationContext())
                 .saveKey("Coniel-GAO", true)
                 .saveKey("FECHA", fecha.getDayOfMonth() + "/" + fecha.getMonth() + "/" + fecha.getYear())
                 .saveKey("TIEMPO", tiempo.getCurrentHour() + ":" + tiempo.getCurrentMinute())
-                .saveKey("SOLICITUD", spinerSolicitud.getSelectedItem().toString())
-                .saveKey("INSTALADOR", spinerInstalador.getSelectedItem().toString())
-                .saveKey("CUADRILLA", spinerCuadrilla.getSelectedItem().toString());
+                .saveKey("SOLICITUD", spinerSolicitud.getSelectedItemPosition())
+                .saveKey("INSTALADOR", spinerInstalador.getSelectedItemPosition())
+                .saveKey("CUADRILLA", spinerCuadrilla.getSelectedItemPosition());
+
+        String fechaf = fecha.getDayOfMonth() + "/" + fecha.getMonth() + "/" + fecha.getYear();
+        Log.e("Fecha", fechaf);
     }
 }

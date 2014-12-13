@@ -12,7 +12,7 @@ import android.widget.Spinner;
 import clases.SessionManagerIngreso;
 
 
-public class IngresoDetalleInstalacion extends Fragment {
+public class IngresoDetalleInstalacion extends android.support.v4.app.Fragment {
 
     Spinner spMaterialRed, spFormaConexion, spEstadoInst, spTipoConst, spUbicacionMed,
             spTipoAcometida, spCalibreRed, spTipoServicio, spUsoInmueble, spDemanda,
@@ -36,17 +36,17 @@ public class IngresoDetalleInstalacion extends Fragment {
 
         //Guardar Variables de Sesion
         SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
-        spMaterialRed.setSelection(Integer.parseInt(s.getStringKey("MATERIALRED")));
-        spFormaConexion.setSelection(Integer.parseInt(s.getStringKey("FORMACONEXION")));
-        spEstadoInst.setSelection(Integer.parseInt(s.getStringKey("ESTADOINST")));
-        spTipoConst.setSelection(Integer.parseInt(s.getStringKey("TIPOCONST")));
-        spUbicacionMed.setSelection(Integer.parseInt(s.getStringKey("UBICACIONMED")));
-        spTipoAcometida.setSelection(Integer.parseInt(s.getStringKey("TIPOACOMETIDA")));
-        spCalibreRed.setSelection(Integer.parseInt(s.getStringKey("CALIBRERED")));
-        spTipoServicio.setSelection(Integer.parseInt(s.getStringKey("TIPOSERVICIO")));
-        spUsoInmueble.setSelection(Integer.parseInt(s.getStringKey("USOINMUEBLE")));
-        spDemanda.setSelection(Integer.parseInt(s.getStringKey("DEMANDA")));
-        spNivelSocioEconomico.setSelection(Integer.parseInt(s.getStringKey("NIVELSOCIO")));
+        spMaterialRed.setSelection(s.getIntKey("MATERIALRED"));
+        spFormaConexion.setSelection(s.getIntKey("FORMACONEXION"));
+        spEstadoInst.setSelection(s.getIntKey("ESTADOINST"));
+        spTipoConst.setSelection(s.getIntKey("TIPOCONST"));
+        spUbicacionMed.setSelection(s.getIntKey("UBICACIONMED"));
+        spTipoAcometida.setSelection(s.getIntKey("TIPOACOMETIDA"));
+        spCalibreRed.setSelection(s.getIntKey("CALIBRERED"));
+        spTipoServicio.setSelection(s.getIntKey("TIPOSERVICIO"));
+        spUsoInmueble.setSelection(s.getIntKey("USOINMUEBLE"));
+        spDemanda.setSelection(s.getIntKey("DEMANDA"));
+        spNivelSocioEconomico.setSelection(s.getIntKey("NIVELSOCIO"));
 
         return view;
     }
@@ -64,17 +64,17 @@ public class IngresoDetalleInstalacion extends Fragment {
         //Guardar Sesion para evitar cierre
         SessionManagerIngreso.getManager(getActivity().getApplicationContext())
                 .saveKey("Coniel-GAO", true)
-                .saveKey("MATERIALRED", spMaterialRed.getSelectedItem().toString())
-                .saveKey("FORMACONEXION", spFormaConexion.getSelectedItem().toString())
-                .saveKey("ESTADOINST", spEstadoInst.getSelectedItem().toString())
-                .saveKey("TIPOCONST", spTipoConst.getSelectedItem().toString())
-                .saveKey("UBICACIONMED", spUbicacionMed.getSelectedItem().toString())
-                .saveKey("TIPOACOMETIDA", spTipoAcometida.getSelectedItem().toString())
-                .saveKey("CALIBRERED", spCalibreRed.getSelectedItem().toString())
-                .saveKey("TIPOSERVICIO", spTipoServicio.getSelectedItem().toString())
-                .saveKey("USOINMUEBLE", spUsoInmueble.getSelectedItem().toString())
-                .saveKey("DEMANDA", spDemanda.getSelectedItem().toString())
-                .saveKey("NIVELSOCIO", spNivelSocioEconomico.getSelectedItem().toString());
+                .saveKey("MATERIALRED", spMaterialRed.getSelectedItemPosition())
+                .saveKey("FORMACONEXION", spFormaConexion.getSelectedItemPosition())
+                .saveKey("ESTADOINST", spEstadoInst.getSelectedItemPosition())
+                .saveKey("TIPOCONST", spTipoConst.getSelectedItemPosition())
+                .saveKey("UBICACIONMED", spUbicacionMed.getSelectedItemPosition())
+                .saveKey("TIPOACOMETIDA", spTipoAcometida.getSelectedItemPosition())
+                .saveKey("CALIBRERED", spCalibreRed.getSelectedItemPosition())
+                .saveKey("TIPOSERVICIO", spTipoServicio.getSelectedItemPosition())
+                .saveKey("USOINMUEBLE", spUsoInmueble.getSelectedItemPosition())
+                .saveKey("DEMANDA", spDemanda.getSelectedItemPosition())
+                .saveKey("NIVELSOCIO", spNivelSocioEconomico.getSelectedItemPosition());
     }
 
 }

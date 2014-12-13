@@ -62,7 +62,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2.5"
+                            android:layout_weight="2"
                             android:textStyle="bold"
                             android:id="@+id/txtnumFabrica"
                             android:text="@string/fabricainst"
@@ -74,13 +74,17 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            android:id="@+id/edtFabrica"
-                            android:hint="Nro. de Medidor de ref."/>
+                            android:id="@+id/edtFabricaRef"
+                            android:hint="Medidor de ref."
+                            android:linksClickable="false"
+                            android:singleLine="true" />
 
                         <Button
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/ic_action_search"/>
+                            android:layout_weight="1"
+                            android:background="@drawable/ic_action_search"
+                            android:id="@+id/btnBuscarRef"/>
 
                     </LinearLayout>
                 </RelativeLayout>
@@ -101,7 +105,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
+                            android:layout_weight="1"
                             android:textStyle="bold"
                             android:id="@+id/txtSerial"
                             android:text="@string/serialins"
@@ -112,8 +116,9 @@
                             android:text=""
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="3"
-                            android:id="@+id/edtSerial"/>
+                            android:layout_weight="2"
+                            android:id="@+id/edtSerialRef"
+                            android:singleLine="true"/>
 
 
                     </LinearLayout>
@@ -135,7 +140,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
+                            android:layout_weight="1"
                             android:textStyle="bold"
                             android:id="@+id/txtMarca"
                             android:text="@string/marca"
@@ -146,8 +151,9 @@
                             android:text=""
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="3"
-                            android:id="@+id/edtMarca"/>
+                            android:layout_weight="2"
+                            android:id="@+id/edtMarcaRef"
+                            android:singleLine="true"/>
 
                     </LinearLayout>
 
@@ -169,7 +175,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
+                            android:layout_weight="1"
                             android:textStyle="bold"
                             android:id="@+id/txtCuenta"
                             android:text="@string/cuenta"
@@ -180,8 +186,9 @@
                             android:text=""
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="3"
-                            android:id="@+id/edtMarca"/>
+                            android:layout_weight="2"
+                            android:id="@+id/edtCuentaRef"
+                            android:singleLine="true"/>
 
                     </LinearLayout>
 

@@ -1,102 +1,86 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.jhonsson.practicaparaiingreso.PasoDatosAbonado"
     android:orientation="vertical">
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/relative1">
 
-    <LinearLayout
+        <TextView
+            android:id="@+id/texto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:padding="10dp"
+            android:background="@android:color/holo_blue_light"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:text="Datos de Abonado"/>
+
+    </RelativeLayout>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_below="@+id/relative1">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:id="@+id/relative1">
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
-            <TextView
-                android:id="@+id/texto"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@android:color/white"
                 android:padding="10dp"
-                android:background="@android:color/holo_blue_light"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                android:text="Datos de Abonado"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:id="@+id/lay1" >
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="40dp"
-                android:paddingTop="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:id="@+id/txtcuenta"
-                    android:text="@string/cuenta"
-                    android:textSize="@dimen/dato"
-                    android:layout_centerVertical="true"/>
+                android:id="@+id/lay1">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/txtcuenta"
-                    android:id="@+id/layout1"
-                    android:paddingLeft="30dp">
+                    android:paddingTop="20dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textStyle="bold"
+                        android:id="@+id/txtcuenta"
+                        android:text="@string/cuenta"
+                        android:textSize="@dimen/dato"
+                        android:layout_centerVertical="true"/>
 
                     <EditText
                         android:text=""
-                        android:layout_width="200dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="3"
                         android:id="@+id/edtCuenta"
-                        android:hint="Buscar por Cta."/>
+                        android:hint="Buscar por Cta."
+                        android:singleLine="true"/>
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/btnBuscarDatos"
+                        android:textColor="#fefef0"
+                        android:padding="10dp"
+                        android:background="@drawable/ic_action_search"
+                        android:clickable="true"/>
 
                 </LinearLayout>
+            </RelativeLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_toRightOf="@+id/layout1"
-                    android:paddingLeft="15dp">
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btnBuscarDatos"
-                    style="@style/ButtonStilo"
-                    android:textColor="#fefef0"
-                    android:padding="10dp"
-                    android:drawableLeft="@drawable/ic_action_search"
-                    android:clickable="true"/>
-
-                </LinearLayout>
-            </LinearLayout>
-        </RelativeLayout>
-
-       <RelativeLayout
+            <RelativeLayout
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:layout_below="@+id/lay1"
@@ -104,79 +88,67 @@
                android:id="@+id/rel1">
 
                <LinearLayout
-                   android:layout_width="wrap_content"
+                   android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:layout_centerHorizontal="true">
 
                    <TextView
-                       android:layout_width="wrap_content"
+                       android:layout_width="0dp"
                        android:layout_height="wrap_content"
+                       android:layout_weight="1"
                        android:textStyle="bold"
                        android:id="@+id/txtCedula"
                        android:text="Cédula"
                        android:textSize="@dimen/dato"
                        android:layout_centerVertical="true"/>
 
-                   <LinearLayout
-                       android:layout_width="match_parent"
+                   <EditText
+                       android:text=""
+                       android:layout_width="0dp"
                        android:layout_height="wrap_content"
-                       android:orientation="vertical"
-                       android:id="@+id/lay2"
-                       android:paddingLeft="30dp"
-                       android:layout_toRightOf="@+id/txtCedula">
+                       android:layout_weight="2"
+                       android:id="@+id/edtCedula"
+                       android:singleLine="true"/>
 
-                        <EditText
-                            android:text=""
-                            android:layout_width="400dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/edtCedula"/>
-
-                   </LinearLayout>
                </LinearLayout>
-           </RelativeLayout>
+            </RelativeLayout>
 
-       <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rel1"
-            android:padding="10dp"
-            android:id="@+id/rel2">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:id="@+id/txtNombre"
-                    android:text="Nombres"
-                    android:textSize="@dimen/dato"
-                    android:layout_centerVertical="true"/>
+                android:layout_below="@+id/rel1"
+                android:padding="10dp"
+                android:id="@+id/rel2">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:id="@+id/lay3"
-                    android:paddingLeft="10dp"
-                    android:layout_toRightOf="@+id/txtNombre">
+                    android:layout_centerHorizontal="true">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:id="@+id/txtNombre"
+                        android:text="Nombres"
+                        android:textSize="@dimen/dato"
+                        android:layout_centerVertical="true"/>
 
                     <EditText
                         android:text=""
-                        android:layout_width="400dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="2"
                         android:id="@+id/edtNombre"
-                        android:hint="Buscar por Nombre"/>
+                        android:hint="Buscar por Nombre"
+                        android:singleLine="true"/>
 
                 </LinearLayout>
-            </LinearLayout>
 
-       </RelativeLayout>
+            </RelativeLayout>
 
-        <RelativeLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rel2"
@@ -184,38 +156,32 @@
                 android:id="@+id/rel3">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:textStyle="bold"
                         android:id="@+id/txtEstado"
                         android:text="Estado"
                         android:textSize="@dimen/dato"
                         android:layout_centerVertical="true"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <EditText
+                        android:text=""
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="30dp"
-                        android:orientation="horizontal"
-                        android:id="@+id/lay4"
-                        android:layout_toRightOf="@+id/txtEstado">
+                        android:layout_weight="2"
+                        android:id="@+id/edtEstado"
+                        android:singleLine="true"/>
 
-                        <EditText
-                            android:text=""
-                            android:layout_width="400dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/edtEstado"/>
-
-                    </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
 
-        <RelativeLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rel3"
@@ -223,39 +189,32 @@
                 android:id="@+id/rel4">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:textStyle="bold"
                         android:id="@+id/txtCelular"
                         android:text="Teléfono"
                         android:textSize="@dimen/dato"
                         android:layout_centerVertical="true"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <EditText
+                        android:text=""
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="10dp"
-                        android:orientation="vertical"
-                        android:id="@+id/lay5"
-                        android:layout_toRightOf="@+id/txtCelular">
-
-                        <EditText
-                            android:text=""
-                            android:layout_width="400dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/edtTelefono"
-                            android:hint="Teléfono de referencia"/>
-
-                    </LinearLayout>
+                        android:layout_weight="2"
+                        android:id="@+id/edtTelefono"
+                        android:hint="Teléfono de referencia"
+                        android:singleLine="true"/>
                 </LinearLayout>
             </RelativeLayout>
 
-        <RelativeLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rel4"
@@ -263,38 +222,33 @@
                 android:id="@+id/rel5">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:textStyle="bold"
                         android:id="@+id/txtLugar"
                         android:text="Lugar"
                         android:textSize="@dimen/dato"
                         android:layout_centerVertical="true"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <EditText
+                        android:text=""
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="40dp"
-                        android:orientation="vertical"
-                        android:id="@+id/lay6"
-                        android:layout_toRightOf="@+id/txtLugar">
+                        android:layout_weight="2"
+                        android:id="@+id/edtLugar"
+                        android:singleLine="true"/>
 
-                        <EditText
-                            android:text=""
-                            android:layout_width="400dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/edtLugar"/>
-
-                    </LinearLayout>
                 </LinearLayout>
+
             </RelativeLayout>
 
-        <RelativeLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rel5"
@@ -302,38 +256,32 @@
                 android:id="@+id/rel6">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:textStyle="bold"
                         android:id="@+id/txtCalle"
                         android:text="Calle"
                         android:textSize="@dimen/dato"
                         android:layout_centerVertical="true"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <EditText
+                        android:text=""
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="45dp"
-                        android:orientation="vertical"
-                        android:id="@+id/lay7"
-                        android:layout_toRightOf="@+id/txtCalle">
+                        android:layout_weight="2"
+                        android:id="@+id/edtCalle"
+                        android:singleLine="true"/>
 
-                        <EditText
-                            android:text=""
-                            android:layout_width="400dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/edtCalle"/>
-
-                    </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
 
-        <RelativeLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rel6"
@@ -341,238 +289,189 @@
                 android:id="@+id/rel7">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:textStyle="bold"
                         android:id="@+id/txtGeocodigo"
                         android:text="Geocódigo"
                         android:textSize="@dimen/dato"
                         android:layout_centerVertical="true"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <EditText
+                        android:text=""
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="5dp"
-                        android:orientation="vertical"
-                        android:id="@+id/lay8"
-                        android:layout_toRightOf="@+id/txtGeocodigo">
+                        android:layout_weight="2"
+                        android:id="@+id/edtGeocodigo"
+                        android:hint="Buscar por Geocódigo"
+                        android:singleLine="true"/>
 
-                        <EditText
-                            android:text=""
-                            android:layout_width="390dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/edtGeocodigo"
-                            android:hint="Buscar por Geocódigo"/>
+                </LinearLayout>
 
-                    </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/relative2">
+
+                <TextView
+                    android:id="@+id/texto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@android:color/white"
+                    android:padding="10dp"
+                    android:background="@android:color/holo_blue_light"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:text="Medidor (Revisado /Desconectado)"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rel7"
+                android:padding="10dp"
+                android:id="@+id/rel8">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:id="@+id/txtNumFabrica"
+                        android:text="Fábrica"
+                        android:textSize="@dimen/dato"
+                        android:layout_centerVertical="true"/>
+
+                    <EditText
+                        android:text=""
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:id="@+id/edtFabrica"
+                        android:hint="Buscar por Medidor"
+                        android:singleLine="true"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rel8"
+                android:padding="10dp"
+                android:id="@+id/rel9">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:id="@+id/txtSerial"
+                        android:text="Serial"
+                        android:textSize="@dimen/dato"
+                        android:layout_centerVertical="true"/>
+
+                    <EditText
+                        android:text=""
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:id="@+id/edtSerial"
+                        android:singleLine="true"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rel9"
+                android:padding="10dp"
+                android:id="@+id/rel10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:id="@+id/txtMarca"
+                        android:text="Marca"
+                        android:textSize="@dimen/dato"
+                        android:layout_centerVertical="true"/>
+
+                    <EditText
+                        android:text=""
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:id="@+id/edtMarca"
+                        android:singleLine="true"/>
+
                 </LinearLayout>
             </RelativeLayout>
 
-            <!--<LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/lay8"
-                android:orientation="vertical"
-                android:id="@+id/lay9"
-                android:layout_alignParentRight="true"
-                android:paddingTop="10dp">
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/ButtonStilo"
-                    android:textStyle="bold"
-                    android:text="Guardar"
-                    android:textColor="#fefef0"
-                    android:drawableLeft="@drawable/ic_action_save"
-                    android:textSize="20dp"
-                    android:padding="10dp"/>
-    </LinearLayout>-->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:id="@+id/relative2">
-
-            <TextView
-                android:id="@+id/texto"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@android:color/white"
+                android:layout_below="@+id/rel10"
                 android:padding="10dp"
-                android:background="@android:color/holo_blue_light"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                android:text="Medidor (Revisado /Desconectado)"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rel7"
-            android:padding="10dp"
-            android:id="@+id/rel8">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:id="@+id/txtNumFabrica"
-                    android:text="Fábrica"
-                    android:textSize="@dimen/dato"
-                    android:layout_centerVertical="true"/>
+                android:id="@+id/rel11">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:orientation="vertical"
-                    android:id="@+id/lay10"
-                    android:layout_toRightOf="@+id/txtNumFabrica">
+                    android:layout_centerHorizontal="true">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:id="@+id/txtLectura"
+                        android:text="Lectura"
+                        android:textSize="@dimen/dato"
+                        android:layout_centerVertical="true"/>
 
                     <EditText
                         android:text=""
-                        android:layout_width="400dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/edtFabrica"
-                        android:hint="Buscar por Medidor"/>
-
-                </LinearLayout>
-            </LinearLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rel8"
-            android:padding="10dp"
-            android:id="@+id/rel9">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:id="@+id/txtSerial"
-                    android:text="Serial"
-                    android:textSize="@dimen/dato"
-                    android:layout_centerVertical="true"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="40dp"
-                    android:orientation="vertical"
-                    android:id="@+id/lay11"
-                    android:layout_toRightOf="@+id/txtSerial">
-
-                    <EditText
-                        android:text=""
-                        android:layout_width="400dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/edtSerial"/>
-
-                </LinearLayout>
-            </LinearLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rel9"
-            android:padding="10dp"
-            android:id="@+id/rel10">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:id="@+id/txtMarca"
-                    android:text="Marca"
-                    android:textSize="@dimen/dato"
-                    android:layout_centerVertical="true"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="45dp"
-                    android:orientation="vertical"
-                    android:id="@+id/lay12"
-                    android:layout_toRightOf="@+id/txtMarca">
-
-                    <EditText
-                        android:text=""
-                        android:layout_width="400dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/edtMarca"/>
-
-                </LinearLayout>
-            </LinearLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rel10"
-            android:padding="10dp"
-            android:id="@+id/rel11">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:id="@+id/txtLectura"
-                    android:text="Lectura"
-                    android:textSize="@dimen/dato"
-                    android:layout_centerVertical="true"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="30dp"
-                    android:orientation="vertical"
-                    android:id="@+id/lay13"
-                    android:layout_toRightOf="@+id/txtLectura">
-
-                    <EditText
-                        android:text=""
-                        android:layout_width="400dp"
-                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
                         android:id="@+id/edtLectura"
-                        android:hint="Digite la Lectura del Medidor"/>
+                        android:hint="Digite la Lectura del Medidor"
+                        android:singleLine="true"/>
 
                 </LinearLayout>
-            </LinearLayout>
-        </RelativeLayout>
-    </LinearLayout>
-</ScrollView>
-</LinearLayout>
+            </RelativeLayout>
 
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

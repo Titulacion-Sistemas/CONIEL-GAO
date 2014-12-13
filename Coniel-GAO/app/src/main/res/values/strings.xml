@@ -39,7 +39,6 @@
     <string name="mesesDeuda">Meses Adeudados</string>
     <string name="numFabrica">Número de Fabrica</string>
     <string name="numSerie">Número de Serie</string>
-    <string name="marca">Marca</string>
     <string name="tipoMedidor">Tipo de Medidor</string>
     <string name="tecnologia">Tecnología</string>
     <string name="tensión">Tensión</string>

@@ -70,7 +70,8 @@
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/txtusuario"/>
+                            android:id="@+id/txtusuario"
+                            android:singleLine="true"/>
 
                         <TextView
                             android:layout_width="match_parent"
@@ -88,7 +89,8 @@
                             android:id="@+id/txtclave"
                             android:text="@string/txtcontrasenia"
                             android:fontFamily="@string/txtusuario"
-                            android:layout_marginBottom="24dp"/>
+                            android:layout_marginBottom="24dp"
+                            android:singleLine="true"/>
 
                         <Spinner
                             android:layout_width="match_parent"
