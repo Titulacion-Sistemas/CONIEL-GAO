@@ -42,7 +42,7 @@ public class IngresoMateriales extends Fragment {
         btnAgregarSello = (Button) view.findViewById(R.id.btnAgregarSello);
         listaSello = (ListView) view.findViewById(R.id.listaSellos);
 
-        //Guardar Variables de Sesion
+       /* //Guardar Variables de Sesion
         SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
         spMedidores.setSelection(Integer.parseInt(s.getStringKey("MEDIDORES")));
         edtCant.setText(s.getStringKey("CANTIDAD"));
@@ -50,7 +50,7 @@ public class IngresoMateriales extends Fragment {
         checkContrastacion.setChecked(s.getBooleanKey("CHECKCONTRASTACION"));
         checkReubicacion.setChecked(s.getBooleanKey("CHECKREUBICACION"));
         spSellos.setSelection(s.getIntKey("SELLOS"));
-        spUbicacionSello.setSelection(s.getIntKey("UBICACIONSELLO"));
+        spUbicacionSello.setSelection(s.getIntKey("UBICACIONSELLO"));*/
         //FALTA EL SET DE LA LISTA
         return view;
     }
@@ -60,7 +60,7 @@ public class IngresoMateriales extends Fragment {
     public void onStop(){
         super.onStop();
         Log.i("Se ha ejecutado el ", "  ONSTOP");
-        //Guardar Sesion para evitar cierre
+        /*//Guardar Sesion para evitar cierre
         SessionManagerIngreso.getManager(getActivity().getApplicationContext())
                 .saveKey("Coniel-GAO", true)
                 .saveKey("MEDIDORES", spMedidores.getSelectedItem().toString())
@@ -72,6 +72,6 @@ public class IngresoMateriales extends Fragment {
                 .saveKey("CHECKREUBICACION", checkReubicacion.isChecked())
                 .saveKey("SELLOS",spSellos.getSelectedItemPosition())
                 .saveKey("UBICACIONSELLO", spUbicacionSello.getSelectedItemPosition());
-        //falta la lista
+        //falta la lista*/
     }
 }

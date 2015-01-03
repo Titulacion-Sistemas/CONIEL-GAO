@@ -31,20 +31,20 @@ public class IngresoMedidorInstalado extends Fragment {
         edtTipoBodega = (EditText) view.findViewById(R.id.edtTipoBodega);
         edtLecturaBodega = (EditText) view.findViewById(R.id.edtLecturaBodega);
 
-        //Guardar Variables de Sesion
+       /* //Guardar Variables de Sesion
         SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
         spMedidoresBodega.setSelection(s.getIntKey("MEDIDORESBODEGA"));
         edtFabricaBodega.setText(s.getStringKey("NUMFABRICABODEGA"));
         edtSerieBodega.setText(s.getStringKey("SERIEBODEGA"));
         edtMarcaBodega.setText(s.getStringKey("MARCABODEGA"));
         edtTipoBodega.setText(s.getStringKey("TIPOBODEGA"));
-        edtLecturaBodega.setText(s.getStringKey("LECTURABODEGA"));
+        edtLecturaBodega.setText(s.getStringKey("LECTURABODEGA"));*/
 
         return view;
     }
 
     //El Fragment ha sido quitado de su Activity y ya no está disponible
-    @Override
+   /* @Override
     public void onStop(){
         super.onStop();
         Log.i("Se ha ejecutado el ", "  ONSTOP");
@@ -58,5 +58,5 @@ public class IngresoMedidorInstalado extends Fragment {
                 .saveKey("MARCABODEGA", edtMarcaBodega.getText().toString())
                 .saveKey("TIPOBODEGA", edtTipoBodega.getText().toString())
                 .saveKey("LECTURABODEGA",edtLecturaBodega.getText().toString());
-    }
+    }*/
 }

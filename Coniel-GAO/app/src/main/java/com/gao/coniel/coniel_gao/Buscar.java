@@ -70,7 +70,7 @@ public class Buscar extends Fragment {
              @Override
              public void onClick(View v) {
                  Log.e(
-                     "Inicianda Búsqueda",
+                     "Iniciando Búsqueda",
                      "Dato: "+tvData.getText()+", por "+spinnerBuscar.getSelectedItem().toString()
                  );
                  int pos = spinnerBuscar.getSelectedItemPosition() + 1;

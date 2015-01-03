@@ -30,13 +30,13 @@ public class IngresosReferencias extends Fragment {
         edtMarcaRef = (EditText) view.findViewById(R.id.edtMarcaRef);
         edtCuentaRef = (EditText) view.findViewById(R.id.edtCuentaRef);
 
-        //Guardar Variables de Sesion
+       /* //Guardar Variables de Sesion
         SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
         edtFabricaRef.setText(s.getStringKey("FABRICAREF"));
         edtSerialRef.setText(s.getStringKey("SERIALREF"));
         edtMarcaRef.setText(s.getStringKey("MARCAREF"));
         edtCuentaRef.setText(s.getStringKey("CUENTAREF"));
-
+*/
         return view;
     }
 
@@ -46,13 +46,13 @@ public class IngresosReferencias extends Fragment {
         super.onStop();
         Log.i("Se ha ejecutado el ", "  ONSTOP");
 
-        //Guardar Sesion para evitar cierre
+       /* //Guardar Sesion para evitar cierre
         SessionManagerIngreso.getManager(getActivity().getApplicationContext())
                 .saveKey("Coniel-GAO", true)
                 .saveKey("FABRICAREF", edtFabricaRef.getText().toString())
                 .saveKey("SERIALREF", edtSerialRef.getText().toString())
                 .saveKey("MARCAREF", edtMarcaRef.getText().toString())
-                .saveKey("CUENTAREF", edtCuentaRef.getText().toString());
+                .saveKey("CUENTAREF", edtCuentaRef.getText().toString());*/
     }
 
 
