@@ -37,7 +37,7 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
         lectura = (EditText) view.findViewById(R.id.edtLectura);
         btnBuscarDatos = (Button) view.findViewById(R.id.btnBuscarDatos);
 
-        /*/*//*//*Guardar Sesion para evitar cierre
+        //Guardar Sesion para evitar cierre
         SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
         cuenta.setText(s.getStringKey("CUENTA"));
         cedula.setText(s.getStringKey("CEDULA"));
@@ -50,7 +50,7 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
         fabrica.setText(s.getStringKey("FABRICA"));
         serial.setText(s.getStringKey("SERIAL"));
         marca.setText(s.getStringKey("MARCA"));
-        lectura.setText(s.getStringKey("LECTURA"));*/
+        lectura.setText(s.getStringKey("LECTURA"));
 
         return view;
     }
@@ -66,7 +66,7 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
         super.onStop();
         Log.i("Se ha ejecutado el ", "  ONSTOP");
         //Guardar Sesion para evitar cierre
-       /* SessionManagerIngreso.getManager(getActivity().getApplicationContext())
+       SessionManagerIngreso.getManager(getActivity().getApplicationContext())
                 .saveKey("Coniel-GAO", true)
                 .saveKey("CUENTA", cuenta.getText().toString())
                 .saveKey("CEDULA", cedula.getText().toString())
@@ -79,6 +79,6 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
                 .saveKey("FABRICA", fabrica.getText().toString())
                 .saveKey("SERIAL", serial.getText().toString())
                 .saveKey("MARCA", marca.getText().toString())
-                .saveKey("LECTURA", lectura.getText().toString());*/
+                .saveKey("LECTURA", lectura.getText().toString());
     }
 }
