@@ -165,7 +165,7 @@ public class Contenedor extends FragmentActivity implements ListaPasos.OnPasoSel
                 fragment = new MenuPrincipal();
                 break;
             case 1:
-                fragment = new ListaPasos();
+                //fragment = new ListaPasos();
                 break;
             case 2:
                 fragment = new ContenedorBusqueda();
@@ -174,7 +174,7 @@ public class Contenedor extends FragmentActivity implements ListaPasos.OnPasoSel
                 fragment = new Fotos();
                 break;
             case 4:
-                fragment = new Geolocalizacion();
+                //fragment = new Geolocalizacion();
                 break;
             case 8:
                 fragment = new CapturarFotos();

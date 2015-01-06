@@ -125,8 +125,6 @@ public class Buscar extends Fragment {
         this.clientes = clientes;
     }
 
-
-
     public void rellenar(){
         ArrayList<HashMap<String, String>> miLista = new ArrayList<HashMap<String, String>>();
         ArrayList<HashMap<String, String>> miListaCabecera = new ArrayList<HashMap<String, String>>();
