@@ -30,14 +30,14 @@ public class MenuPrincipal extends Fragment {
         btnUbicacion = (Button) rootView.findViewById(R.id.btnUbicacion);
         btnSalir = (Button) rootView.findViewById(R.id.btnSalir);
 
-      /*  btnIngreso.setOnClickListener(new View.OnClickListener() {
+        btnIngreso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
                     ((Contenedor)getActivity()).displayView(1, null);
                 }catch (Exception ignored){}
             }
-        });*/
+        });
 
         btnBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,14 +58,14 @@ public class MenuPrincipal extends Fragment {
             }
         });
 
-       /* btnUbicacion.setOnClickListener(new View.OnClickListener() {
+        btnUbicacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try{
                     ((Contenedor)getActivity()).displayView(4, null);
                 }catch (Exception ignored){}
             }
-        });*/
+        });
 
         btnSalir.setOnClickListener(new View.OnClickListener() {
             @Override
