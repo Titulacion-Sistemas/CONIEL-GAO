@@ -3,19 +3,16 @@ package com.gao.coniel.coniel_gao;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -28,7 +25,7 @@ import clases.SessionManagerIngreso;
 public class IngresoMateriales extends Fragment {
 
     Spinner spMedidores,spSellos, spUbicacionSello;
-    EditText edtCant;
+    NumberPicker edtCant;
     Button btnAgregar, btnAgregarSello;
     ListView listaMat, listaSello;
     CheckBox checkDirecto, checkReubicacion, checkContrastacion;
@@ -41,7 +38,10 @@ public class IngresoMateriales extends Fragment {
         View view = inflater.inflate(R.layout.activity_ingreso_materiales, container, false);
 
         spMedidores = (Spinner) view.findViewById(R.id.spinnerMedidores);
-        edtCant = (EditText) view.findViewById(R.id.edtCantidad);
+        edtCant = (NumberPicker) view.findViewById(R.id.edtCantidad);
+        edtCant.setMaxValue(100);
+        edtCant.setMinValue(1);
+        edtCant.setValue(1);
         btnAgregar = (Button) view.findViewById(R.id.btnAgregar);
         listaMat = (ListView) view.findViewById(R.id.listMatAgregados);
         checkDirecto = (CheckBox) view.findViewById(R.id.checkdirecto);
@@ -54,8 +54,14 @@ public class IngresoMateriales extends Fragment {
 
       //Guardar Variables de Sesion
         SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
-        spMedidores.setSelection(Integer.parseInt(s.getStringKey("MEDIDORES")));
-        edtCant.setText(s.getStringKey("CANTIDAD"));
+        String selection = s.getIntKey("MEDIDORES")+"";
+        if (!selection.equals("")){
+            spMedidores.setSelection(Integer.parseInt(selection));
+        }
+        try {
+            edtCant.setValue(s.getStringKey("CANTIDAD").equals("") ? 1 : Integer.parseInt(s.getStringKey("CANTIDAD")));
+        }catch (Exception ignored){}
+
         checkDirecto.setChecked(s.getBooleanKey("CHECKDIRECTO"));
         checkContrastacion.setChecked(s.getBooleanKey("CHECKCONTRASTACION"));
         checkReubicacion.setChecked(s.getBooleanKey("CHECKREUBICACION"));
@@ -128,18 +134,17 @@ public class IngresoMateriales extends Fragment {
     public void onStop(){
         super.onStop();
         Log.i("Se ha ejecutado el ", "  ONSTOP");
-        /*//Guardar Sesion para evitar cierre
-        SessionManagerIngreso.getManager(getActivity().getApplicationContext())
-                .saveKey("Coniel-GAO", true)
-                .saveKey("MEDIDORES", spMedidores.getSelectedItem().toString())
-                .saveKey("CANTIDAD", edtCant.getText().toString())
-                //.saveKey("LISTAMATERIALES", listaMat.get)
-                //.saveKey("LISTASELLOS", lista)
+
+        //Guardar variables
+        SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext())
+                .saveKey("MEDIDORES", spMedidores.getSelectedItemPosition())
+                .saveKey("CANTIDAD", edtCant.getValue()+"")
                 .saveKey("CHECKDIRECTO", checkDirecto.isChecked())
                 .saveKey("CHECKCONTRASTACION", checkContrastacion.isChecked())
-                .saveKey("CHECKREUBICACION", checkReubicacion.isChecked())
-                .saveKey("SELLOS",spSellos.getSelectedItemPosition())
-                .saveKey("UBICACIONSELLO", spUbicacionSello.getSelectedItemPosition());
-        //falta la lista*/
+                .saveKey("CHECKREUBICACION", checkReubicacion.isChecked());
+                //.saveKey("SELLOS", spSellos.getSelectedItemPosition());
+
+
+
     }
 }

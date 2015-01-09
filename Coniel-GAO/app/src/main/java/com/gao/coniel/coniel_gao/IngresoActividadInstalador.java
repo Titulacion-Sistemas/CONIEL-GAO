@@ -32,12 +32,18 @@ public class IngresoActividadInstalador extends Fragment {
 
         SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
         String [] se = s.getStringKey("FECHA").split("/");
+        if (se.length == 3){
+            Log.i("infoFecha", se.length+", "+se[2]+"/"+se[1]+"/"+se[0]);
+            fecha.updateDate(Integer.parseInt(se[2]),Integer.parseInt(se[1]), Integer.parseInt(se[0]));
+        }
+
         String [] st = s.getStringKey("HORA").split(":");
-//        fecha.updateDate(Integer.parseInt(se[2]),Integer.parseInt(se[1]), Integer.parseInt(se[0]));
-        fecha.updateDate(Integer.parseInt(se[2]),Integer.parseInt(se[1]), Integer.parseInt(se[0]));
-                Log.e("Fecha1", fecha.toString());
-        tiempo.setCurrentHour(Integer.parseInt(st[0]));
-        tiempo.setCurrentMinute(Integer.parseInt(st[1]));
+        if (st.length == 2){
+            Log.i("infoHora", st.length+", "+st[0]+":"+st[1]);
+            tiempo.setCurrentHour(Integer.parseInt(st[0]));
+            tiempo.setCurrentMinute(Integer.parseInt(st[1]));
+        }
+
         spinerSolicitud.setSelection(s.getIntKey("SOLICITUD"));
         spinerInstalador.setSelection(s.getIntKey("INSTALADOR"));
         spinerCuadrilla.setSelection(s.getIntKey("CUADRILLA"));
@@ -56,16 +62,13 @@ public class IngresoActividadInstalador extends Fragment {
         super.onStop();
         Log.i("Se ha ejecutado el ", "  ONSTOP");
 
-        //Guardar Sesion para evitar cierre
-     SessionManagerIngreso.getManager(getActivity().getApplicationContext())
+        //Guardar variables
+        SessionManagerIngreso.getManager(getActivity().getApplicationContext())
                 .saveKey("Coniel-GAO", true)
                 .saveKey("FECHA", fecha.getDayOfMonth() + "/" + fecha.getMonth() + "/" + fecha.getYear())
-                .saveKey("TIEMPO", tiempo.getCurrentHour() + ":" + tiempo.getCurrentMinute())
+                .saveKey("HORA", tiempo.getCurrentHour() + ":" + tiempo.getCurrentMinute())
                 .saveKey("SOLICITUD", spinerSolicitud.getSelectedItemPosition())
                 .saveKey("INSTALADOR", spinerInstalador.getSelectedItemPosition())
                 .saveKey("CUADRILLA", spinerCuadrilla.getSelectedItemPosition());
-
-        String fechaf = fecha.getDayOfMonth() + "/" + fecha.getMonth() + "/" + fecha.getYear();
-        Log.e("Fecha", fechaf);
     }
 }
