@@ -4,20 +4,20 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txtItemDes"/>
+        android:id="@+id/edtItemDes"/>
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txtSelloDes"/>
+        android:id="@+id/edtSelloDes"/>
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txtUbicacionDes"/>
+        android:id="@+id/edtUbicacionDes"/>
 
     <Button
         android:layout_width="wrap_content"

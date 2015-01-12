@@ -1,10 +1,18 @@
-package com.gao.coniel.coniel_gao;
+package clases;
 
 /**
  * Created by Andreita on 04/01/2015.
  */
-public class ContenidoMateriales {
+public class ContenidoSellos {
     String dato1, dato2, dato3;
+
+    public ContenidoSellos(String dato1, String dato2, String dato3){
+        super();
+        this.dato1 = dato1;
+        this.dato2 = dato2;
+        this.dato3 = dato3;
+
+    }
 
     public String getDato1() {
         return dato1;

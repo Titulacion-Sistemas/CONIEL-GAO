@@ -16,8 +16,8 @@ import android.widget.TextView;
 import com.danielme.tipsandroid.listviewheaders.model.Header;
 import com.danieme.tipsandroid.listviewheaders.R;*/
 
-import com.gao.coniel.coniel_gao.CabeceraMateriales;
-import com.gao.coniel.coniel_gao.ContenidoMateriales;
+import clases.CabeceraMateriales;
+import clases.ContenidoSellos;
 
 
 /**
@@ -77,7 +77,7 @@ public class CustomArrayAdapter extends ArrayAdapter<Object>
             {
                 holder = (Holder) convertView.getTag();
             }
-           ContenidoMateriales content = (ContenidoMateriales) getItem(position);
+           ContenidoSellos content = (ContenidoSellos) getItem(position);
             holder.getTextView1().setText(content.getDato1());
             holder.getTextView2().setText(content.getDato2());
             holder.getTextView3().setText(content.getDato3());

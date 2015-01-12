@@ -44,6 +44,7 @@
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -71,6 +72,10 @@
         <activity
             android:name=".IngresosReferencias"
             android:label="@string/title_activity_ingresos_referencias" >
+        </activity>
+        <activity
+            android:name=".ListaActividades"
+            android:label="@string/title_activity_lista_actividades" >
         </activity>
     </application>
 

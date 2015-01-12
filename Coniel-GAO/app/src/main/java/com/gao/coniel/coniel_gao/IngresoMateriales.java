@@ -1,24 +1,23 @@
 package com.gao.coniel.coniel_gao;
 
-import android.annotation.SuppressLint;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import clases.ContenidoMaterialesLista;
+import clases.ContenidoSellos;
+import clases.ListaContenidoSellosAdapter;
+import clases.ListaMaterialesAdapter;
 import clases.SessionManagerIngreso;
 
 
@@ -29,9 +28,13 @@ public class IngresoMateriales extends Fragment {
     Button btnAgregar, btnAgregarSello;
     ListView listaMat, listaSello;
     CheckBox checkDirecto, checkReubicacion, checkContrastacion;
-    private List<Object> dataset = getContent();
+    ListView listView, listViewMateriales;
+    ArrayList<ContenidoSellos> contenidoSellos;
+    ArrayList<ContenidoMaterialesLista> contenidoMaterialesLista;
 
-
+    // Creamos un adapter personalizado
+    ListaContenidoSellosAdapter adapter;
+    ListaMaterialesAdapter adapterMateriales;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,64 +73,32 @@ public class IngresoMateriales extends Fragment {
         //FALTA EL SET DE LA LISTA
 
 
-        listaSello.setAdapter(new CustomArrayAdapter(getActivity(), dataset));
+        //Lista Sellos
+        listView = (ListView) view.findViewById(R.id.listaSellos);
+        contenidoSellos = new ArrayList<ContenidoSellos>();
 
-        listaSello.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        // Al adapter personalizado le pasamos el contexto y la lista que contiene
+        // Añadimos el adapter al listview
+        adapter = new ListaContenidoSellosAdapter(getActivity(), contenidoSellos);
+        listView.setAdapter(adapter);
 
-            @SuppressLint("NewApi")
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Object item = dataset.get(position);
-                if (item instanceof CabeceraMateriales) {
-                    Toast.makeText(getActivity(), ((CabeceraMateriales) item).getTitulo1(), Toast.LENGTH_SHORT).show();
-                    // back to header, see
-                    // http://danielme.com/tip-android-17-listview-back-to-top-volver-al-inicio/
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-                        listaSello.setSelection(position);
-                    } else {
-                        listaSello.smoothScrollToPositionFromTop(position, 0, 300);
-                    }
-                } else {
-                    Toast.makeText(getActivity(), ((ContenidoMateriales) item).getDato1(), Toast.LENGTH_SHORT).show();
-                }
+        contenidoSellos.add(new ContenidoSellos("Andrea", "Loaiza", "Gonzaga"));
+        contenidoSellos.add(new ContenidoSellos("Boba", "Burra", "No sabe nada"));
 
-            }
-        });
+        //Lista Materiales
+        listViewMateriales = (ListView) view.findViewById(R.id.listMatAgregados);
+        contenidoMaterialesLista = new ArrayList<ContenidoMaterialesLista>();
 
+        // Al adapter personalizado le pasamos el contexto y la lista que contiene
+        // Añadimos el adapter al listview
+        adapterMateriales = new ListaMaterialesAdapter(getActivity(), contenidoMaterialesLista);
+        listViewMateriales.setAdapter(adapterMateriales);
+
+        contenidoMaterialesLista.add(new ContenidoMaterialesLista("Andrea", "Loaiza", "Gonzaga"));
+        contenidoMaterialesLista.add(new ContenidoMaterialesLista("Boba", "Burra", "No sabe nada"));
 
         return view;
     }
-
-    ////////
-
-    private List<Object> getContent()
-    {
-        List<Object> list = new ArrayList<Object>(60);
-        ContenidoMateriales content = null;
-        CabeceraMateriales header = null;
-        int j = 1;
-
-        for (int i = 0; i < 50; i++)
-        {
-            // set a new header or section every five rows
-            if (i % 5 == 0)
-            {
-                header = new CabeceraMateriales();
-                header.setTitulo1("Titulo Numero " + j);
-                j++;
-                list.add(header);
-            }
-
-            content = new ContenidoMateriales();
-            content.setDato1("Text 1-" + (i + 1));
-            content.setDato2("Text 2-" + (i + 1));
-            list.add(content);
-        }
-
-        return list;
-
-    }
-    /////
 
     //El Fragment ha sido quitado de su Activity y ya no está disponible
     @Override

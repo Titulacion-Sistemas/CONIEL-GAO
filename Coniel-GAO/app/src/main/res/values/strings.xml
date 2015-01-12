@@ -94,6 +94,14 @@
     <string name="contrastacion">Contrastación</string>
     <string name="directo">Directo</string>
     <string name="ubicacion">Ubicación</string>
+    <string name="cuentalista">Cta.</string>
+    <string name="nombrelista">Nombre</string>
+    <string name="tipolista">Solicitud</string>
+    <string name="numerolista">Medidor</string>
+    <string name="temalista">Actividades de Hoy</string>
+
+
+
 
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
@@ -127,7 +135,7 @@
     </array>
 
     <string name="title_activity_buscar">Buscar</string>
--                   <string name="title_activity_contenedor_busqueda">ContenedorBusqueda</string>
+-                       <string name="title_activity_contenedor_busqueda">ContenedorBusqueda</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_busqueda_datos_abonado">BusquedaDatosAbonado</string>
     <string name="title_activity_busqueda_datos_medidor">BusquedaDatosMedidor</string>
@@ -151,5 +159,6 @@
     <string name="title_activity_ingreso_medidor_instalado">IngresoMedidorInstalado</string>
     <string name="title_activity_ingreso_materiales">IngresoMateriales</string>
     <string name="title_activity_ingresos_referencias">IngresosReferencias</string>
+    <string name="title_activity_lista_actividades">ListaActividades</string>
 
 </resources>
