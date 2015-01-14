@@ -77,7 +77,7 @@ public class ListaPasos extends android.support.v4.app.Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //int ide = (int)id;
-                //listener.OnPasoSelected(fragmentos[position]);
+                listener.OnPasoSelected(new ListaActividades());
                 Log.e("Item seleccionado", "Lista de Actividades...");
             }
         });

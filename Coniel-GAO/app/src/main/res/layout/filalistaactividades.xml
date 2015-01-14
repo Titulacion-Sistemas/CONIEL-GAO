@@ -25,7 +25,8 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/edtCuentaLista"/>
+                    android:id="@+id/edtCuentaLista"
+                    android:editable="false" />
 
             </LinearLayout>
 
@@ -38,7 +39,8 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/edtNombreLista"/>
+                    android:id="@+id/edtNombreLista"
+                    android:editable="false" />
 
             </LinearLayout>
 
@@ -59,7 +61,8 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/edtSolicitudLista"/>
+                    android:id="@+id/edtSolicitudLista"
+                    android:editable="false" />
 
             </LinearLayout>
 
@@ -72,7 +75,8 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/edtMedidorLista"/>
+                    android:id="@+id/edtMedidorLista"
+                    android:editable="false" />
 
             </LinearLayout>
 

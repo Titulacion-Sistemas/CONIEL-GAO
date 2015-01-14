@@ -45,7 +45,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
+                    android:layout_margin="5dp"
                     android:id="@+id/rel2">
 
                     <LinearLayout
@@ -106,7 +106,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
-                            android:id="@+id/spinnerMedidores"
+                            android:id="@+id/spinnerMateriales"
                             android:layout_gravity="center"/>
 
                     </LinearLayout>
@@ -149,15 +149,17 @@
                                 android:clickable="true" />
 
 
-                            <Button
+                            <ImageButton
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
                                 android:id="@+id/btnAgregar"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:background="@drawable/ic_action_new"
+                                android:src="@drawable/ic_action_new"
+                                android:background="@drawable/border"
                                 android:clickable="true"
-                                android:enabled="true" />
+                                android:enabled="true"
+                                android:singleLine="true" />
 
                             </RelativeLayout>
 
@@ -283,12 +285,14 @@
                                 android:id="@+id/spinnerUbicacionSello"
                                 android:layout_gravity="center"/>
 
-                            <Button
+                            <ImageButton
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
                                 android:id="@+id/btnAgregarSello"
-                                android:background="@drawable/ic_action_new"
-                                android:layout_gravity="center_vertical"/>
+                                android:layout_gravity="center_vertical"
+                                android:background="@drawable/border"
+                                android:src="@drawable/ic_action_new"
+                                android:contentDescription="@drawable/ic_action_new" />
 
                         </LinearLayout>
 

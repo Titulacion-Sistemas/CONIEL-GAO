@@ -1,19 +1,18 @@
 package clases;
 
-/**
- * Created by Andreita on 09/01/2015.
- */
 public class ItemListaActividades {
-    private String cuenta, nombre, solicitud, medidor;
+    private String ide;
+    private String cuenta;
+    private String nombre;
+    private String solicitud;
+    private String medidor;
 
-    public ItemListaActividades(String cuenta, String nombre, String solicitud, String medidor) {
-
-        super();
+    public ItemListaActividades(String ide, String cuenta, String nombre, String solicitud, String medidor) {
+        this.ide=ide;
         this.cuenta = cuenta;
         this.nombre = nombre;
         this.solicitud = solicitud;
         this.medidor = medidor;
-
     }
 
     public String getCuenta() {
@@ -46,5 +45,13 @@ public class ItemListaActividades {
 
     public void setMedidor(String medidor) {
         this.medidor = medidor;
+    }
+
+    public String getIde() {
+        return ide;
+    }
+
+    public void setIde(String ide) {
+        this.ide = ide;
     }
 }

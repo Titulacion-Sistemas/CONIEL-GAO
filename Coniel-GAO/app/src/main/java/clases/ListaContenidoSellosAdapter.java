@@ -36,11 +36,11 @@ public class ListaContenidoSellosAdapter extends ArrayAdapter<ContenidoSellos> {
         ContenidoSellos c = contenidoSello.get(position);
 
         // Definimos los elementos que tiene nuestro layout
-        EditText numItem = (EditText) item.findViewById(R.id.edtItemDes);
+
         EditText sellos = (EditText) item.findViewById(R.id.edtSelloDes);
         EditText ubicacion = (EditText) item.findViewById(R.id.edtUbicacionDes);
 
-        numItem.setText(c.getDato1());
+
         sellos.setText(c.getDato2());
         ubicacion.setText(c.getDato3());
 

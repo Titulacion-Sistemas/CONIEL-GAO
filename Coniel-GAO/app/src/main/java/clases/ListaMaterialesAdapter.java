@@ -36,11 +36,11 @@ public class ListaMaterialesAdapter extends ArrayAdapter<ContenidoMaterialesList
         ContenidoMaterialesLista c = contenidoMaterialesLista.get(position);
 
         // Definimos los elementos que tiene nuestro layout
-        EditText numItem = (EditText) item.findViewById(R.id.edtItemDes);
+        //EditText numItem = (EditText) item.findViewById(R.id.edtItemDes);
         EditText descripcion = (EditText) item.findViewById(R.id.edtSelloDes);
         EditText cant = (EditText) item.findViewById(R.id.edtUbicacionDes);
 
-        numItem.setText(c.getItemMateriales());
+        //numItem.setText(c.getItemMateriales());
         descripcion.setText(c.getDescripcion());
         cant.setText(c.getCantidad());
         return (item);

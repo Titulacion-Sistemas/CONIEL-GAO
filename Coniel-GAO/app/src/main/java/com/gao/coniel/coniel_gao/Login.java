@@ -190,6 +190,7 @@ public class Login extends Activity {
                 for (int i=0 ; i<data.getPropertyCount() ; i++){
                     datos_de_Sesion[i]=""+data.getProperty(i);
                 }
+                SessionManager.getManager(getApplicationContext()).saveKey("contrato", params[2]);
             }catch (Exception e){
                 toast = "Error, No se ha podido Iniciar Sesion, Verifique su conexión a internet y vuelva a intentarlo";
                 this.cancel(true);

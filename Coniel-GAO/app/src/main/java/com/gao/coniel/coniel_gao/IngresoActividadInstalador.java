@@ -1,17 +1,25 @@
 package com.gao.coniel.coniel_gao;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
+import org.ksoap2.serialization.SoapObject;
+
+import java.util.ArrayList;
 
 import clases.SessionManagerIngreso;
+import serviciosWeb.SW;
 
 
 public class IngresoActividadInstalador extends Fragment {
@@ -29,6 +37,9 @@ public class IngresoActividadInstalador extends Fragment {
         spinerSolicitud = (Spinner) view.findViewById(R.id.spinnerSolicitud);
         spinerInstalador = (Spinner) view.findViewById(R.id.spinnerInstalador);
         spinerCuadrilla = (Spinner) view.findViewById(R.id.spinnerCuadrilla);
+
+        asyncLoad al = new asyncLoad();
+        al.execute();
 
         SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
         String [] se = s.getStringKey("FECHA").split("/");
@@ -71,4 +82,96 @@ public class IngresoActividadInstalador extends Fragment {
                 .saveKey("INSTALADOR", spinerInstalador.getSelectedItemPosition())
                 .saveKey("CUADRILLA", spinerCuadrilla.getSelectedItemPosition());
     }
+
+    // Metodo Agregar datos a Spinner
+    public void addDynamic(Spinner sp, ArrayList<String> dynamicList){
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, dynamicList);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp.setAdapter(dataAdapter);
+
+    }
+
+
+
+    //EN SEGUNDO PLANO
+    private class asyncLoad extends AsyncTask<String, Float, Object> {
+
+        String toast="";
+
+        @Override
+        protected Object doInBackground(String... params) {
+            SW acc = new SW("ingresos.wsdl", "ingresoActividadInstalador");
+            /*acc.asignarPropiedades(
+                    new Tupla[]{
+                            new Tupla<String, Object>("idUsuario", params[0]),
+                            new Tupla<String, Object>("contrato", params[1])
+                    }
+            );*/
+            Object r = acc.ajecutar();
+            try{
+                return r;
+            }catch (Exception e){
+                toast = "Error, No se pudo cargar los datos requeridos";
+                this.cancel(true);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object r) {
+            super.onPostExecute(r);
+
+            System.out.print(r);
+
+            SoapObject data = (SoapObject)r;
+            System.out.print(data);
+
+            ArrayList<String> instalador = new ArrayList<String>();
+            for (int j=0 ; j<((SoapObject)data.getProperty(0)).getPropertyCount() ; j++){
+                instalador.add(""+(((SoapObject)data.getProperty(0)).getProperty(j)));
+            }
+
+            try{
+                addDynamic(spinerInstalador, instalador);
+            }catch (Exception e){
+                Log.e("Error al Cargar Instaladores: ",""+e);
+            }
+
+            ArrayList<String> cuadrilla = new ArrayList<String>();
+            for (int j=0 ; j<((SoapObject)data.getProperty(1)).getPropertyCount() ; j++){
+                cuadrilla.add(""+(((SoapObject)data.getProperty(1)).getProperty(j)));
+            }
+
+            try{
+                addDynamic(spinerCuadrilla, cuadrilla);
+            }catch (Exception e){
+                Log.e("Error al Cargar Cuadrillas: ",""+e);
+            }
+
+            ArrayList<String> tSolicitud = new ArrayList<String>();
+            for (int j=0 ; j<((SoapObject)data.getProperty(2)).getPropertyCount() ; j++){
+                tSolicitud.add(""+(((SoapObject)data.getProperty(2)).getProperty(j)));
+            }
+
+            try{
+                addDynamic(spinerSolicitud, tSolicitud);
+            }catch (Exception e){
+                Log.e("Error al Cargar Tipos de Solicitud: ",""+e);
+            }
+
+        }
+
+        protected void onCancelled() {
+            Toast t = Toast.makeText(
+                    getActivity().getApplicationContext(),
+                    toast,
+                    Toast.LENGTH_SHORT
+            );
+            t.show();
+
+        }
+    }
+
 }

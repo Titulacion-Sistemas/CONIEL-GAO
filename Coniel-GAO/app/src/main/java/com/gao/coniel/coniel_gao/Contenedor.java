@@ -277,7 +277,8 @@ public class Contenedor extends FragmentActivity implements ListaPasos.OnPasoSel
                     .saveKey(SessionManager.LOGIN_KEY, "")
                     .saveKey(SessionManager.USER_KEY, "")
                     .saveKey(SessionManager.SESSION_KEY, "")
-                    .saveKey(SessionManager.NAME_KEY, "");
+                    .saveKey(SessionManager.NAME_KEY, "")
+                    .saveKey("contrato", "");
             finish();
         }
 
