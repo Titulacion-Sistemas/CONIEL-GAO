@@ -19,6 +19,7 @@ import org.ksoap2.serialization.SoapObject;
 import java.util.ArrayList;
 
 import clases.SessionManagerIngreso;
+import clases.Tupla;
 import serviciosWeb.SW;
 
 
@@ -40,24 +41,6 @@ public class IngresoActividadInstalador extends Fragment {
 
         asyncLoad al = new asyncLoad();
         al.execute();
-
-        SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
-        String [] se = s.getStringKey("FECHA").split("/");
-        if (se.length == 3){
-            Log.i("infoFecha", se.length+", "+se[2]+"/"+se[1]+"/"+se[0]);
-            fecha.updateDate(Integer.parseInt(se[2]),Integer.parseInt(se[1]), Integer.parseInt(se[0]));
-        }
-
-        String [] st = s.getStringKey("HORA").split(":");
-        if (st.length == 2){
-            Log.i("infoHora", st.length+", "+st[0]+":"+st[1]);
-            tiempo.setCurrentHour(Integer.parseInt(st[0]));
-            tiempo.setCurrentMinute(Integer.parseInt(st[1]));
-        }
-
-        spinerSolicitud.setSelection(s.getIntKey("SOLICITUD"));
-        spinerInstalador.setSelection(s.getIntKey("INSTALADOR"));
-        spinerCuadrilla.setSelection(s.getIntKey("CUADRILLA"));
 
       return view;
     }
@@ -160,6 +143,108 @@ public class IngresoActividadInstalador extends Fragment {
             }catch (Exception e){
                 Log.e("Error al Cargar Tipos de Solicitud: ",""+e);
             }
+
+            recuperar();
+
+        }
+
+        protected void onCancelled() {
+            Toast t = Toast.makeText(
+                    getActivity().getApplicationContext(),
+                    toast,
+                    Toast.LENGTH_SHORT
+            );
+            t.show();
+
+        }
+    }
+
+    private void recuperar() {
+
+        SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
+
+        if  ((s.getStringKey("IDACTIVIDADSELECCIONADA")+"").equals("")){
+
+            String[] se = s.getStringKey("FECHA").split("/");
+            if (se.length == 3) {
+                Log.i("infoFecha", se.length + ", " + se[2] + "/" + se[1] + "/" + se[0]);
+                fecha.updateDate(Integer.parseInt(se[2]), Integer.parseInt(se[1]), Integer.parseInt(se[0]));
+            }
+
+            String[] st = s.getStringKey("HORA").split(":");
+            if (st.length == 2) {
+                Log.i("infoHora", st.length + ", " + st[0] + ":" + st[1]);
+                tiempo.setCurrentHour(Integer.parseInt(st[0]));
+                tiempo.setCurrentMinute(Integer.parseInt(st[1]));
+            }
+
+            spinerSolicitud.setSelection(s.getIntKey("SOLICITUD"));
+            spinerInstalador.setSelection(s.getIntKey("INSTALADOR"));
+            spinerCuadrilla.setSelection(s.getIntKey("CUADRILLA"));
+
+        }
+        else {
+
+            asyncRecuperar ar = new asyncRecuperar();
+            ar.execute(s.getStringKey("IDACTIVIDADSELECCIONADA")+"");
+
+        }
+    }
+
+
+    //EN SEGUNDO PLANO
+    private class asyncRecuperar extends AsyncTask<String, Float, Object> {
+
+        String toast="";
+
+        @Override
+        protected Object doInBackground(String... params) {
+            SW acc = new SW("ingresos.wsdl", "ingresoActividadInstaladorActividadSeleccionada");
+            acc.asignarPropiedades(
+                    new Tupla[]{
+                            new Tupla<String, Object>("ide", params[0])
+                    }
+            );
+            Object r = acc.ajecutar();
+            try{
+                return r;
+            }catch (Exception e){
+                toast = "Error, No se pudo cargar los datos requeridos";
+                this.cancel(true);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object r) {
+            super.onPostExecute(r);
+
+            System.out.print(r);
+
+            SoapObject data = (SoapObject)r;
+            System.out.print(data);
+            Log.i("Fecha", data.getProperty(3).toString());
+            Log.i("Hora", data.getProperty(4).toString());
+            ArrayAdapter<String> ad = (ArrayAdapter<String>)spinerInstalador.getAdapter();
+            int pos = ad.getPosition(data.getProperty(0).toString());
+            spinerInstalador.setSelection(pos);
+
+            ad = (ArrayAdapter<String>)spinerCuadrilla.getAdapter();
+            pos = ad.getPosition(data.getProperty(1).toString());
+            spinerInstalador.setSelection(pos);
+
+            ad = (ArrayAdapter<String>)spinerSolicitud.getAdapter();
+            pos = ad.getPosition(data.getProperty(2).toString());
+            spinerSolicitud.setSelection(pos);
+
+            String[] se = data.getProperty(3).toString().split("-");
+            fecha.updateDate(Integer.parseInt(se[0]), Integer.parseInt(se[1])-1, Integer.parseInt(se[2]));
+
+            String[] st = data.getProperty(4).toString().split(":");
+            tiempo.setCurrentHour(Integer.parseInt(st[0]));
+            tiempo.setCurrentMinute(Integer.parseInt(st[1]));
+
 
         }
 

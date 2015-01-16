@@ -53,6 +53,12 @@ public class AdaptadorListaActividades extends ArrayAdapter<ItemListaActividades
             medidor.setTextSize(15);
         }
 
+        SessionManagerIngreso s = SessionManagerIngreso.getManager(context.getApplicationContext());
+
+        if  ((s.getStringKey("IDACTIVIDADSELECCIONADA")+"").equals(c.getIde())){
+            item.setBackgroundColor(Color.LTGRAY);
+        }
+
         cuenta.setText(c.getCuenta());
         nombre.setText(c.getNombre());
         solicitud.setText(c.getSolicitud());

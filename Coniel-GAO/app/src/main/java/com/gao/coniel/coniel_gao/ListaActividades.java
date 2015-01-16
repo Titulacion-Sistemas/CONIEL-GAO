@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import clases.AdaptadorListaActividades;
 import clases.ItemListaActividades;
 import clases.SessionManager;
+import clases.SessionManagerIngreso;
 import clases.Tupla;
 import serviciosWeb.SW;
 
@@ -97,18 +99,28 @@ public class ListaActividades extends android.support.v4.app.Fragment {
             // Añadimos el adapter al listview
             adapter = new AdaptadorListaActividades(getActivity(), listaActividades);
             listView.setAdapter(adapter);
-
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    SessionManagerIngreso.getManager(getActivity().getApplicationContext())
+                            .saveKey("IDACTIVIDADSELECCIONADA", listaActividades.get(position).getIde());
+                    Toast t = Toast.makeText(
+                        getActivity().getApplicationContext(),
+                        "Actividad Cargada...",
+                        Toast.LENGTH_SHORT
+                );
+                    t.show();
+                    adapter = new AdaptadorListaActividades(getActivity(), listaActividades);
+                    listView.setAdapter(adapter);
+                    return false;
+                }
+            });
 
         }
 
 
         protected void onCancelled() {
-            Toast t = Toast.makeText(
-                    getActivity().getApplicationContext(),
-                    toast,
-                    Toast.LENGTH_SHORT
-            );
-            t.show();
+
 
         }
     }

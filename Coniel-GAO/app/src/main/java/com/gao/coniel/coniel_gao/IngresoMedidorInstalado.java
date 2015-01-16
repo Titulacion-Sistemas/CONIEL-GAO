@@ -74,7 +74,6 @@ public class IngresoMedidorInstalado extends Fragment {
 
         //Guardar Sesion para evitar cierre
         SessionManagerIngreso.getManager(getActivity().getApplicationContext())
-                .saveKey("Coniel-GAO", true)
                 .saveKey("MEDIDORESBODEGA", spMedidoresBodega.getSelectedItemPosition())
                 .saveKey("NUMFABRICABODEGA", edtFabricaBodega.getText().toString())
                 .saveKey("SERIEBODEGA", edtSerieBodega.getText().toString())
