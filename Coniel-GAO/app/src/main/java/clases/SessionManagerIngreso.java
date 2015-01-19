@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 
 public class SessionManagerIngreso {
 
@@ -227,5 +229,117 @@ public class SessionManagerIngreso {
             Log.w(LOG_TAG, "The passed key is not part of the standars key-set. Consider use another one of the standar set");
         }
     }
+
+
+
+    public void borrarDatos(){
+        //ACTIVIDAD A REALIZAR - INSTALADOR ENCARGADO
+        saveKey("INSTALADOR",0);
+        saveKey("CUADRILLA", 0);
+        saveKey("SOLICITUD", 2);
+        saveKey("FECHA", "");
+        saveKey("HORA", "");
+
+        //DATOS ABONADOS
+        saveKey("CUENTA", "");
+        saveKey("CEDULA", "");
+        saveKey("NOMBRE", "");
+        saveKey("ESTADO", "");
+        saveKey("TELEFONO", "");
+        saveKey("LUGAR", "");
+        saveKey("CALLE", "");
+        saveKey("GEOCODIGO", "");
+        saveKey("FABRICA", "");
+        saveKey("SERIAL", "");
+        saveKey("MARCA", "");
+        saveKey("LECTURA", "");
+
+        //DETALLE DE INSTALACION
+        saveKey("MATERIALRED", 0);
+        saveKey("FORMACONEXION", 3);
+        saveKey("ESTADOINST", 0);
+        saveKey("TIPOCONST", 4);
+        saveKey("UBICACIONMED", 4);
+        saveKey("TIPOACOMETIDA", 1);
+        saveKey("CALIBRERED", 9);
+        saveKey("USOENERGIA", 0);
+        saveKey("CLASERED", 0);
+        saveKey("TIPOSERVICIO", 3);
+        saveKey("USOINMUEBLE", 3);
+        saveKey("DEMANDA", 0);
+        saveKey("NIVELSOCIO", 1);
+
+        //MATERIALES
+        saveKey("CHECKDIRECTO", false);
+        saveKey("CHECKCONTRASTACION", false);
+        saveKey("CHECKREUBICACION", false);
+
+        //MEDIDOR INSTALADO
+        saveKey("MEDIDORESBODEGA", 0);
+        saveKey("NUMFABRICABODEGA", "");
+        saveKey("SERIEBODEGA", "");
+        saveKey("MARCABODEGA", "");
+        saveKey("TIPOBODEGA", "");
+        saveKey("LECTURABODEGA","");
+
+        //REFERENCIA
+        saveKey("FABRICAREF", "");
+        saveKey("SERIALREF", "");
+        saveKey("MARCAREF", "");
+        saveKey("CUENTAREF", "");
+
+    }
+
+    public SessionManagerIngreso saveKey(String key, ArrayList<String []> value) {
+
+
+        ArrayList<String[]> variable = getListKey(key);
+        if (variable != null) {
+            for (int i = 0; i < variable.size(); i++) {
+                for (int j = 0; j < variable.get(i).length; j++) {
+                    edit.remove(key + "[" + i + "][" + j + "]");
+                }
+            }
+        }
+
+        if (value!=null){
+            edit = prefs.edit();
+            for (int i=0; i<value.size(); i++){
+                for(int j=0; j<value.get(i).length;j++){
+                    edit.putString(key + "[" + i + "][" + j + "]", value.get(i)[j]);
+                }
+            }
+            edit.commit();
+        }
+        return INSTANCE;
+
+    }
+
+    public ArrayList<String[]> getListKey(String key) {
+        ArrayList<String> var = new ArrayList<String>();
+        ArrayList<String[]> variable = new ArrayList<String[]>();
+        checkStandarKey(key);
+
+        if (!prefs.contains(key+"[0][0]")) {
+            Log.e(LOG_TAG, "The requested key does not exists in preferences");
+            return null;
+        }
+        int i=0, j=0;
+
+        while (prefs.contains(key+"["+i+"]["+0+"]"))
+        {
+            while(prefs.contains(key+"["+i+"]["+j+"]")){
+                var.add(getStringKey(key+"["+i+"]["+j+"]"));
+                j++;
+            }
+            variable.add((String[]) var.toArray());
+            i++;
+            j=0;
+        }
+        return variable;
+
+    }
+
+
 
 }

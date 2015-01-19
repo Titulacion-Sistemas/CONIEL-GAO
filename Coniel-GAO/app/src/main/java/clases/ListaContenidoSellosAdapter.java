@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.gao.coniel.coniel_gao.R;
 
@@ -26,7 +27,7 @@ public class ListaContenidoSellosAdapter extends ArrayAdapter<ContenidoSellos> {
 
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
+    public View getView(final int position, View convertView, final ViewGroup parent)
     {
 
         // Rescatamos cada item del listview y lo inflamos con nuestro layout
@@ -39,6 +40,16 @@ public class ListaContenidoSellosAdapter extends ArrayAdapter<ContenidoSellos> {
 
         EditText sellos = (EditText) item.findViewById(R.id.edtSelloDes);
         EditText ubicacion = (EditText) item.findViewById(R.id.edtUbicacionDes);
+        ImageButton btnQuitar = (ImageButton) item.findViewById(R.id.btnQuitar);
+
+        btnQuitar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contenidoSello.remove(position);
+                notifyDataSetChanged();
+                //context.findViewById()
+            }
+        });
 
 
         sellos.setText(c.getDato2());

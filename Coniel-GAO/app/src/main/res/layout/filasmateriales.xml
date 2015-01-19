@@ -2,7 +2,7 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="40dp">
+    android:layout_height="80dp">
 
 
 
@@ -10,8 +10,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
+        android:editable="false"
         android:layout_marginBottom="5dp"
-        android:id="@+id/edtSelloDes"/>
+        android:id="@+id/edtSelloDes"
+    />
 
     <EditText
         android:layout_width="wrap_content"
@@ -19,8 +21,10 @@
         android:id="@+id/edtUbicacionDes"
         android:layout_toEndOf="@+id/edtSelloDes"
         android:layout_alignParentTop="true"
+        android:editable="false"
         android:layout_marginBottom="5dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+    />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -29,8 +33,11 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:editable="false"
         android:src="@drawable/ic_action_discard"
         android:background="@drawable/border"
-         />
+    />
+
+
 
 </RelativeLayout>

@@ -84,13 +84,13 @@ public class Fotos extends Fragment {
             lista = (ListView) rootView.findViewById(R.id.listadeFechas);
             lista.setAdapter(adapter);
             //lfecha.add(String.valueOf(lista));
-           // setListAdapter(adapter);
+           // setListAdapter(adapterSellos);
             Log.e("Informacion SI", "adaptador " + adapter);
         }
         else {
             date.add(getDatePhone());
             ListaAdaptadorFechas adapter = new ListaAdaptadorFechas(getActivity().getApplicationContext(), date);
-           // setListAdapter(adapter);
+           // setListAdapter(adapterSellos);
             Log.e("Informacion NO", "adaptador " + adapter);
         }
     }

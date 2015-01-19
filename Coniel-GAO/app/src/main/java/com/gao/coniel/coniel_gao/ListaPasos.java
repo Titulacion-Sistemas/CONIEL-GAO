@@ -22,7 +22,7 @@ public class ListaPasos extends android.support.v4.app.Fragment {
     ListView listView, listViewActividades;
     ArrayList<Pasos> listaPasos;
 
-    // Creamos un adapter personalizado
+    // Creamos un adapterSellos personalizado
     ListaPasosAdapter adapter;
 
 
@@ -40,11 +40,11 @@ public class ListaPasos extends android.support.v4.app.Fragment {
         listViewActividades = (ListView) v.findViewById(R.id.listaActividades);
         //setListAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, valores));
         listaPasos = new ArrayList<Pasos>();
-        // Al adapter personalizado le pasamos el contexto y la lista que contiene
-        // Añadimos el adapter al listview
+        // Al adapterSellos personalizado le pasamos el contexto y la lista que contiene
+        // Añadimos el adapterSellos al listview
         adapter = new ListaPasosAdapter(getActivity(), listaPasos);
         listView.setAdapter(adapter);
-        //setListAdapter(adapter);
+        //setListAdapter(adapterSellos);
         listaPasos.add(new Pasos(getResources().getDrawable(R.drawable.ic_nueva), "Actividad a realizar - Instalador encargado", "Seleccionar la actividad a realizar e instalador encargado"));
         listaPasos.add(new Pasos(getResources().getDrawable(R.drawable.ic_usu_act), "Datos de Abonado", "Digitar o Consultar datos requeridos"));
         listaPasos.add(new Pasos(getResources().getDrawable(R.drawable.ic_detalle), "Detalle de Instalación", "Seleccionar o Digitar el detalle de la instalación"));
@@ -66,11 +66,11 @@ public class ListaPasos extends android.support.v4.app.Fragment {
 
 
         listaPasos = new ArrayList<Pasos>();
-        // Al adapter personalizado le pasamos el contexto y la lista que contiene
-        // Añadimos el adapter al listview
+        // Al adapterSellos personalizado le pasamos el contexto y la lista que contiene
+        // Añadimos el adapterSellos al listview
         adapter = new ListaPasosAdapter(getActivity(), listaPasos);
         listViewActividades.setAdapter(adapter);
-        //setListAdapter(adapter);
+        //setListAdapter(adapterSellos);
         listaPasos.add(new Pasos(getResources().getDrawable(R.drawable.ic_action_copy), "Actividad Realizadas por el usuario", "Seleccionar una actividad para modificar su contenido"));
 
         listViewActividades.setOnItemClickListener(new AdapterView.OnItemClickListener() {

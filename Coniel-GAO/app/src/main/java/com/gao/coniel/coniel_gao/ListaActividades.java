@@ -27,7 +27,7 @@ public class ListaActividades extends android.support.v4.app.Fragment {
     ListView listView;
     ArrayList<ItemListaActividades> listaActividades;
 
-    // Creamos un adapter personalizado
+    // Creamos un adapterSellos personalizado
     AdaptadorListaActividades adapter;
 
     @Override
@@ -95,8 +95,8 @@ public class ListaActividades extends android.support.v4.app.Fragment {
 
             System.out.print(data);
 
-            // Al adapter personalizado le pasamos el contexto y la lista que contiene
-            // Añadimos el adapter al listview
+            // Al adapterSellos personalizado le pasamos el contexto y la lista que contiene
+            // Añadimos el adapterSellos al listview
             adapter = new AdaptadorListaActividades(getActivity(), listaActividades);
             listView.setAdapter(adapter);
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

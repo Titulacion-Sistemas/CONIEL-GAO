@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
@@ -33,15 +34,14 @@ public class IngresoMateriales extends Fragment {
 
     Spinner spMateriales,spSellos, spUbicacionSello;
     NumberPicker edtCant;
-    ImageButton btnAgregar, btnAgregarSello;
-    ListView listaMat, listaSello;
+    ImageButton btnAgregarMaterial, btnAgregarSello;
     CheckBox checkDirecto, checkReubicacion, checkContrastacion;
-    ListView listView, listViewMateriales;
+    ListView listViewSellos, listViewMateriales;
     ArrayList<ContenidoSellos> contenidoSellos;
     ArrayList<ContenidoMaterialesLista> contenidoMaterialesLista;
 
-    // Creamos un adapter personalizado
-    ListaContenidoSellosAdapter adapter;
+    // Creamos un adapterSellos personalizado
+    ListaContenidoSellosAdapter adapterSellos;
     ListaMaterialesAdapter adapterMateriales;
 
     @Override
@@ -53,63 +53,23 @@ public class IngresoMateriales extends Fragment {
         edtCant.setMaxValue(100);
         edtCant.setMinValue(1);
         edtCant.setValue(1);
-        btnAgregar = (ImageButton) view.findViewById(R.id.btnAgregar);
-        //listaMat = (ListView) view.findViewById(R.id.listMatAgregados);
+        btnAgregarMaterial = (ImageButton) view.findViewById(R.id.btnAgregar);
         checkDirecto = (CheckBox) view.findViewById(R.id.checkdirecto);
         checkContrastacion = (CheckBox) view.findViewById(R.id.checkcontrastacion);
         checkReubicacion = (CheckBox) view.findViewById(R.id.checkreubicacion);
         spSellos = (Spinner) view.findViewById(R.id.spinnerSellos);
         spUbicacionSello = (Spinner) view.findViewById(R.id.spinnerUbicacionSello);
         btnAgregarSello = (ImageButton) view.findViewById(R.id.btnAgregarSello);
-        //listaSello = (ListView) view.findViewById(R.id.listaSellos);
-
-      //Guardar Variables de Sesion
-        SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
-        String selection = s.getIntKey("MEDIDORES")+"";
-        if (!selection.equals("")){
-            spMateriales.setSelection(Integer.parseInt(selection));
-        }
-        try {
-            edtCant.setValue(s.getStringKey("CANTIDAD").equals("") ? 1 : Integer.parseInt(s.getStringKey("CANTIDAD")));
-        }catch (Exception ignored){}
-
-        checkDirecto.setChecked(s.getBooleanKey("CHECKDIRECTO"));
-        checkContrastacion.setChecked(s.getBooleanKey("CHECKCONTRASTACION"));
-        checkReubicacion.setChecked(s.getBooleanKey("CHECKREUBICACION"));
-        spSellos.setSelection(s.getIntKey("SELLOS"));
-        spUbicacionSello.setSelection(s.getIntKey("UBICACIONSELLO"));
-        //FALTA EL SET DE LA LISTA
-
-
-        //Lista Sellos
-        listView = (ListView) view.findViewById(R.id.listaSellos);
-        contenidoSellos = new ArrayList<ContenidoSellos>();
-
-        // Al adapter personalizado le pasamos el contexto y la lista que contiene
-        // Añadimos el adapter al listview
-        adapter = new ListaContenidoSellosAdapter(getActivity(), contenidoSellos);
-        listView.setAdapter(adapter);
-
-        contenidoSellos.add(new ContenidoSellos("Andrea", "Loaiza", "Gonzaga"));
-        contenidoSellos.add(new ContenidoSellos("Boba", "Burra", "No sabe nada"));
-
-        //Lista Materiales
+        listViewSellos = (ListView) view.findViewById(R.id.listaSellos);
         listViewMateriales = (ListView) view.findViewById(R.id.listMatAgregados);
+
+        contenidoSellos = new ArrayList<ContenidoSellos>();
         contenidoMaterialesLista = new ArrayList<ContenidoMaterialesLista>();
-
-        // Al adapter personalizado le pasamos el contexto y la lista que contiene
-        // Añadimos el adapter al listview
-        adapterMateriales = new ListaMaterialesAdapter(getActivity(), contenidoMaterialesLista);
-        listViewMateriales.setAdapter(adapterMateriales);
-
-        contenidoMaterialesLista.add(new ContenidoMaterialesLista("Andrea", "Loaiza", "Gonzaga"));
-        contenidoMaterialesLista.add(new ContenidoMaterialesLista("Boba", "Burra", "No sabe nada"));
 
         asyncLoad al = new asyncLoad();
         al.execute(
                 SessionManager.getManager(getActivity().getApplicationContext()).getStringKey("contrato")
         );
-
         return view;
     }
 
@@ -121,12 +81,10 @@ public class IngresoMateriales extends Fragment {
 
         //Guardar variables
         SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext())
-                .saveKey("MEDIDORES", spMateriales.getSelectedItemPosition())
-                .saveKey("CANTIDAD", edtCant.getValue()+"")
                 .saveKey("CHECKDIRECTO", checkDirecto.isChecked())
                 .saveKey("CHECKCONTRASTACION", checkContrastacion.isChecked())
                 .saveKey("CHECKREUBICACION", checkReubicacion.isChecked());
-                //.saveKey("SELLOS", spSellos.getSelectedItemPosition());
+
 
 
 
@@ -192,6 +150,9 @@ public class IngresoMateriales extends Fragment {
                             Log.e("Error al Cargar spUbicacionSello: ",""+e);
                         }
 
+                    eventos();
+
+                    recuperar();
                 }
             }
 
@@ -206,6 +167,44 @@ public class IngresoMateriales extends Fragment {
             t.show();
 
         }
+    }
+
+    private void eventos() {
+
+        //Lista Sellos
+        btnAgregarSello.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contenidoSellos.add(new ContenidoSellos("", spSellos.getSelectedItem().toString(), spUbicacionSello.getSelectedItem().toString()));
+                adapterSellos = new ListaContenidoSellosAdapter(getActivity(), contenidoSellos);
+                listViewSellos.setAdapter(adapterSellos);
+                listViewSellos.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, contenidoSellos.size() * 80));
+            }
+        });
+
+        //Lista Materiales
+        btnAgregarMaterial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contenidoMaterialesLista.add(new ContenidoMaterialesLista(""+spMateriales.getSelectedItemPosition(), edtCant.getValue()+"", spMateriales.getSelectedItem().toString()));
+                //spMateriales.removeViewAt(spMateriales.getSelectedItemPosition());
+                edtCant.setValue(1);
+                adapterMateriales = new ListaMaterialesAdapter(getActivity(), contenidoMaterialesLista);
+                listViewMateriales.setAdapter(adapterMateriales);
+                listViewMateriales.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, contenidoMaterialesLista.size() * 97));
+            }
+        });
+
+    }
+
+    private void recuperar() {
+
+        //Guardar Variables de Sesion
+        SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
+        checkDirecto.setChecked(s.getBooleanKey("CHECKDIRECTO"));
+        checkContrastacion.setChecked(s.getBooleanKey("CHECKCONTRASTACION"));
+        checkReubicacion.setChecked(s.getBooleanKey("CHECKREUBICACION"));
+
     }
 
 

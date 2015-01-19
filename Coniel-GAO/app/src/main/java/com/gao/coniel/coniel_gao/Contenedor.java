@@ -70,7 +70,7 @@ public class Contenedor extends FragmentActivity implements ListaPasos.OnPasoSel
 
         getmDrawerList().setOnItemClickListener(new SlideMenuClickListener());
 
-        // setting the nav drawer list adapter
+        // setting the nav drawer list adapterSellos
         NavigationDrawerListAdapter adapter = new NavigationDrawerListAdapter(
                 getApplicationContext(),
                 navDrawerItems
