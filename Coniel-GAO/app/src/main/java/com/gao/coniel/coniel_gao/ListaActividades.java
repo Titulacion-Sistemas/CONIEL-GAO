@@ -102,17 +102,39 @@ public class ListaActividades extends android.support.v4.app.Fragment {
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    SessionManagerIngreso.getManager(getActivity().getApplicationContext())
-                            .saveKey("IDACTIVIDADSELECCIONADA", listaActividades.get(position).getIde());
-                    Toast t = Toast.makeText(
-                        getActivity().getApplicationContext(),
-                        "Actividad Cargada...",
-                        Toast.LENGTH_SHORT
-                );
-                    t.show();
+
+                    SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
+
+                    if(!(s.getStringKey("IDACTIVIDADSELECCIONADA").toString().equals(listaActividades.get(position).getIde()))
+                            && position>0 ) {
+                        s.saveKey("IDACTIVIDADSELECCIONADA", listaActividades.get(position).getIde());
+                        s.saveKey("IDACTIVIDADSELECCIONADA1", listaActividades.get(position).getIde());
+                        s.saveKey("IDACTIVIDADSELECCIONADA2", listaActividades.get(position).getIde());
+                        s.saveKey("IDACTIVIDADSELECCIONADA3", listaActividades.get(position).getIde());
+                        s.saveKey("IDACTIVIDADSELECCIONADA4", listaActividades.get(position).getIde());
+                        s.saveKey("IDACTIVIDADSELECCIONADA5", listaActividades.get(position).getIde());
+                        s.saveKey("IDACTIVIDADSELECCIONADA6", listaActividades.get(position).getIde());
+                        Toast t = Toast.makeText(
+                                getActivity().getApplicationContext(),
+                                "Actividad Cargada...",
+                                Toast.LENGTH_SHORT
+                        );
+                        t.show();
+                    }else{
+                        s.saveKey("IDACTIVIDADSELECCIONADA", "");
+                        s.saveKey("IDACTIVIDADSELECCIONADA1", "");
+                        s.saveKey("IDACTIVIDADSELECCIONADA2", "");
+                        s.saveKey("IDACTIVIDADSELECCIONADA3", "");
+                        s.saveKey("IDACTIVIDADSELECCIONADA4", "");
+                        s.saveKey("IDACTIVIDADSELECCIONADA5", "");
+                        s.saveKey("IDACTIVIDADSELECCIONADA6", "");
+                    }
+
                     adapter = new AdaptadorListaActividades(getActivity(), listaActividades);
                     listView.setAdapter(adapter);
+
                     return false;
+
                 }
             });
 

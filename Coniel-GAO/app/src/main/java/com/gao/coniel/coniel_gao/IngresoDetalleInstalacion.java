@@ -16,6 +16,7 @@ import org.ksoap2.serialization.SoapObject;
 import java.util.ArrayList;
 
 import clases.SessionManagerIngreso;
+import clases.Tupla;
 import serviciosWeb.SW;
 
 
@@ -42,22 +43,6 @@ public class IngresoDetalleInstalacion extends android.support.v4.app.Fragment {
         spNivelSocioEconomico = (Spinner) view.findViewById(R.id.spinnerNivelSocioeconomico);
         spUsoDeEnergia = (Spinner) view.findViewById(R.id.spinnerUsoEnergia);
         spClaseDeRed = (Spinner) view.findViewById(R.id.spinnerClaseRed);
-
-        //Guardar Variables de Sesion
-        SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
-        spMaterialRed.setSelection(s.getIntKey("MATERIALRED"));
-        spFormaConexion.setSelection(s.getIntKey("FORMACONEXION"));
-        spEstadoInst.setSelection(s.getIntKey("ESTADOINST"));
-        spTipoConst.setSelection(s.getIntKey("TIPOCONST"));
-        spUbicacionMed.setSelection(s.getIntKey("UBICACIONMED"));
-        spTipoAcometida.setSelection(s.getIntKey("TIPOACOMETIDA"));
-        spCalibreRed.setSelection(s.getIntKey("CALIBRERED"));
-        spTipoServicio.setSelection(s.getIntKey("TIPOSERVICIO"));
-        spUsoInmueble.setSelection(s.getIntKey("USOINMUEBLE"));
-        spDemanda.setSelection(s.getIntKey("DEMANDA"));
-        spNivelSocioEconomico.setSelection(s.getIntKey("NIVELSOCIO"));
-        spUsoDeEnergia.setSelection(s.getIntKey("USOENERGIA"));
-        spClaseDeRed.setSelection(s.getIntKey("CLASERED"));
 
         asyncLoad al = new asyncLoad();
         al.execute();
@@ -208,6 +193,8 @@ public class IngresoDetalleInstalacion extends android.support.v4.app.Fragment {
                             Log.e("Error al Cargar spNivelSocioEconomico: ",""+e);
                         }
                 }
+
+                recuperar();
             }
 
         }
@@ -221,6 +208,189 @@ public class IngresoDetalleInstalacion extends android.support.v4.app.Fragment {
             t.show();
 
         }
+    }
+
+    private class asyncRecuperar extends AsyncTask<String, Float, Object> {
+
+        String toast="";
+
+        @Override
+        protected Object doInBackground(String... params) {
+            SW acc = new SW("ingresos.wsdl", "ingresoDatosAbonadoSeleccionado");
+            acc.asignarPropiedades(
+                    new Tupla[]{
+                            new Tupla<String, Object>("ide", params[0])
+                    }
+            );
+            Object r = acc.ajecutar();
+            try{
+                return r;
+            }catch (Exception e){
+                toast = "Error, No se pudo cargar los datos requeridos";
+                this.cancel(true);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object r) {
+            super.onPostExecute(r);
+
+            System.out.print(r);
+
+            SoapObject data = (SoapObject)r;
+            System.out.print(data);
+            ArrayAdapter<String> ad=null;
+            int pos=0;
+            try{
+                ad = (ArrayAdapter<String>)spMaterialRed.getAdapter();
+                pos = ad.getPosition(data.getProperty(0).toString());
+                spMaterialRed.setSelection(pos);
+            }catch (Exception e){
+                Log.e("Error al Cargar spMaterialRed: ",""+e);
+            }
+
+            try{
+                ad = (ArrayAdapter<String>)spFormaConexion.getAdapter();
+                pos = ad.getPosition(data.getProperty(1).toString());
+                spFormaConexion.setSelection(pos);
+            }catch (Exception e){
+                Log.e("Error al Cargar spFormaConexion: ",""+e);
+            }
+
+            try{
+                ad = (ArrayAdapter<String>)spEstadoInst.getAdapter();
+                pos = ad.getPosition(data.getProperty(2).toString());
+                spEstadoInst.setSelection(pos);
+            }catch (Exception e){
+                Log.e("Error al Cargar spEstadoInst: ",""+e);
+            }
+
+            try{
+                ad = (ArrayAdapter<String>)spTipoConst.getAdapter();
+                pos = ad.getPosition(data.getProperty(3).toString());
+                spTipoConst.setSelection(pos);
+            }catch (Exception e){
+                Log.e("Error al Cargar spTipoConst: ",""+e);
+            }
+
+            try{
+                ad = (ArrayAdapter<String>)spUbicacionMed.getAdapter();
+                pos = ad.getPosition(data.getProperty(4).toString());
+                spUbicacionMed.setSelection(pos);
+            }catch (Exception e){
+                Log.e("Error al Cargar spUbicacionMed: ",""+e);
+            }
+
+            try{
+                ad = (ArrayAdapter<String>)spTipoAcometida.getAdapter();
+                pos = ad.getPosition(data.getProperty(5).toString());
+                spTipoAcometida.setSelection(pos);
+            }catch (Exception e){
+                Log.e("Error al Cargar spTipoAcometida: ",""+e);
+            }
+
+            try{
+                ad = (ArrayAdapter<String>)spCalibreRed.getAdapter();
+                pos = ad.getPosition(data.getProperty(6).toString());
+                spCalibreRed.setSelection(pos);
+            }catch (Exception e){
+                Log.e("Error al Cargar spCalibreRed: ",""+e);
+            }
+
+            try{
+                ad = (ArrayAdapter<String>)spUsoDeEnergia.getAdapter();
+                pos = ad.getPosition(data.getProperty(7).toString());
+                spUsoDeEnergia.setSelection(pos);
+            }catch (Exception e){
+                Log.e("Error al Cargar spUsoDeEnergia: ",""+e);
+            }
+
+            try{
+                ad = (ArrayAdapter<String>)spClaseDeRed.getAdapter();
+                pos = ad.getPosition(data.getProperty(8).toString());
+                spClaseDeRed.setSelection(pos);
+            }catch (Exception e){
+                Log.e("Error al Cargar spClaseDeRed: ",""+e);
+            }
+
+            try{
+                ad = (ArrayAdapter<String>)spTipoServicio.getAdapter();
+                pos = ad.getPosition(data.getProperty(9).toString());
+                spTipoServicio.setSelection(pos);
+            }catch (Exception e){
+                Log.e("Error al Cargar spTipoServicio: ",""+e);
+            }
+
+            try{
+                ad = (ArrayAdapter<String>)spUsoInmueble.getAdapter();
+                pos = ad.getPosition(data.getProperty(10).toString());
+                spUsoInmueble.setSelection(pos);
+            }catch (Exception e){
+                Log.e("Error al Cargar spUsoInmueble: ",""+e);
+            }
+
+            try{
+                ad = (ArrayAdapter<String>)spDemanda.getAdapter();
+                pos = ad.getPosition(data.getProperty(11).toString());
+                spDemanda.setSelection(pos);
+            }catch (Exception e){
+                Log.e("Error al Cargar spDemanda: ",""+e);
+            }
+
+            try{
+                ad = (ArrayAdapter<String>)spNivelSocioEconomico.getAdapter();
+                pos = ad.getPosition(data.getProperty(12).toString());
+                spNivelSocioEconomico.setSelection(pos);
+            }catch (Exception e){
+                Log.e("Error al Cargar spNivelSocioEconomico: ",""+e);
+            }
+
+            SessionManagerIngreso.getManager(getActivity().getApplicationContext()).saveKey("IDACTIVIDADSELECCIONADA3","");
+
+        }
+
+        protected void onCancelled() {
+            Toast t = Toast.makeText(
+                    getActivity().getApplicationContext(),
+                    toast,
+                    Toast.LENGTH_SHORT
+            );
+            t.show();
+
+        }
+    }
+
+    private void recuperar() {
+
+        SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
+
+        if (!((s.getStringKey("IDACTIVIDADSELECCIONADA3")+"").equals(""))){
+
+            asyncRecuperar asb = new asyncRecuperar();
+            asb.execute(
+                    s.getStringKey("IDACTIVIDADSELECCIONADA")+""
+            );
+
+        }
+        else {
+
+            spMaterialRed.setSelection(s.getIntKey("MATERIALRED"));
+            spFormaConexion.setSelection(s.getIntKey("FORMACONEXION"));
+            spEstadoInst.setSelection(s.getIntKey("ESTADOINST"));
+            spTipoConst.setSelection(s.getIntKey("TIPOCONST"));
+            spUbicacionMed.setSelection(s.getIntKey("UBICACIONMED"));
+            spTipoAcometida.setSelection(s.getIntKey("TIPOACOMETIDA"));
+            spCalibreRed.setSelection(s.getIntKey("CALIBRERED"));
+            spTipoServicio.setSelection(s.getIntKey("TIPOSERVICIO"));
+            spUsoInmueble.setSelection(s.getIntKey("USOINMUEBLE"));
+            spDemanda.setSelection(s.getIntKey("DEMANDA"));
+            spNivelSocioEconomico.setSelection(s.getIntKey("NIVELSOCIO"));
+            spUsoDeEnergia.setSelection(s.getIntKey("USOENERGIA"));
+            spClaseDeRed.setSelection(s.getIntKey("CLASERED"));
+        }
+
     }
 
 

@@ -163,7 +163,7 @@ public class IngresoActividadInstalador extends Fragment {
 
         SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
 
-        if  ((s.getStringKey("IDACTIVIDADSELECCIONADA")+"").equals("")){
+        if  ((s.getStringKey("IDACTIVIDADSELECCIONADA1")+"").equals("")){
 
             String[] se = s.getStringKey("FECHA").split("/");
             if (se.length == 3) {
@@ -224,8 +224,7 @@ public class IngresoActividadInstalador extends Fragment {
 
             SoapObject data = (SoapObject)r;
             System.out.print(data);
-            Log.i("Fecha", data.getProperty(3).toString());
-            Log.i("Hora", data.getProperty(4).toString());
+
             ArrayAdapter<String> ad = (ArrayAdapter<String>)spinerInstalador.getAdapter();
             int pos = ad.getPosition(data.getProperty(0).toString());
             spinerInstalador.setSelection(pos);
@@ -244,6 +243,9 @@ public class IngresoActividadInstalador extends Fragment {
             String[] st = data.getProperty(4).toString().split(":");
             tiempo.setCurrentHour(Integer.parseInt(st[0]));
             tiempo.setCurrentMinute(Integer.parseInt(st[1]));
+
+
+            SessionManagerIngreso.getManager(getActivity().getApplicationContext()).saveKey("IDACTIVIDADSELECCIONADA1","");
 
 
         }

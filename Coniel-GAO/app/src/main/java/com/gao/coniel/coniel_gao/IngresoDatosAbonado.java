@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -52,22 +53,31 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
         sfvTrack = (SurfaceView) view.findViewById(R.id.cargandoC);
         sfvTrack.setZOrderOnTop(true);
 
-
-
-        //Guardar Sesion para evitar cierre
+        //Recuperar Sesion para evitar cierre
         SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
-        cuenta.setText(s.getStringKey("CUENTA"));
-        cedula.setText(s.getStringKey("CEDULA"));
-        nombre.setText(s.getStringKey("NOMBRE"));
-        estado.setText(s.getStringKey("ESTADO"));
-        telefono.setText(s.getStringKey("TELEFONO"));
-        lugar.setText(s.getStringKey("LUGAR"));
-        calle.setText(s.getStringKey("CALLE"));
-        geocodigo.setText(s.getStringKey("GEOCODIGO"));
-        fabrica.setText(s.getStringKey("FABRICA"));
-        serial.setText(s.getStringKey("SERIAL"));
-        marca.setText(s.getStringKey("MARCA"));
-        lectura.setText(s.getStringKey("LECTURA"));
+
+        if (!((s.getStringKey("IDACTIVIDADSELECCIONADA1")+"").equals(""))){
+
+            asyncRecuperar asb = new asyncRecuperar();
+            asb.execute(
+                    s.getStringKey("IDACTIVIDADSELECCIONADA")+""
+            );
+
+        }
+        else{
+            cuenta.setText(s.getStringKey("CUENTA"));
+            cedula.setText(s.getStringKey("CEDULA"));
+            nombre.setText(s.getStringKey("NOMBRE"));
+            estado.setText(s.getStringKey("ESTADO"));
+            telefono.setText(s.getStringKey("TELEFONO"));
+            lugar.setText(s.getStringKey("LUGAR"));
+            calle.setText(s.getStringKey("CALLE"));
+            geocodigo.setText(s.getStringKey("GEOCODIGO"));
+            fabrica.setText(s.getStringKey("FABRICA"));
+            serial.setText(s.getStringKey("SERIAL"));
+            marca.setText(s.getStringKey("MARCA"));
+            lectura.setText(s.getStringKey("LECTURA"));
+        }
 
         btnBuscarDatos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +127,6 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
         Log.i("Se ha ejecutado el ", "  ONSTOP");
         //Guardar Sesion para evitar cierre
        SessionManagerIngreso.getManager(getActivity().getApplicationContext())
-                .saveKey("Coniel-GAO", true)
                 .saveKey("CUENTA", cuenta.getText().toString())
                 .saveKey("CEDULA", cedula.getText().toString())
                 .saveKey("NOMBRE", nombre.getText().toString())
@@ -404,6 +413,65 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
     ////////////////////////////////
 
 
+    private class asyncRecuperar extends AsyncTask<String, Float, Object> {
+
+        String toast="";
+
+        @Override
+        protected Object doInBackground(String... params) {
+            SW acc = new SW("ingresos.wsdl", "ingresoDatosAbonadoSeleccionado");
+            acc.asignarPropiedades(
+                    new Tupla[]{
+                            new Tupla<String, Object>("ide", params[0])
+                    }
+            );
+            Object r = acc.ajecutar();
+            try{
+                return r;
+            }catch (Exception e){
+                toast = "Error, No se pudo cargar los datos requeridos";
+                this.cancel(true);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object r) {
+            super.onPostExecute(r);
+
+            System.out.print(r);
+
+            SoapObject data = (SoapObject)r;
+            System.out.print(data);
+
+            cuenta.setText(data.getProperty(0).toString());
+            cedula.setText(data.getProperty(1).toString());
+            nombre.setText(data.getProperty(2).toString());
+            estado.setText(data.getProperty(3).toString());
+            telefono.setText(data.getProperty(4).toString());
+            lugar.setText(data.getProperty(5).toString());
+            calle.setText(data.getProperty(6).toString());
+            geocodigo.setText(data.getProperty(7).toString());
+            fabrica.setText(data.getProperty(8).toString());
+            serial.setText(data.getProperty(9).toString());
+            marca.setText(data.getProperty(10).toString());
+            lectura.setText(data.getProperty(11).toString());
+
+            SessionManagerIngreso.getManager(getActivity().getApplicationContext()).saveKey("IDACTIVIDADSELECCIONADA2","");
+
+        }
+
+        protected void onCancelled() {
+            Toast t = Toast.makeText(
+                    getActivity().getApplicationContext(),
+                    toast,
+                    Toast.LENGTH_SHORT
+            );
+            t.show();
+
+        }
+    }
 
 
 
