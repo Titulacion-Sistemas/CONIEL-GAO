@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 
 import com.gao.coniel.coniel_gao.R;
 
@@ -45,9 +46,17 @@ public class ListaContenidoSellosAdapter extends ArrayAdapter<ContenidoSellos> {
         btnQuitar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Spinner sp = (Spinner) context.findViewById(R.id.spinnerSellos);
+                ArrayAdapter<String> miad = (ArrayAdapter<String>)sp.getAdapter();
+                miad.insert(
+                        contenidoSello.get(position).getDato2(),
+                        Integer.parseInt(contenidoSello.get(position).getDato1())
+                );
+                miad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                sp.setAdapter(miad);
+
                 contenidoSello.remove(position);
                 notifyDataSetChanged();
-                //context.findViewById()
             }
         });
 

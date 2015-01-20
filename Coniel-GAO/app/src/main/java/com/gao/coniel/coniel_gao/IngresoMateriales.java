@@ -150,9 +150,8 @@ public class IngresoMateriales extends Fragment {
                             Log.e("Error al Cargar spUbicacionSello: ",""+e);
                         }
 
-                    eventos();
-
                     recuperar();
+                    eventos();
                 }
             }
 
@@ -175,10 +174,25 @@ public class IngresoMateriales extends Fragment {
         btnAgregarSello.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                contenidoSellos.add(new ContenidoSellos("", spSellos.getSelectedItem().toString(), spUbicacionSello.getSelectedItem().toString()));
+                contenidoSellos.add(
+                        new ContenidoSellos(
+                                ""+spSellos.getSelectedItemPosition(),
+                                spSellos.getSelectedItem().toString(),
+                                spUbicacionSello.getSelectedItem().toString()
+                        )
+                );
                 adapterSellos = new ListaContenidoSellosAdapter(getActivity(), contenidoSellos);
                 listViewSellos.setAdapter(adapterSellos);
-                listViewSellos.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, contenidoSellos.size() * 80));
+                listViewSellos.setLayoutParams(
+                        new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.FILL_PARENT,
+                                contenidoSellos.size() * 80
+                        )
+                );
+                ArrayAdapter<String> dataAdapter = (ArrayAdapter<String>)spSellos.getAdapter();
+                dataAdapter.remove(spSellos.getSelectedItem().toString());
+                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spSellos.setAdapter(dataAdapter);
             }
         });
 
@@ -186,12 +200,28 @@ public class IngresoMateriales extends Fragment {
         btnAgregarMaterial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                contenidoMaterialesLista.add(new ContenidoMaterialesLista(""+spMateriales.getSelectedItemPosition(), edtCant.getValue()+"", spMateriales.getSelectedItem().toString()));
-                //spMateriales.removeViewAt(spMateriales.getSelectedItemPosition());
+                contenidoMaterialesLista.add(
+                        new ContenidoMaterialesLista(
+                            ""+spMateriales.getSelectedItemPosition(),
+                            edtCant.getValue()+"", spMateriales.getSelectedItem().toString()
+                        )
+                );
                 edtCant.setValue(1);
-                adapterMateriales = new ListaMaterialesAdapter(getActivity(), contenidoMaterialesLista);
+                adapterMateriales = new ListaMaterialesAdapter(
+                        getActivity(),
+                        contenidoMaterialesLista
+                );
                 listViewMateriales.setAdapter(adapterMateriales);
-                listViewMateriales.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, contenidoMaterialesLista.size() * 97));
+                listViewMateriales.setLayoutParams(
+                        new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.FILL_PARENT,
+                                contenidoMaterialesLista.size() * 97
+                        )
+                );
+                ArrayAdapter<String> dataAdapter = (ArrayAdapter<String>)spMateriales.getAdapter();
+                dataAdapter.remove(spMateriales.getSelectedItem().toString());
+                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spMateriales.setAdapter(dataAdapter);
             }
         });
 

@@ -49,7 +49,10 @@ public class ListaMaterialesAdapter extends ArrayAdapter<ContenidoMaterialesList
 
                 Spinner sp = (Spinner) context.findViewById(R.id.spinnerMateriales);
                 ArrayAdapter<String> miad = (ArrayAdapter<String>)sp.getAdapter();
-                miad.add(contenidoMaterialesLista.get(position).getCantidad());
+                miad.insert(
+                        contenidoMaterialesLista.get(position).getCantidad(),
+                        Integer.parseInt(contenidoMaterialesLista.get(position).getItemMateriales())
+                );
                 miad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 sp.setAdapter(miad);
 
