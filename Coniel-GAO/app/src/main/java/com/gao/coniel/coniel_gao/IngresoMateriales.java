@@ -68,7 +68,7 @@ public class IngresoMateriales extends Fragment {
 
         asyncLoad al = new asyncLoad();
         al.execute(
-                SessionManager.getManager(getActivity().getApplicationContext()).getStringKey("contrato")
+                SessionManager.getManager(getActivity()).getStringKey("contrato")
         );
         return view;
     }
@@ -81,12 +81,39 @@ public class IngresoMateriales extends Fragment {
 
         //Guardar variables
         SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext())
-                .saveKey("CHECKDIRECTO", checkDirecto.isChecked())
-                .saveKey("CHECKCONTRASTACION", checkContrastacion.isChecked())
-                .saveKey("CHECKREUBICACION", checkReubicacion.isChecked());
+            .saveKey("CHECKDIRECTO", checkDirecto.isChecked())
+            .saveKey("CHECKCONTRASTACION", checkContrastacion.isChecked())
+            .saveKey("CHECKREUBICACION", checkReubicacion.isChecked());
 
-
-
+        ListaMaterialesAdapter ad = (ListaMaterialesAdapter) listViewMateriales.getAdapter();
+        ArrayList<String[]> lista = null;
+        Log.i("Info-ListViewMateriales-Count", ad.getCount()+"");
+        if (ad.getCount()>0) {
+            lista = new ArrayList<String[]>();
+            for (int i = 0; i < ad.getCount(); i++)
+                lista.add(
+                        new String[]{
+                                ad.getItem(i).getItemMateriales(),
+                                ad.getItem(i).getDescripcion(),
+                                ad.getItem(i).getCantidad()
+                        }
+                );
+        }
+        s.saveKey("LISTAMATERIALES", lista);
+        lista = null;
+        if (ad.getCount()>0) {
+            ListaContenidoSellosAdapter ads = (ListaContenidoSellosAdapter) listViewSellos.getAdapter();
+            lista = new ArrayList<String[]>();
+            for (int i = 0; i < ads.getCount(); i++)
+                lista.add(
+                        new String[]{
+                                ads.getItem(i).getDato1(),
+                                ads.getItem(i).getDato2(),
+                                ads.getItem(i).getDato3()
+                        }
+                );
+        }
+        s.saveKey("LISTASELLOS", lista);
 
     }
 
@@ -150,10 +177,121 @@ public class IngresoMateriales extends Fragment {
                             Log.e("Error al Cargar spUbicacionSello: ",""+e);
                         }
 
-                    recuperar();
-                    eventos();
                 }
             }
+            recuperar();
+            eventos();
+        }
+
+        protected void onCancelled() {
+            Toast t = Toast.makeText(
+                    getActivity().getApplicationContext(),
+                    toast,
+                    Toast.LENGTH_SHORT
+            );
+            t.show();
+
+        }
+    }
+
+
+    private class asyncRecuperar extends AsyncTask<String, Float, Object> {
+
+        String toast="";
+
+        @Override
+        protected Object doInBackground(String... params) {
+            SW acc = new SW("ingresos.wsdl", "ingresoMaterialesSeleccionados");
+            acc.asignarPropiedades(
+                    new Tupla[]{
+                            new Tupla<String, Object>("ide", params[0]),
+                            new Tupla<String, Object>("cont", params[1])
+                    }
+            );
+            Log.i("CONT: ",""+params[1]);
+            Object r = acc.ajecutar();
+            try{
+                return r;
+            }catch (Exception e){
+                toast = "Error, No se pudo cargar los datos requeridos";
+                this.cancel(true);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object r) {
+            super.onPostExecute(r);
+
+            System.out.print(r);
+
+            SoapObject data = (SoapObject)r;
+            System.out.print(data);
+
+            SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
+
+            try{
+                SoapObject reubicacion = (SoapObject)data.getProperty(0);
+                s.saveKey("CHECKREUBICACION", Boolean.parseBoolean(reubicacion.getProperty(0).toString()));
+
+            }catch (Exception e){
+                Log.e("Error al Cargar reubicacion: ",""+e);
+            }
+
+            try{
+                SoapObject contrastacion = (SoapObject)data.getProperty(1);
+                s.saveKey("CHECKCONTRASTACION", Boolean.parseBoolean(contrastacion.getProperty(0).toString()));
+            }catch (Exception e){
+                Log.e("Error al Cargar contrastacion: ",""+e);
+            }
+
+            try{
+                SoapObject directo = (SoapObject)data.getProperty(2);
+                s.saveKey("CHECKDIRECTO",Boolean.parseBoolean(directo.getProperty(0).toString()));
+            }catch (Exception e){
+                Log.e("Error al Cargar directo: ",""+e);
+            }
+
+            try{
+                ArrayAdapter<String> dataAdapter = (ArrayAdapter<String>) spMateriales.getAdapter();
+                SoapObject cntmate = (SoapObject)data.getProperty(3);
+                SoapObject mate = (SoapObject)data.getProperty(4);
+                ArrayList<String[]> lista = new ArrayList<String[]>();
+                for (int i = 0; i < mate.getPropertyCount(); i++) {
+                    lista.add(
+                            new String[]{
+                                    dataAdapter.getPosition(mate.getProperty(i).toString())+"",
+                                    cntmate.getProperty(i).toString(),
+                                    mate.getProperty(i).toString()
+                            }
+                    );
+                }
+                s.saveKey("LISTAMATERIALES", lista);
+            }catch (Exception e){
+                Log.e("Error al Cargar MATERIALES: ",""+e);
+            }
+
+            try{
+                SoapObject ubisell = (SoapObject)data.getProperty(5);
+                SoapObject sell = (SoapObject)data.getProperty(6);
+                ArrayList<String[]> lista = new ArrayList<String[]>();
+                for (int i = 0; i < sell.getPropertyCount(); i++) {
+                    lista.add(
+                            new String[]{
+                                    "0",
+                                    ubisell.getProperty(i).toString(),
+                                    sell.getProperty(i).toString()
+                            }
+                    );
+                }
+                s.saveKey("LISTASELLOS", lista);
+            }catch (Exception e){
+                Log.e("Error al Cargar SELLOS: ",""+e);
+            }
+
+            SessionManagerIngreso.getManager(getActivity().getApplicationContext()).saveKey("IDACTIVIDADSELECCIONADA4","");
+            recuperarDeArchivo();
 
         }
 
@@ -167,6 +305,72 @@ public class IngresoMateriales extends Fragment {
 
         }
     }
+
+    private void recuperarDeArchivo() {
+
+        SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
+        //Recuperar Variables de Sesion
+        checkDirecto.setChecked(s.getBooleanKey("CHECKDIRECTO"));
+        checkContrastacion.setChecked(s.getBooleanKey("CHECKCONTRASTACION"));
+        checkReubicacion.setChecked(s.getBooleanKey("CHECKREUBICACION"));
+
+        ArrayList<String[]> lista = s.getListKey("LISTAMATERIALES");
+
+        if (lista != null) {
+            ArrayAdapter<String> dataAdapter = (ArrayAdapter<String>) spMateriales.getAdapter();
+            contenidoMaterialesLista.clear();
+            for (String[] aLista1 : lista) {
+                contenidoMaterialesLista.add(
+                        new ContenidoMaterialesLista(
+                                aLista1[0],
+                                aLista1[1],
+                                aLista1[2]
+                        )
+                );
+                dataAdapter.remove(aLista1[2]);
+            }
+
+            adapterMateriales = new ListaMaterialesAdapter(getActivity(), contenidoMaterialesLista);
+            listViewMateriales.setAdapter(adapterMateriales);
+            listViewMateriales.setLayoutParams(
+                    new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.FILL_PARENT,
+                            contenidoMaterialesLista.size() * 97
+                    )
+            );
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spMateriales.setAdapter(dataAdapter);
+        }
+
+        lista = s.getListKey("LISTASELLOS");
+        if (lista != null) {
+            ArrayAdapter<String> dataAdapter = (ArrayAdapter<String>) spSellos.getAdapter();
+            contenidoSellos.clear();
+            for (String[] aLista : lista) {
+                contenidoSellos.add(
+                        new ContenidoSellos(
+                                aLista[0],
+                                aLista[1],
+                                aLista[2]
+                        )
+                );
+                dataAdapter.remove(aLista[1]);
+            }
+
+            adapterSellos = new ListaContenidoSellosAdapter(getActivity(), contenidoSellos);
+            listViewSellos.setAdapter(adapterSellos);
+            listViewSellos.setLayoutParams(
+                    new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.FILL_PARENT,
+                            contenidoSellos.size() * 80
+                    )
+            );
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spSellos.setAdapter(dataAdapter);
+        }
+
+    }
+
 
     private void eventos() {
 
@@ -202,8 +406,9 @@ public class IngresoMateriales extends Fragment {
             public void onClick(View v) {
                 contenidoMaterialesLista.add(
                         new ContenidoMaterialesLista(
-                            ""+spMateriales.getSelectedItemPosition(),
-                            edtCant.getValue()+"", spMateriales.getSelectedItem().toString()
+                                ""+spMateriales.getSelectedItemPosition(),
+                                edtCant.getValue()+"",
+                                spMateriales.getSelectedItem().toString()
                         )
                 );
                 edtCant.setValue(1);
@@ -218,6 +423,7 @@ public class IngresoMateriales extends Fragment {
                                 contenidoMaterialesLista.size() * 97
                         )
                 );
+
                 ArrayAdapter<String> dataAdapter = (ArrayAdapter<String>)spMateriales.getAdapter();
                 dataAdapter.remove(spMateriales.getSelectedItem().toString());
                 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -229,11 +435,22 @@ public class IngresoMateriales extends Fragment {
 
     private void recuperar() {
 
-        //Guardar Variables de Sesion
         SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
-        checkDirecto.setChecked(s.getBooleanKey("CHECKDIRECTO"));
-        checkContrastacion.setChecked(s.getBooleanKey("CHECKCONTRASTACION"));
-        checkReubicacion.setChecked(s.getBooleanKey("CHECKREUBICACION"));
+
+        if (!((s.getStringKey("IDACTIVIDADSELECCIONADA4")+"").equals(""))){
+
+            asyncRecuperar asb = new asyncRecuperar();
+            asb.execute(
+                    s.getStringKey("IDACTIVIDADSELECCIONADA")+"",
+                    SessionManager.getManager(getActivity()).getStringKey("contrato")
+            );
+
+        }
+        else {
+
+            recuperarDeArchivo();
+
+        }
 
     }
 
@@ -246,8 +463,5 @@ public class IngresoMateriales extends Fragment {
         sp.setAdapter(dataAdapter);
 
     }
-
-
-
 
 }

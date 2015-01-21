@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -56,7 +55,7 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
         //Recuperar Sesion para evitar cierre
         SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
 
-        if (!((s.getStringKey("IDACTIVIDADSELECCIONADA1")+"").equals(""))){
+        if (!((s.getStringKey("IDACTIVIDADSELECCIONADA2")+"").equals(""))){
 
             asyncRecuperar asb = new asyncRecuperar();
             asb.execute(

@@ -61,6 +61,8 @@ public class Login extends Activity {
             Log.e("Error al Cargar Contratos: ",""+e);
         }
 
+        contratoActivo=contratos[0];
+
         spinnerLogin.setOnItemSelectedListener(contratoSeleccionado);
 
         btnInicio.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +131,7 @@ public class Login extends Activity {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             contratoActivo=contratos[position*2];
+            Log.i("Contrato Seleccionado", contratoActivo);
         }
 
         @Override

@@ -294,12 +294,15 @@ public class SessionManagerIngreso {
 
 
         ArrayList<String[]> variable = getListKey(key);
+        //Log.i("variable.size()",variable.size()+"");
         if (variable != null) {
+            edit = prefs.edit();
             for (int i = 0; i < variable.size(); i++) {
                 for (int j = 0; j < variable.get(i).length; j++) {
                     edit.remove(key + "[" + i + "][" + j + "]");
                 }
             }
+            edit.apply();
         }
 
         if (value!=null){
@@ -309,7 +312,7 @@ public class SessionManagerIngreso {
                     edit.putString(key + "[" + i + "][" + j + "]", value.get(i)[j]);
                 }
             }
-            edit.commit();
+            edit.apply();
         }
         return INSTANCE;
 
@@ -332,7 +335,13 @@ public class SessionManagerIngreso {
                 var.add(getStringKey(key+"["+i+"]["+j+"]"));
                 j++;
             }
-            variable.add((String[]) var.toArray());
+            //variable.add((String[]) var.toArray());
+            String[] tmp = new String[var.size()];
+            for (int k = 0; k < var.size(); k++) {
+                tmp[k] = var.get(k);
+            }
+            variable.add(tmp);
+            var.clear();
             i++;
             j=0;
         }
