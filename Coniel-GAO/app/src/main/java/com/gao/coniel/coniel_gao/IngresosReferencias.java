@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import org.ksoap2.serialization.SoapObject;
 
+import java.util.ArrayList;
+
 import clases.Abonado;
 import clases.Medidor;
 import clases.SessionManager;
@@ -42,12 +44,9 @@ public class IngresosReferencias extends Fragment {
         sfvTrack = (SurfaceView) view.findViewById(R.id.cargandoD);
         sfvTrack.setZOrderOnTop(true);
 
-       //Guardar Variables de Sesion
-        SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
-        edtFabricaRef.setText(s.getStringKey("FABRICAREF"));
-        edtSerialRef.setText(s.getStringKey("SERIALREF"));
-        edtMarcaRef.setText(s.getStringKey("MARCAREF"));
-        edtCuentaRef.setText(s.getStringKey("CUENTAREF"));
+       recuperar();
+
+
 
         btnBuscarRef.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +82,30 @@ public class IngresosReferencias extends Fragment {
                 .saveKey("SERIALREF", edtSerialRef.getText().toString())
                 .saveKey("MARCAREF", edtMarcaRef.getText().toString())
                 .saveKey("CUENTAREF", edtCuentaRef.getText().toString());
+    }
+
+    private void recuperar() {
+
+        SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
+
+        if (!((s.getStringKey("IDACTIVIDADSELECCIONADA6")+"").equals(""))){
+
+            asyncSeleccion asb = new asyncSeleccion();
+            asb.execute(
+                    s.getStringKey("IDACTIVIDADSELECCIONADA")+""
+            );
+
+        }
+        else {
+
+            //recuperar Variables de Sesion
+            edtFabricaRef.setText(s.getStringKey("FABRICAREF"));
+            edtSerialRef.setText(s.getStringKey("SERIALREF"));
+            edtMarcaRef.setText(s.getStringKey("MARCAREF"));
+            edtCuentaRef.setText(s.getStringKey("CUENTAREF"));
+
+        }
+
     }
 
 
@@ -250,6 +273,64 @@ public class IngresosReferencias extends Fragment {
             t.show();
             w.DestroyGiff(img);
             habilitarComponentes(true);
+        }
+    }
+
+    private class asyncSeleccion extends AsyncTask<String, Float, Object> {
+
+        String toast="";
+
+        @Override
+        protected Object doInBackground(String... params) {
+            SW acc = new SW("ingresos.wsdl", "ingresosReferenciaSeleccionada");
+            acc.asignarPropiedades(
+                    new Tupla[]{
+                            new Tupla<String, Object>("ide", params[0])
+                    }
+            );
+            Object r = acc.ajecutar();
+            try{
+                SoapObject data = (SoapObject)r;
+
+                ArrayList<String> valores = new ArrayList<String>();
+                for (int i=0 ; i<data.getPropertyCount() ; i++){
+                    valores.add(data.getProperty(i).toString());
+                }
+                if (valores.size()>0)
+                    return valores;
+            }catch (Exception ignored){}
+            toast = "Error, No se pudo cargar los datos requeridos";
+            this.cancel(true);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object r) {
+            super.onPostExecute(r);
+
+            ArrayList<String> valores = (ArrayList<String>)r;
+
+            if (valores != null){
+                edtFabricaRef.setText(valores.get(0));
+                edtSerialRef.setText(valores.get(1));
+                edtMarcaRef.setText(valores.get(2));
+                edtCuentaRef.setText(valores.get(3));
+                SessionManagerIngreso.getManager(getActivity().getApplicationContext())
+                        .saveKey("IDACTIVIDADSELECCIONADA6","");
+            }
+
+
+
+        }
+
+        protected void onCancelled() {
+            Toast t = Toast.makeText(
+                    getActivity().getApplicationContext(),
+                    toast,
+                    Toast.LENGTH_SHORT
+            );
+            t.show();
+
         }
     }
 

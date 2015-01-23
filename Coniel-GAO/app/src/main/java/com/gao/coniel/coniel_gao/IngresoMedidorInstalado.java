@@ -44,25 +44,6 @@ public class IngresoMedidorInstalado extends Fragment {
                 SessionManager.getManager(getActivity().getApplicationContext()).getStringKey("contrato")
         );
 
-        spMedidoresBodega.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String seleccion = spMedidoresBodega.getItemAtPosition(position).toString();
-                Log.i("Info - medidor Seleccionado", seleccion);
-                asyncSeleccion as = new asyncSeleccion();
-                as.execute(
-                    SessionManager.getManager(getActivity().getApplicationContext()).getStringKey("contrato"),
-                    seleccion
-                );
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
         return view;
     }
 
@@ -127,6 +108,7 @@ public class IngresoMedidorInstalado extends Fragment {
                 }catch (Exception e){
                     Log.e("Error al Cargar spMedidoresBodega: ",""+e);
                 }
+
             recuperar();
         }
 
@@ -142,14 +124,48 @@ public class IngresoMedidorInstalado extends Fragment {
     }
 
     private void recuperar() {
-        //Recuperar Variables de Sesion
+
         SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
-        spMedidoresBodega.setSelection(s.getIntKey("MEDIDORESBODEGA"));
-        edtFabricaBodega.setText(s.getStringKey("NUMFABRICABODEGA"));
-        edtSerieBodega.setText(s.getStringKey("SERIEBODEGA"));
-        edtMarcaBodega.setText(s.getStringKey("MARCABODEGA"));
-        edtTipoBodega.setText(s.getStringKey("TIPOBODEGA"));
-        edtLecturaBodega.setText(s.getStringKey("LECTURABODEGA"));
+
+        if (!((s.getStringKey("IDACTIVIDADSELECCIONADA5")+"").equals(""))){
+
+
+            asyncActSeleccion asb = new asyncActSeleccion();
+            asb.execute(
+                    SessionManager.getManager(getActivity()).getStringKey("contrato"),
+                    s.getStringKey("IDACTIVIDADSELECCIONADA")+""
+            );
+
+        }
+        else {
+            //Recuperar Variables de Sesion
+            spMedidoresBodega.setSelection(s.getIntKey("MEDIDORESBODEGA"));
+            edtFabricaBodega.setText(s.getStringKey("NUMFABRICABODEGA"));
+            edtSerieBodega.setText(s.getStringKey("SERIEBODEGA"));
+            edtMarcaBodega.setText(s.getStringKey("MARCABODEGA"));
+            edtTipoBodega.setText(s.getStringKey("TIPOBODEGA"));
+            edtLecturaBodega.setText(s.getStringKey("LECTURABODEGA"));
+
+            spMedidoresBodega.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    String seleccion = spMedidoresBodega.getItemAtPosition(position).toString();
+                    Log.i("Info - medidor Seleccionado", seleccion);
+                    asyncSeleccion as = new asyncSeleccion();
+                    as.execute(
+                            SessionManager.getManager(getActivity().getApplicationContext()).getStringKey("contrato"),
+                            seleccion,
+                            ""
+                    );
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+        }
     }
 
 
@@ -170,11 +186,13 @@ public class IngresoMedidorInstalado extends Fragment {
 
         @Override
         protected Object doInBackground(String... params) {
-            SW acc = new SW("ingresos.wsdl", "ingresoMedidorInstaladoSeleccionado");
+            SW acc = new SW("ingresos.wsdl", "ingresoMedidorInstaladoSel");
+
             acc.asignarPropiedades(
                     new Tupla[]{
                             new Tupla<String, Object>("contrato", params[0]),
-                            new Tupla<String, Object>("med", params[1])
+                            new Tupla<String, Object>("med", params[1]),
+                            new Tupla<String, Object>("ide", params[2])
                     }
             );
             Object r = acc.ajecutar();
@@ -206,6 +224,7 @@ public class IngresoMedidorInstalado extends Fragment {
                 edtMarcaBodega.setText(valores.get(3));
                 edtTipoBodega.setText(valores.get(4));
                 id=valores.get(0);
+                edtLecturaBodega.setText(valores.get(5));
             }
 
         }
@@ -222,6 +241,92 @@ public class IngresoMedidorInstalado extends Fragment {
     }
 
 
+    private class asyncActSeleccion extends AsyncTask<String, Float, Object> {
 
+        String toast="";
+
+        @Override
+        protected Object doInBackground(String... params) {
+            SW acc = new SW("ingresos.wsdl", "ingresoMedidorInstaladoSeleccionado");
+            acc.asignarPropiedades(
+                    new Tupla[]{
+                            new Tupla<String, Object>("contrato", params[0]),
+                            new Tupla<String, Object>("ide", params[1])
+                    }
+            );
+            Object r = acc.ajecutar();
+            try{
+                SoapObject data = (SoapObject)r;
+
+                ArrayList<String> valores = new ArrayList<String>();
+                for (int i=0 ; i<data.getPropertyCount() ; i++){
+                    valores.add(data.getProperty(i).toString());
+                }
+                if (valores.size()>0)
+                    return valores;
+            }catch (Exception ignored){}
+            toast = "Error, No se pudo cargar los datos requeridos";
+            this.cancel(true);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object r) {
+            super.onPostExecute(r);
+
+            ArrayList<String> valores = (ArrayList<String>)r;
+
+            if (valores != null){
+
+                spMedidoresBodega.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        String seleccion = spMedidoresBodega.getItemAtPosition(position).toString();
+                        Log.i("Info - medidor Seleccionado", seleccion);
+                        String idAct="";
+                        if (!(SessionManagerIngreso.getManager(getActivity().getApplicationContext())
+                                    .getStringKey("IDACTIVIDADSELECCIONADA")+"").equals("") &&
+                                position==0){
+                            idAct = (SessionManagerIngreso.getManager(getActivity().getApplicationContext())
+                                    .getStringKey("IDACTIVIDADSELECCIONADA")+"");
+                            Log.i("Info - Act", idAct);
+                        }
+                        asyncSeleccion as = new asyncSeleccion();
+                        as.execute(
+                                SessionManager.getManager(getActivity().getApplicationContext()).getStringKey("contrato"),
+                                seleccion,
+                                idAct
+                        );
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
+                ArrayAdapter<String> ad =(ArrayAdapter<String>) spMedidoresBodega.getAdapter();
+                ad.insert(valores.get(0), 0);
+                ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spMedidoresBodega.setAdapter(ad);
+                spMedidoresBodega.setSelection(0);
+
+            }
+
+            SessionManagerIngreso.getManager(getActivity().getApplicationContext())
+                    .saveKey("IDACTIVIDADSELECCIONADA5","");
+
+        }
+
+        protected void onCancelled() {
+            Toast t = Toast.makeText(
+                    getActivity().getApplicationContext(),
+                    toast,
+                    Toast.LENGTH_SHORT
+            );
+            t.show();
+
+        }
+    }
 
 }

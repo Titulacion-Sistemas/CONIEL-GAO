@@ -104,7 +104,7 @@ public class ListaActividades extends android.support.v4.app.Fragment {
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                     SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
-
+                    s.borrarDatos();
                     if(!(s.getStringKey("IDACTIVIDADSELECCIONADA").toString().equals(listaActividades.get(position).getIde()))
                             && position>0 ) {
                         s.saveKey("IDACTIVIDADSELECCIONADA", listaActividades.get(position).getIde());

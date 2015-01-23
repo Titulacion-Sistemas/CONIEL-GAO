@@ -273,6 +273,9 @@ public class SessionManagerIngreso {
         saveKey("CHECKDIRECTO", false);
         saveKey("CHECKCONTRASTACION", false);
         saveKey("CHECKREUBICACION", false);
+        saveKey("LISTAMATERIALES", new ArrayList<String[]>());
+        saveKey("LISTASELLOS", new ArrayList<String[]>());
+
 
         //MEDIDOR INSTALADO
         saveKey("MEDIDORESBODEGA", 0);

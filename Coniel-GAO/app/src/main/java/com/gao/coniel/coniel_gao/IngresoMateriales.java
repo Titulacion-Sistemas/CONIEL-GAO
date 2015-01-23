@@ -87,8 +87,8 @@ public class IngresoMateriales extends Fragment {
 
         ListaMaterialesAdapter ad = (ListaMaterialesAdapter) listViewMateriales.getAdapter();
         ArrayList<String[]> lista = null;
-        Log.i("Info-ListViewMateriales-Count", ad.getCount()+"");
-        if (ad.getCount()>0) {
+        //Log.i("Info-ListViewMateriales-Count", ad.getCount()+"");
+        if (ad!=null) {
             lista = new ArrayList<String[]>();
             for (int i = 0; i < ad.getCount(); i++)
                 lista.add(
@@ -101,7 +101,7 @@ public class IngresoMateriales extends Fragment {
         }
         s.saveKey("LISTAMATERIALES", lista);
         lista = null;
-        if (ad.getCount()>0) {
+        if (ad!=null) {
             ListaContenidoSellosAdapter ads = (ListaContenidoSellosAdapter) listViewSellos.getAdapter();
             lista = new ArrayList<String[]>();
             for (int i = 0; i < ads.getCount(); i++)
