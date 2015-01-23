@@ -18,7 +18,6 @@ public class ListaPasos extends android.support.v4.app.Fragment {
 
     private android.support.v4.app.Fragment[] fragmentos = new android.support.v4.app.Fragment[6];
     private OnPasoSelectedListener listener;
-    String c,n;
     ListView listView, listViewActividades;
     ArrayList<Pasos> listaPasos;
 
