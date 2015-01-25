@@ -11,12 +11,14 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -36,7 +38,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import clases.AdapaterSpinnerCuadrillas;
 import clases.DirectionsJSONParser;
+import clases.ListaCuadrillas;
 
 public class Geolocalizacion extends Fragment {
 
@@ -45,6 +49,10 @@ public class Geolocalizacion extends Fragment {
     private GoogleMap map;
     TextView txtDistancia, txtDuracion;
     Button btnDraw;
+    Spinner spInicioDes, spFinDes;
+
+    ArrayList<ListaCuadrillas> listaCuadrillas;
+    AdapaterSpinnerCuadrillas adapterCuadrillas;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,9 +66,41 @@ public class Geolocalizacion extends Fragment {
         btnDraw = (Button) rootView.findViewById(R.id.btn_draw);
         txtDistancia = (TextView) rootView.findViewById(R.id.txt_distancia);
         txtDuracion = (TextView) rootView.findViewById(R.id.txt_tiempo);
+        spInicioDes = (Spinner) rootView.findViewById(R.id.spinicio);
+        spFinDes = (Spinner) rootView.findViewById(R.id.spfin);
+
 
         // Initializing
         markerPoints = new ArrayList<LatLng>();
+        listaCuadrillas = new ArrayList<ListaCuadrillas>();
+        adapterCuadrillas = new AdapaterSpinnerCuadrillas(getActivity(), listaCuadrillas);
+
+        listaCuadrillas.add(new ListaCuadrillas("Danny Loaiza", "-3.2749623", "-79.9644235"));
+        listaCuadrillas.add(new ListaCuadrillas("Julio Loaiza", "-3.2688423", "-79.9720586"));
+
+
+        spInicioDes.setAdapter(adapterCuadrillas);
+        spFinDes.setAdapter(adapterCuadrillas);
+
+
+        try {
+            markerPoints.add(
+                    new LatLng(
+                            adapterCuadrillas.getItem(0).getLat(),
+                            adapterCuadrillas.getItem(0).getLongitud()
+                    )
+            );
+            markerPoints.add(
+                    new LatLng(
+                            adapterCuadrillas.getItem(1).getLat(),
+                            adapterCuadrillas.getItem(1).getLongitud()
+                    )
+            );
+        }catch (Exception ignored){
+
+        }
+
+
 
         if (savedInstanceState == null) {
             /*getFragmentManager().beginTransaction()
@@ -74,15 +114,15 @@ public class Geolocalizacion extends Fragment {
 
 
             //SetOnClickListener Mapa La Mejor Ruta
-            map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+          /*  map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
                 @Override
                 public void onMapClick(LatLng point) {
 
                     // Already two locations
-                    /*if(markerPoints.size()>1){
+                    *//*if(markerPoints.size()>1){
                         return;
-                    }*/
+                    }*//*
                     if(markerPoints.size()>1){
                     markerPoints.clear();
                     map.clear();
@@ -101,9 +141,9 @@ public class Geolocalizacion extends Fragment {
                         options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
                     }else if(markerPoints.size()==2){
                         options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                    }/*else{
+                    }*//*else{
                         options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-                    }*/
+                    }*//*
 
                     // Add new marker to the Google Map Android API V2
                     map.addMarker(options);
@@ -124,7 +164,7 @@ public class Geolocalizacion extends Fragment {
 
                 }
             });
-
+*/
             btnDraw.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -155,10 +195,70 @@ public class Geolocalizacion extends Fragment {
             map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),
                     2000, null);
         }
+
+        spInicioDes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                AdapaterSpinnerCuadrillas ad = (AdapaterSpinnerCuadrillas) spInicioDes.getAdapter();
+                LatLng point = new LatLng(ad.getItem(position).getLat(), ad.getItem(position).getLongitud());
+
+                redibujarMarcadores(point, 0);
+
+            }
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+
+            }
+        });
+
+
+        spFinDes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                AdapaterSpinnerCuadrillas ad = (AdapaterSpinnerCuadrillas) spFinDes.getAdapter();
+                LatLng point = new LatLng(ad.getItem(position).getLat(),ad.getItem(position).getLongitud());
+
+                redibujarMarcadores(point, 1);
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         return rootView;
     }
 
-////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////
+  public void redibujarMarcadores(LatLng latLng, int index){
+      map.clear();
+      //markerPoints.remove(index);
+      try{
+          markerPoints.set(index,latLng);
+      }catch (Exception e){}
+
+      for(LatLng l:markerPoints){
+          if(l!=null) {
+              MarkerOptions options = new MarkerOptions();
+              options.position(l);
+              options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+              if(markerPoints.indexOf(l)==0)
+                  options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+
+              map.addMarker(options);
+          }
+      }
+
+  }
+
+
+    ////////////////////////////////////////////////////////////
     private String getDirectionsUrl(LatLng origin,LatLng dest){
 
         // Origin of route
