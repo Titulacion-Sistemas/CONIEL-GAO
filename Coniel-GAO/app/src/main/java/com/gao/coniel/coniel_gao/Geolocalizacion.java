@@ -1,9 +1,11 @@
 package com.gao.coniel.coniel_gao;
 
-import android.app.Fragment;
+
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -35,18 +38,23 @@ import java.util.List;
 
 import clases.DirectionsJSONParser;
 
-public class Geolocalizacion extends android.support.v4.app.Fragment {
+public class Geolocalizacion extends Fragment {
 
     View rootView;
     ArrayList<LatLng> markerPoints;
-    GoogleMap map;
+    private GoogleMap map;
     TextView txtDistancia, txtDuracion;
     Button btnDraw;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.activity_geolocalizacion, container, false);
+        rootView = inflater.inflate(R.layout.activity_geolocalizacion, null, false);
+        FragmentManager fm = getChildFragmentManager();
+
+        map = ((SupportMapFragment) fm.findFragmentById(R.id.map))
+                .getMap();
+
         btnDraw = (Button) rootView.findViewById(R.id.btn_draw);
         txtDistancia = (TextView) rootView.findViewById(R.id.txt_distancia);
         txtDuracion = (TextView) rootView.findViewById(R.id.txt_tiempo);
@@ -60,8 +68,6 @@ public class Geolocalizacion extends android.support.v4.app.Fragment {
                     .commit();*/
 
             // Get a handle to the Map Fragment
-            map = ((MapFragment) getActivity().getFragmentManager()
-                    .findFragmentById(R.id.map)).getMap();
 
             LatLng machala = new LatLng(-3.2587988, -79.9589356);
             map.setMyLocationEnabled(true);
