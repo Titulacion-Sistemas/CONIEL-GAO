@@ -22,6 +22,7 @@ import org.ksoap2.serialization.SoapPrimitive;
 import java.util.ArrayList;
 
 import clases.SessionManager;
+import clases.SessionManagerIngreso;
 import clases.Tupla;
 import serviciosWeb.SW;
 
@@ -165,6 +166,7 @@ public class Contenedor extends FragmentActivity implements ListaPasos.OnPasoSel
                 fragment = new MenuPrincipal();
                 break;
             case 1:
+                SessionManagerIngreso.getManager(this).borrarDatos();
                 fragment = new ListaPasos();
                 break;
             case 2:
@@ -176,13 +178,16 @@ public class Contenedor extends FragmentActivity implements ListaPasos.OnPasoSel
             case 4:
                 fragment = new Geolocalizacion();
                 break;
+            case 5:
+                fragment = new Acercade();
+                break;
             case 8:
                 fragment = new CapturarFotos();
                 break;
             case 9:
                 fragment = new Galeria();
                 break;
-            case 5:
+            case 6:
                 asyncLogout acl = new asyncLogout();
                 acl.execute(sesion[1], sesion[2], sesion[3]);
                 return;

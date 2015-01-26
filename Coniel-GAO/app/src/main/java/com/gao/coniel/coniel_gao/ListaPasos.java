@@ -1,17 +1,27 @@
 package com.gao.coniel.coniel_gao;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.ksoap2.serialization.PropertyInfo;
+import org.ksoap2.serialization.SoapObject;
 
 import java.util.ArrayList;
 
 import clases.Pasos;
+import clases.SessionManagerIngreso;
+import serviciosWeb.SW;
+import serviciosWeb.SWAct;
 
 
 public class ListaPasos extends android.support.v4.app.Fragment {
@@ -28,12 +38,42 @@ public class ListaPasos extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_lista_pasos, container, false);
+
+        SessionManagerIngreso sessionManagerIngreso = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
+        int solicitud = sessionManagerIngreso.getIntKey("SOLICITUD");
+        int idSol = Integer.parseInt(sessionManagerIngreso.getStringKey("IDSOLICITUD"));
+
         fragmentos [0] = new IngresoActividadInstalador();
         fragmentos [1] = new IngresoDatosAbonado();
         fragmentos [2] = new IngresoDetalleInstalacion();
         fragmentos [3] = new IngresoMateriales();
-        fragmentos [4] = new IngresoMedidorInstalado();
-        fragmentos [5] = new IngresosReferencias();
+        if(!(solicitud==1 || idSol==11))
+            fragmentos [4] = new IngresoMedidorInstalado();
+        if (solicitud==0 || idSol==1)
+            fragmentos [5] = new IngresosReferencias();
+
+
+        TextView text = (TextView)v.findViewById(R.id.texto);
+        TextView desc = (TextView)v.findViewById(R.id.desc);
+
+
+
+        desc.setText("( Actividad Nueva )");
+        if(solicitud==0 || idSol==1){
+            text.setText("Servicio Nuevo");
+            if(!sessionManagerIngreso.getStringKey("IDACTIVIDADSELECCIONADA").equals(""))
+                desc.setText("Editando Actividad");
+
+        }else if (solicitud==1 || idSol==11){
+            text.setText("Cambio de Materiales");
+            if(!sessionManagerIngreso.getStringKey("IDACTIVIDADSELECCIONADA").equals(""))
+                desc.setText(""+sessionManagerIngreso.getStringKey("CUENTA"));
+
+        }else if (solicitud==2 || idSol==13){
+            text.setText("Cambio de Medidor");
+            if(!sessionManagerIngreso.getStringKey("IDACTIVIDADSELECCIONADA").equals(""))
+                desc.setText(""+sessionManagerIngreso.getStringKey("CUENTA"));
+        }
 
         listView = (ListView) v.findViewById(R.id.lista);
         listViewActividades = (ListView) v.findViewById(R.id.listaActividades);
@@ -48,8 +88,10 @@ public class ListaPasos extends android.support.v4.app.Fragment {
         listaPasos.add(new Pasos(getResources().getDrawable(R.drawable.ic_usu_act), "Datos de Abonado", "Digitar o Consultar datos requeridos"));
         listaPasos.add(new Pasos(getResources().getDrawable(R.drawable.ic_detalle), "Detalle de Instalación", "Seleccionar o Digitar el detalle de la instalación"));
         listaPasos.add(new Pasos(getResources().getDrawable(R.drawable.ic_materiales), "Materiales", "Digitar el material utilizado"));
-        listaPasos.add(new Pasos(getResources().getDrawable(R.drawable.ic_medidor), "Medidor Instalado", "Digitar el medidor instalado"));
-        listaPasos.add(new Pasos(getResources().getDrawable(R.drawable.ic_referencia), "Referencias", "Digitar nro° de medidor de referencia"));
+        if (!(solicitud==1 || idSol==11))
+            listaPasos.add(new Pasos(getResources().getDrawable(R.drawable.ic_medidor), "Medidor Instalado", "Digitar el medidor instalado"));
+        if (solicitud==0 || idSol==1)
+            listaPasos.add(new Pasos(getResources().getDrawable(R.drawable.ic_referencia), "Referencias", "Digitar nro° de medidor de referencia"));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -59,10 +101,6 @@ public class ListaPasos extends android.support.v4.app.Fragment {
                 Log.e("Item seleccionado", String.valueOf(+ide));
             }
         });
-
-
-
-
 
         listaPasos = new ArrayList<Pasos>();
         // Al adapterSellos personalizado le pasamos el contexto y la lista que contiene
@@ -80,15 +118,18 @@ public class ListaPasos extends android.support.v4.app.Fragment {
                 Log.e("Item seleccionado", "Lista de Actividades...");
             }
         });
+
+        Button guar = (Button)v.findViewById(R.id.btnGuardar);
+        guar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                asyncLoad a = new asyncLoad();
+                a.execute();
+            }
+        });
+
         return v;
     }
-
-  /* @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-    }*/
 
 
     public interface OnPasoSelectedListener {
@@ -107,6 +148,65 @@ public class ListaPasos extends android.support.v4.app.Fragment {
         int ide = (int)id;
         listener.OnPasoSelected(fragmentos[position]);
         Log.e("Item seleccionado", String.valueOf(+ide));
+    }
+
+
+
+
+
+    //EN SEGUNDO PLANO
+    private class asyncLoad extends AsyncTask<String, Float, Object> {
+
+        String toast="";
+
+        @Override
+        protected Object doInBackground(String... params) {
+            SoapObject  prueba  = new SoapObject();
+            SoapObject  dentro  = new SoapObject();
+            dentro.addProperty("name","Jhonsson");
+            dentro.addProperty("name1","Jhonsson");
+            prueba.addProperty("name", dentro);
+            PropertyInfo p = new PropertyInfo();
+            p.setValue(prueba);
+            p.setName("arr");
+
+            SWAct acc = new SWAct("ingresos.wsdl", "prueba_array");
+            acc.asignarPropiedades(
+                    p
+            );
+            Object r = acc.ajecutar();
+            try{
+                return r;
+            }catch (Exception e){
+                toast = "Error, No se pudo cargar los datos requeridos";
+                this.cancel(true);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object r) {
+            super.onPostExecute(r);
+
+            System.out.print(r);
+
+            SoapObject data = (SoapObject)r;
+            System.out.print(data);
+
+
+
+        }
+
+        protected void onCancelled() {
+            Toast t = Toast.makeText(
+                    getActivity().getApplicationContext(),
+                    toast,
+                    Toast.LENGTH_SHORT
+            );
+            t.show();
+
+        }
     }
 
 

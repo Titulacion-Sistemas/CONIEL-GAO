@@ -233,6 +233,16 @@ public class SessionManagerIngreso {
 
 
     public void borrarDatos(){
+        //ACTIVIDAD
+        saveKey("IDACTIVIDADSELECCIONADA", "");
+        saveKey("IDACTIVIDADSELECCIONADA1", "");
+        saveKey("IDACTIVIDADSELECCIONADA2", "");
+        saveKey("IDACTIVIDADSELECCIONADA3", "");
+        saveKey("IDACTIVIDADSELECCIONADA4", "");
+        saveKey("IDACTIVIDADSELECCIONADA5", "");
+        saveKey("IDACTIVIDADSELECCIONADA6", "");
+        saveKey("IDSOLICITUD", "0");
+
         //ACTIVIDAD A REALIZAR - INSTALADOR ENCARGADO
         saveKey("INSTALADOR",0);
         saveKey("CUADRILLA", 0);

@@ -71,7 +71,7 @@ public class MenuPrincipal extends Fragment {
             @Override
             public void onClick(View v) {
                 try{
-                    ((Contenedor)getActivity()).displayView(5, null);
+                    ((Contenedor)getActivity()).displayView(6, null);
                 }catch (Exception ignored){}
             }
         });

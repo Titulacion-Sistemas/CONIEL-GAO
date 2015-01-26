@@ -27,7 +27,6 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
 
     private Abonado cliente=null;
     private SurfaceView sfvTrack;
-    private String [] datosAbonados = new String[2];
     EditText cuenta,cedula, nombre, estado, telefono, lugar, calle, geocodigo, fabrica, serial, marca, lectura;
     Button btnBuscarDatos;
 
@@ -84,19 +83,31 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
                 SessionManager s = SessionManager.getManager(getActivity().getApplicationContext());
                 asyncBuscar asb = new asyncBuscar(sfvTrack);
                 String tipo ="", dato="";
-                if (validar(1, cuenta.getText()+"")){
-                    tipo="1";
-                    dato = cuenta.getText()+"";
-                }else if (validar(2, fabrica.getText()+"")){
-                    tipo="2";
-                    dato = fabrica.getText()+"";
-                }else if (validar(3, nombre.getText()+"")){
-                    tipo="3";
-                    dato = nombre.getText()+"";
-                }else if (validar(4, geocodigo.getText()+"")){
-                    tipo="4";
-                    dato = geocodigo.getText()+"";
+                if (!(cuenta.getText().toString().equals(""))){
+                    if (validar(0, cuenta.getText()+"")){
+                        tipo="1";
+                        dato = cuenta.getText()+"";
+                    }
                 }
+                if (!(fabrica.getText().toString().equals(""))){
+                    if (validar(1, fabrica.getText()+"")){
+                        tipo="2";
+                        dato = fabrica.getText()+"";
+                    }
+                }
+                if (!(nombre.getText().toString().equals(""))){
+                    if (validar(2, nombre.getText()+"")){
+                        tipo="3";
+                        dato = nombre.getText()+"";
+                    }
+                }
+                if (!(geocodigo.getText().toString().equals(""))){
+                    if (validar(3, geocodigo.getText()+"")){
+                        tipo="4";
+                        dato = geocodigo.getText()+"";
+                    }
+                }
+
 
                 if (!tipo.equals("")){
                     habilitarComponentes(false);
@@ -144,12 +155,12 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
 
     //////////////////////////////////buscar
 
-
+    private int tipo =0;
     //EN SEGUNDO PLANO
     private class asyncBuscar extends AsyncTask<String, Float, Integer> {
 
         private String toast=null;
-        private int tipo =0;
+
         private SurfaceView img;
         private GifRun w;
 
@@ -314,21 +325,20 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
 
     private void rellenar() {
         if (cliente != null){
-
-            cuenta.setText(cliente.getCuenta());
-            cedula.setText(cliente.getCi());
-            nombre.setText(cliente.getNombre());
-            estado.setText(cliente.getEstado());
+            cuenta.setText(cliente.getCuenta()+"");
+            cedula.setText(cliente.getCi()+"");
+            nombre.setText(cliente.getNombre()+"");
+            estado.setText(cliente.getEstado()+"");
             //telefono.setText(cliente.getTelefono);
-            lugar.setText(cliente.getDireccion());
-            calle.setText(cliente.getInterseccion());
-            geocodigo.setText(cliente.getGeocodigo());
+            lugar.setText(cliente.getDireccion()+"");
+            calle.setText(cliente.getInterseccion()+"");
+            geocodigo.setText(cliente.getGeocodigo()+"");
 
             for (Medidor m : cliente.getMedidores()){
                 if(m.getFechaDesinst().equals("0/00/0000")){
-                    fabrica.setText(m.getNumFabrica());
-                    serial.setText(m.getNumSerie());
-                    marca.setText(m.getMarca());
+                    fabrica.setText(m.getNumFabrica()+"");
+                    serial.setText(m.getNumSerie()+"");
+                    marca.setText(m.getMarca()+"");
                     //lectura.setText(m.getLecturaDesinst());
                     break;
                 }
@@ -407,8 +417,6 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
         }
     }
 
-
-
     ////////////////////////////////
 
 
@@ -444,18 +452,18 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
             SoapObject data = (SoapObject)r;
             System.out.print(data);
 
-            cuenta.setText(data.getProperty(0).toString());
-            cedula.setText(data.getProperty(1).toString());
-            nombre.setText(data.getProperty(2).toString());
-            estado.setText(data.getProperty(3).toString());
-            telefono.setText(data.getProperty(4).toString());
-            lugar.setText(data.getProperty(5).toString());
-            calle.setText(data.getProperty(6).toString());
-            geocodigo.setText(data.getProperty(7).toString());
-            fabrica.setText(data.getProperty(8).toString());
-            serial.setText(data.getProperty(9).toString());
-            marca.setText(data.getProperty(10).toString());
-            lectura.setText(data.getProperty(11).toString());
+            cuenta.setText(data.getProperty(0).toString().replace("anyType{}",""));
+            cedula.setText(data.getProperty(1).toString().replace("anyType{}",""));
+            nombre.setText(data.getProperty(2).toString().replace("anyType{}",""));
+            estado.setText(data.getProperty(3).toString().replace("anyType{}",""));
+            telefono.setText(data.getProperty(4).toString().replace("anyType{}",""));
+            lugar.setText(data.getProperty(5).toString().replace("anyType{}",""));
+            calle.setText(data.getProperty(6).toString().replace("anyType{}",""));
+            geocodigo.setText(data.getProperty(7).toString().replace("anyType{}",""));
+            fabrica.setText(data.getProperty(8).toString().replace("anyType{}",""));
+            serial.setText(data.getProperty(9).toString().replace("anyType{}",""));
+            marca.setText(data.getProperty(10).toString().replace("anyType{}",""));
+            lectura.setText(data.getProperty(11).toString().replace("anyType{}",""));
 
             SessionManagerIngreso.getManager(getActivity().getApplicationContext()).saveKey("IDACTIVIDADSELECCIONADA2","");
 

@@ -64,7 +64,7 @@ public class ListaActividades extends android.support.v4.app.Fragment {
             );
             Object r = acc.ajecutar();
             try{
-                listaActividades.add(new ItemListaActividades("Id", "Cuenta", "Nombre", "Actividad", "Medidor"));
+                listaActividades.add(new ItemListaActividades("Id", "Cuenta", "Nombre", "Actividad", "Medidor", "idSolicitud"));
                 SoapObject data = (SoapObject)r;
                 System.out.print(data);
 
@@ -75,7 +75,8 @@ public class ListaActividades extends android.support.v4.app.Fragment {
                                 ""+(((SoapObject)data.getProperty(i)).getProperty(1)),
                                 ""+(((SoapObject)data.getProperty(i)).getProperty(2)),
                                 ""+(((SoapObject)data.getProperty(i)).getProperty(3)),
-                                ""+(((SoapObject)data.getProperty(i)).getProperty(4))
+                                ""+(((SoapObject)data.getProperty(i)).getProperty(4)),
+                                ""+(((SoapObject)data.getProperty(i)).getProperty(5))
                             )
                     );
                 }
@@ -104,9 +105,10 @@ public class ListaActividades extends android.support.v4.app.Fragment {
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                     SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
-                    s.borrarDatos();
-                    if(!(s.getStringKey("IDACTIVIDADSELECCIONADA").toString().equals(listaActividades.get(position).getIde()))
+
+                    if( !(s.getStringKey("IDACTIVIDADSELECCIONADA").equals(listaActividades.get(position).getIde()))
                             && position>0 ) {
+                        s.borrarDatos();
                         s.saveKey("IDACTIVIDADSELECCIONADA", listaActividades.get(position).getIde());
                         s.saveKey("IDACTIVIDADSELECCIONADA1", listaActividades.get(position).getIde());
                         s.saveKey("IDACTIVIDADSELECCIONADA2", listaActividades.get(position).getIde());
@@ -114,6 +116,9 @@ public class ListaActividades extends android.support.v4.app.Fragment {
                         s.saveKey("IDACTIVIDADSELECCIONADA4", listaActividades.get(position).getIde());
                         s.saveKey("IDACTIVIDADSELECCIONADA5", listaActividades.get(position).getIde());
                         s.saveKey("IDACTIVIDADSELECCIONADA6", listaActividades.get(position).getIde());
+                        s.saveKey("CUENTA", listaActividades.get(position).getCuenta());
+                        s.saveKey("IDSOLICITUD", listaActividades.get(position).getIdSolicitud());
+
                         Toast t = Toast.makeText(
                                 getActivity().getApplicationContext(),
                                 "Actividad Cargada...",
@@ -121,13 +126,7 @@ public class ListaActividades extends android.support.v4.app.Fragment {
                         );
                         t.show();
                     }else{
-                        s.saveKey("IDACTIVIDADSELECCIONADA", "");
-                        s.saveKey("IDACTIVIDADSELECCIONADA1", "");
-                        s.saveKey("IDACTIVIDADSELECCIONADA2", "");
-                        s.saveKey("IDACTIVIDADSELECCIONADA3", "");
-                        s.saveKey("IDACTIVIDADSELECCIONADA4", "");
-                        s.saveKey("IDACTIVIDADSELECCIONADA5", "");
-                        s.saveKey("IDACTIVIDADSELECCIONADA6", "");
+                        s.borrarDatos();
                     }
 
                     adapter = new AdaptadorListaActividades(getActivity(), listaActividades);

@@ -6,13 +6,15 @@ public class ItemListaActividades {
     private String nombre;
     private String solicitud;
     private String medidor;
+    private String idSolicitud;
 
-    public ItemListaActividades(String ide, String cuenta, String nombre, String solicitud, String medidor) {
+    public ItemListaActividades(String ide, String cuenta, String nombre, String solicitud, String medidor, String idSolicitud) {
         this.ide=ide;
         this.cuenta = cuenta;
         this.nombre = nombre;
         this.solicitud = solicitud;
         this.medidor = medidor;
+        this.idSolicitud = idSolicitud;
     }
 
     public String getCuenta() {
@@ -53,5 +55,13 @@ public class ItemListaActividades {
 
     public void setIde(String ide) {
         this.ide = ide;
+    }
+
+    public String getIdSolicitud() {
+        return idSolicitud;
+    }
+
+    public void setIdSolicitud(String idSolicitud) {
+        this.idSolicitud = idSolicitud;
     }
 }

@@ -55,7 +55,7 @@ public class IngresosReferencias extends Fragment {
                 asyncBuscar asb = new asyncBuscar(sfvTrack);
 
 
-                if (validar(2, edtFabricaRef.getText().toString())){
+                if (validar(1, edtFabricaRef.getText().toString())){
                     habilitarComponentes(false);
                     asb.execute(
                             s.getStringKey(SessionManager.LOGIN_KEY),
@@ -337,13 +337,13 @@ public class IngresosReferencias extends Fragment {
     private void rellenar() {
         if (cliente != null){
 
-            edtCuentaRef.setText(cliente.getCuenta());
+            edtCuentaRef.setText(cliente.getCuenta()+"");
 
             for (Medidor m : cliente.getMedidores()){
                 if(m.getFechaDesinst().equals("0/00/0000")){
-                    edtFabricaRef.setText(m.getNumFabrica());
-                    edtSerialRef.setText(m.getNumSerie());
-                    edtSerialRef.setText(m.getMarca());
+                    edtFabricaRef.setText(m.getNumFabrica()+"");
+                    edtSerialRef.setText(m.getNumSerie()+"");
+                    edtMarcaRef.setText(m.getMarca()+"");
                     //lectura.setText(m.getLecturaDesinst());
                     break;
                 }

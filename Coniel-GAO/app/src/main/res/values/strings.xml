@@ -120,6 +120,7 @@
         <item>Buscar</item>
         <item>Fotos</item>
         <item>Ubicación</item>
+        <item>Acerca de</item>
         <item>Salir</item>
     </string-array>
 
@@ -130,8 +131,8 @@
         <item>@drawable/ic_action_search</item>
         <item>@drawable/ic_action_camera</item>
         <item>@drawable/ic_action_place</item>
-        <item>@drawable/ic_action_undo</item>
         <item>@drawable/ic_action_about</item>
+        <item>@drawable/ic_action_undo</item>
     </array>
 
     <string name="title_activity_buscar">Buscar</string>
