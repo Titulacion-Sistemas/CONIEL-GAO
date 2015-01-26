@@ -27,6 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONObject;
+import org.ksoap2.serialization.SoapObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -41,6 +42,9 @@ import java.util.List;
 import clases.AdapaterSpinnerCuadrillas;
 import clases.DirectionsJSONParser;
 import clases.ListaCuadrillas;
+import clases.SessionManager;
+import clases.Tupla;
+import serviciosWeb.SW;
 
 public class Geolocalizacion extends Fragment {
 
@@ -69,38 +73,14 @@ public class Geolocalizacion extends Fragment {
         spInicioDes = (Spinner) rootView.findViewById(R.id.spinicio);
         spFinDes = (Spinner) rootView.findViewById(R.id.spfin);
 
-
         // Initializing
         markerPoints = new ArrayList<LatLng>();
         listaCuadrillas = new ArrayList<ListaCuadrillas>();
-        adapterCuadrillas = new AdapaterSpinnerCuadrillas(getActivity(), listaCuadrillas);
 
-        listaCuadrillas.add(new ListaCuadrillas("Danny Loaiza", "-3.2749623", "-79.9644235"));
-        listaCuadrillas.add(new ListaCuadrillas("Julio Loaiza", "-3.2688423", "-79.9720586"));
-
-
-        spInicioDes.setAdapter(adapterCuadrillas);
-        spFinDes.setAdapter(adapterCuadrillas);
-
-
-        try {
-            markerPoints.add(
-                    new LatLng(
-                            adapterCuadrillas.getItem(0).getLat(),
-                            adapterCuadrillas.getItem(0).getLongitud()
-                    )
-            );
-            markerPoints.add(
-                    new LatLng(
-                            adapterCuadrillas.getItem(1).getLat(),
-                            adapterCuadrillas.getItem(1).getLongitud()
-                    )
-            );
-        }catch (Exception ignored){
-
-        }
-
-
+        asyncLoad al = new asyncLoad();
+        al.execute(
+            SessionManager.getManager(getActivity().getApplicationContext()).getStringKey("contrato")
+        );
 
         if (savedInstanceState == null) {
             /*getFragmentManager().beginTransaction()
@@ -235,27 +215,27 @@ public class Geolocalizacion extends Fragment {
         return rootView;
     }
 
-  ///////////////////////////////////////////////////////////
-  public void redibujarMarcadores(LatLng latLng, int index){
-      map.clear();
-      //markerPoints.remove(index);
-      try{
-          markerPoints.set(index,latLng);
-      }catch (Exception e){}
 
-      for(LatLng l:markerPoints){
-          if(l!=null) {
-              MarkerOptions options = new MarkerOptions();
-              options.position(l);
-              options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-              if(markerPoints.indexOf(l)==0)
-                  options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+      public void redibujarMarcadores(LatLng latLng, int index){
+          map.clear();
+          //markerPoints.remove(index);
+          try{
+              markerPoints.set(index,latLng);
+          }catch (Exception e){}
 
-              map.addMarker(options);
+          for(LatLng l:markerPoints){
+              if(l!=null) {
+                  MarkerOptions options = new MarkerOptions();
+                  options.position(l);
+                  options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                  if(markerPoints.indexOf(l)==0)
+                      options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+
+                  map.addMarker(options);
+              }
           }
-      }
 
-  }
+      }
 
 
     ////////////////////////////////////////////////////////////
@@ -463,6 +443,83 @@ public class Geolocalizacion extends Fragment {
             View rootView = inflater.inflate(R.layout.fragment_contenedor_mapa, container, false);
             return rootView;
         }*/
+    }
+
+    //EN SEGUNDO PLANO
+    private class asyncLoad extends AsyncTask<String, Float, Object> {
+
+        String toast="";
+
+        @Override
+        protected Object doInBackground(String... params) {
+            SW acc = new SW("ingresos.wsdl", "ubicacion");
+            acc.asignarPropiedades(
+                    new Tupla[]{
+                            new Tupla<String, Object>("contrato", params[0])
+                    }
+            );
+            Object r = acc.ajecutar();
+            try{
+                return r;
+            }catch (Exception e){
+                toast = "Error, No se pudo cargar los datos requeridos";
+                this.cancel(true);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object r) {
+            super.onPostExecute(r);
+
+            System.out.print(r);
+
+            SoapObject data = (SoapObject)r;
+            System.out.print(data);
+
+            for (int j=0 ; j<data.getPropertyCount() ; j++){
+                listaCuadrillas.add(
+                        new ListaCuadrillas(
+                                ""+(((SoapObject)data.getProperty(j)).getProperty(0))+
+                                        " ("+(((SoapObject)data.getProperty(j)).getProperty(1))+")",
+                                ""+(((SoapObject)data.getProperty(j)).getProperty(2)),
+                                ""+(((SoapObject)data.getProperty(j)).getProperty(3))
+                        )
+                    );
+            }
+            adapterCuadrillas = new AdapaterSpinnerCuadrillas(getActivity(), listaCuadrillas);
+            try {
+                markerPoints.add(
+                        new LatLng(
+                                adapterCuadrillas.getItem(0).getLat(),
+                                adapterCuadrillas.getItem(0).getLongitud()
+                        )
+                );
+                markerPoints.add(
+                        new LatLng(
+                                adapterCuadrillas.getItem(1).getLat(),
+                                adapterCuadrillas.getItem(1).getLongitud()
+                        )
+                );
+
+                spInicioDes.setAdapter(adapterCuadrillas);
+                spFinDes.setAdapter(adapterCuadrillas);
+
+            }catch (Exception ignored){}
+
+
+        }
+
+        protected void onCancelled() {
+            Toast t = Toast.makeText(
+                    getActivity().getApplicationContext(),
+                    toast,
+                    Toast.LENGTH_SHORT
+            );
+            t.show();
+
+        }
     }
 
 }

@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.gao.coniel.coniel_gao.R;
@@ -48,16 +50,31 @@ public class ListaMaterialesAdapter extends ArrayAdapter<ContenidoMaterialesList
             public void onClick(View v) {
 
                 Spinner sp = (Spinner) context.findViewById(R.id.spinnerMateriales);
+                ListView listamat = (ListView) context.findViewById(R.id.listMatAgregados);
+
                 ArrayAdapter<String> miad = (ArrayAdapter<String>)sp.getAdapter();
-                miad.insert(
-                        contenidoMaterialesLista.get(position).getCantidad(),
-                        Integer.parseInt(contenidoMaterialesLista.get(position).getItemMateriales())
-                );
+                try{
+                    miad.insert(
+                            contenidoMaterialesLista.get(position).getCantidad(),
+                            Integer.parseInt(contenidoMaterialesLista.get(position).getItemMateriales())
+                    );
+                }catch (Exception e){
+                    miad.add(contenidoMaterialesLista.get(position).getCantidad());
+                }
+
                 miad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 sp.setAdapter(miad);
 
                 contenidoMaterialesLista.remove(position);
+
+                listamat.setLayoutParams(
+                        new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.FILL_PARENT,
+                                contenidoMaterialesLista.size() * 50
+                        )
+                );
                 notifyDataSetChanged();
+
             }
         });
 
