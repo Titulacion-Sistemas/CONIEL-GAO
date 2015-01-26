@@ -1,5 +1,6 @@
 package com.gao.coniel.coniel_gao;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import clases.SessionManager;
+
 
 public class Fotos extends Fragment {
     private List<String> fileList = new  ArrayList<String>();
@@ -33,14 +36,15 @@ public class Fotos extends Fragment {
                              Bundle savedInstanceState) {
        rootView = inflater.inflate(R.layout.activity_fotos, container, false);
 
+        String contrato = SessionManager.getManager(getActivity().getApplicationContext()).getStringKey("contrato");
 
         File hoy = new File(Environment
-                .getExternalStoragePublicDirectory((Environment.DIRECTORY_DCIM)+ "/CONIEL/"+getDatePhone()+"/")
+                .getExternalStoragePublicDirectory((Environment.DIRECTORY_DCIM)+ "/CONIEL/"+contrato+"/"+getDatePhone()+"/")
                 .getAbsolutePath());
         hoy.mkdirs();
 
         File directorio = new File(Environment
-                .getExternalStoragePublicDirectory((Environment.DIRECTORY_DCIM)+ "/CONIEL/")
+                .getExternalStoragePublicDirectory((Environment.DIRECTORY_DCIM)+ "/CONIEL/"+contrato+"/")
                 .getAbsolutePath());
         ListDir(directorio);
 
@@ -129,5 +133,26 @@ public class Fotos extends Fragment {
     }
 
     ////////////////////////////////////////////////////////////////////////////
+
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        ActionBar bar = getActivity().getActionBar();
+        bar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        bar.removeAllTabs();
+        bar.setTitle(R.string.title_activity_contenedor);
+        bar.setSubtitle(" Gestión de Actividades Operativas ");
+        try {
+            Contenedor c = ((Contenedor)getActivity());
+            c.getmDrawerList().setItemChecked(0, true);
+            c.getmDrawerList().setSelection(0);
+            c.setTitle(R.string.title_activity_contenedor);
+        }catch (Exception ignored){}
+
+        Log.i("Información", "Dtach de Fotos");
+    }
+
 
 }

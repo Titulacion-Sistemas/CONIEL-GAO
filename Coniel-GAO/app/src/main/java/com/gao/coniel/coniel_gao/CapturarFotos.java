@@ -3,25 +3,28 @@ package com.gao.coniel.coniel_gao;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.support.v4.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.ksoap2.serialization.SoapObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,6 +37,9 @@ import java.util.List;
 
 import clases.GuardarFotos;
 import clases.MyLocation;
+import clases.SessionManager;
+import clases.Tupla;
+import serviciosWeb.SW;
 
 
 public class CapturarFotos extends Fragment {
@@ -45,6 +51,7 @@ public class CapturarFotos extends Fragment {
     File directorio , directorioc;
     ArrayList<Integer> aEliminar = new ArrayList<Integer>();
     View rootView;
+    String contrato;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,8 +71,10 @@ public class CapturarFotos extends Fragment {
 
         boton = (Button) rootView.findViewById(R.id.btnSiguiente);
 
+        contrato = SessionManager.getManager(getActivity().getApplicationContext()).getStringKey("contrato");
+
         directorio = new File(Environment
-                .getExternalStoragePublicDirectory((Environment.DIRECTORY_DCIM) + "/CONIEL/" + fecha + "/")
+                .getExternalStoragePublicDirectory((Environment.DIRECTORY_DCIM) + "/CONIEL/"+contrato+"/" + fecha + "/")
                 .getAbsolutePath());
 
         ListDir(directorio);
@@ -79,7 +88,7 @@ public class CapturarFotos extends Fragment {
 
                 if(! txtNumCuenta.getText().toString().equals("")) {
                     // Agregue
-                    directorioc = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/CONIEL/" + fecha + "/" + txtNumCuenta.getText() + "/");
+                    directorioc = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/CONIEL/"+contrato+"/" + fecha + "/" + txtNumCuenta.getText() + "/");
                     directorioc.mkdirs();
                     //Si no existe crea la carpeta donde se guardaran las fotos
                     File file = new File(directorioc, getCode() + ".jpg");
@@ -245,7 +254,22 @@ public class CapturarFotos extends Fragment {
                                         .saveKey("Latitud", location.getLatitude() + "")
                                         .saveKey("Longitud", location.getLongitude() + "");
 
-                                getToast("La ubicación de la foto ha sido almacenada");
+                                asyncLoad al = new asyncLoad();
+
+                                Time today = new Time(Time.getCurrentTimezone());
+                                today.setToNow();
+                                String dia = today.monthDay+"";
+                                String mes = (today.month+1)+"";
+                                String anio = today.year+"";
+                                String hora = today.format("%k:%M:%S")+"";
+                                al.execute(
+                                        SessionManager.getManager(getActivity().getApplicationContext()).getStringKey(SessionManager.LOGIN_KEY),
+                                        anio+"-"+mes+"-"+dia+" "+hora+"-05",
+                                        location.getLatitude() + "",
+                                        location.getLongitude() + ""
+                                );
+
+
 
                             }else{
                                 getToast("Error, Ubicación NO detectada");
@@ -330,4 +354,59 @@ public class CapturarFotos extends Fragment {
 
         Log.i("Información", "Dtach de Capturar Fotos");
     }
+
+
+
+    //EN SEGUNDO PLANO
+    private class asyncLoad extends AsyncTask<String, Float, Object> {
+
+        String toast="";
+
+        @Override
+        protected Object doInBackground(String... params) {
+            SW acc = new SW("ingresos.wsdl", "guardarUbicacion");
+            acc.asignarPropiedades(
+                    new Tupla[]{
+                            new Tupla<String, Object>("idUsuario", params[0]),
+                            new Tupla<String, Object>("fechahora", params[1]),
+                            new Tupla<String, Object>("latitud", params[2]),
+                            new Tupla<String, Object>("longitud", params[3])
+                    }
+            );
+            Object r = acc.ajecutar();
+            try{
+                SoapObject data = (SoapObject)r;
+                Log.i("Info-Retorno", data.toString());
+
+                    return data;
+
+            }catch (Exception ignored){}
+            toast = "Error, No se pudo cargar los datos requeridos";
+            this.cancel(true);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object r) {
+            super.onPostExecute(r);
+
+            Boolean valor = (Boolean)r;
+
+            if (valor){
+                getToast("La ubicación de la foto ha sido almacenada");
+            }else{
+                getToast("Error, Ubicación NO detectada");
+                GuardarFotos.getManager(directorioc)
+                        .saveKey("Latitud", "Por favor, actualice")
+                        .saveKey("Longitud", "datos de ubicación...");
+            }
+        }
+
+        protected void onCancelled() {
+            getToast(toast);
+
+        }
+    }
+
+
 }

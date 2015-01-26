@@ -1,6 +1,7 @@
 package com.gao.coniel.coniel_gao;
 
 
+import android.app.ActionBar;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -42,8 +43,6 @@ import java.util.List;
 import clases.AdapaterSpinnerCuadrillas;
 import clases.DirectionsJSONParser;
 import clases.ListaCuadrillas;
-import clases.SessionManager;
-import clases.Tupla;
 import serviciosWeb.SW;
 
 public class Geolocalizacion extends Fragment {
@@ -78,9 +77,7 @@ public class Geolocalizacion extends Fragment {
         listaCuadrillas = new ArrayList<ListaCuadrillas>();
 
         asyncLoad al = new asyncLoad();
-        al.execute(
-            SessionManager.getManager(getActivity().getApplicationContext()).getStringKey("contrato")
-        );
+        al.execute();
 
         if (savedInstanceState == null) {
             /*getFragmentManager().beginTransaction()
@@ -166,7 +163,7 @@ public class Geolocalizacion extends Fragment {
 
             CameraPosition cameraPosition = CameraPosition.builder()
                     .target(machala)
-                    .zoom(15)
+                    .zoom(12)
                     .bearing(90)
                     .build();
 
@@ -453,11 +450,6 @@ public class Geolocalizacion extends Fragment {
         @Override
         protected Object doInBackground(String... params) {
             SW acc = new SW("ingresos.wsdl", "ubicacion");
-            acc.asignarPropiedades(
-                    new Tupla[]{
-                            new Tupla<String, Object>("contrato", params[0])
-                    }
-            );
             Object r = acc.ajecutar();
             try{
                 return r;
@@ -520,6 +512,25 @@ public class Geolocalizacion extends Fragment {
             t.show();
 
         }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        ActionBar bar = getActivity().getActionBar();
+        bar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        bar.removeAllTabs();
+        bar.setTitle(R.string.title_activity_contenedor);
+        bar.setSubtitle(" Gestión de Actividades Operativas ");
+        try {
+            Contenedor c = ((Contenedor)getActivity());
+            c.getmDrawerList().setItemChecked(0, true);
+            c.getmDrawerList().setSelection(0);
+            c.setTitle(R.string.title_activity_contenedor);
+        }catch (Exception ignored){}
+
+        Log.i("Información", "Dtach de Geolocalizacion");
     }
 
 }
