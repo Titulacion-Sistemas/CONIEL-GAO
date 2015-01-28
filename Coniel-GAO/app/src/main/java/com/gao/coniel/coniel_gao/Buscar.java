@@ -88,6 +88,7 @@ public class Buscar extends Fragment {
                              sesion[3],
                              (pos) + "",
                              getTvData().getText().toString()
+
                      );
                  }
              }
@@ -247,14 +248,15 @@ public class Buscar extends Fragment {
 
         @Override
         protected Integer doInBackground(String... params) {
-            SW acc = new SW("busquedas.wsdl", "buscarMovil");
+            SW acc = new SW("busquedas.wsdl", "buscarDjango");
 
             acc.asignarPropiedades(
                     new Tupla[]{
                             new Tupla<String, Object>("idUsuario", params[0]),
                             new Tupla<String, Object>("sesion", params[1]),
                             new Tupla<String, Object>("tipo", params[2]),
-                            new Tupla<String, Object>("dato", params[3])
+                            new Tupla<String, Object>("dato", params[3]),
+                            new Tupla<String, Object>("esIngreso", false)
                     }
             );
             try{
