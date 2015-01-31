@@ -130,14 +130,15 @@ public class IngresosReferencias extends Fragment {
 
         @Override
         protected Integer doInBackground(String... params) {
-            SW acc = new SW("busquedas.wsdl", "buscarMovil");
+            SW acc = new SW("busquedas.wsdl", "buscarDjango");
 
             acc.asignarPropiedades(
                     new Tupla[]{
                             new Tupla<String, Object>("idUsuario", params[0]),
                             new Tupla<String, Object>("sesion", params[1]),
                             new Tupla<String, Object>("tipo", params[2]),
-                            new Tupla<String, Object>("dato", params[3])
+                            new Tupla<String, Object>("dato", params[3]),
+                            new Tupla<String, Object>("esIngreso", true)
                     }
             );
             try{
@@ -244,6 +245,15 @@ public class IngresosReferencias extends Fragment {
                 }
                 cliente.setMedidores(m);
 
+                try{
+                    data = (SoapObject) r.getProperty(3);
+                    SessionManagerIngreso.getManager(getActivity().getApplicationContext()).
+                            saveKey("IDREFERENCIA", data.getProperty(0).toString());
+                    Log.i("Log-Guardado Cliente Buscado", "SE guardo REFERENCIA");
+                }catch (Exception ignored) {
+                    Log.i("Log-Guardado Cliente Buscado", "NO SE guardo REFERENCIA");
+                }
+
             }catch (Exception e){
                 toast = "Error, No se ha podido Buscar...";
                 Log.e("Error : ", e.toString());
@@ -316,7 +326,8 @@ public class IngresosReferencias extends Fragment {
                 edtMarcaRef.setText(valores.get(2));
                 edtCuentaRef.setText(valores.get(3));
                 SessionManagerIngreso.getManager(getActivity().getApplicationContext())
-                        .saveKey("IDACTIVIDADSELECCIONADA6","");
+                        .saveKey("IDACTIVIDADSELECCIONADA6","")
+                        .saveKey("IDREFERENCIA",valores.get(4).replace("anyType{}",""));
             }
 
 

@@ -7,14 +7,24 @@ public class ItemListaActividades {
     private String solicitud;
     private String medidor;
     private String idSolicitud;
+    private String observaciones;
 
-    public ItemListaActividades(String ide, String cuenta, String nombre, String solicitud, String medidor, String idSolicitud) {
+    public ItemListaActividades(
+            String ide,
+            String cuenta,
+            String nombre,
+            String solicitud,
+            String medidor,
+            String idSolicitud,
+            String observaciones
+    ) {
         this.ide=ide;
         this.cuenta = cuenta;
         this.nombre = nombre;
         this.solicitud = solicitud;
         this.medidor = medidor;
         this.idSolicitud = idSolicitud;
+        this.observaciones = observaciones;
     }
 
     public String getCuenta() {
@@ -63,5 +73,13 @@ public class ItemListaActividades {
 
     public void setIdSolicitud(String idSolicitud) {
         this.idSolicitud = idSolicitud;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
 }

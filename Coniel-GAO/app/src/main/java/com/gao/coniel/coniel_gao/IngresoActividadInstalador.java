@@ -58,12 +58,14 @@ public class IngresoActividadInstalador extends Fragment {
 
         //Guardar variables
         SessionManagerIngreso.getManager(getActivity().getApplicationContext())
-                .saveKey("Coniel-GAO", true)
                 .saveKey("FECHA", fecha.getDayOfMonth() + "/" + fecha.getMonth() + "/" + fecha.getYear())
                 .saveKey("HORA", tiempo.getCurrentHour() + ":" + tiempo.getCurrentMinute())
                 .saveKey("SOLICITUD", spinerSolicitud.getSelectedItemPosition())
+                .saveKey("OBJSOLICITUD", spinerSolicitud.getSelectedItem().toString())
                 .saveKey("INSTALADOR", spinerInstalador.getSelectedItemPosition())
-                .saveKey("CUADRILLA", spinerCuadrilla.getSelectedItemPosition());
+                .saveKey("OBJINSTALADOR", spinerInstalador.getSelectedItem().toString())
+                .saveKey("CUADRILLA", spinerCuadrilla.getSelectedItemPosition())
+                .saveKey("OBJCUADRILLA", spinerCuadrilla.getSelectedItem().toString());
     }
 
     // Metodo Agregar datos a Spinner

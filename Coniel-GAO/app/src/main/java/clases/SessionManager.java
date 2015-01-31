@@ -84,7 +84,6 @@ public class SessionManager {
 
     public SessionManager saveKey(String key, int value) {
 
-        checkStandarKey(key);
 
         write(key, value+"");
 
@@ -94,7 +93,6 @@ public class SessionManager {
 
     public SessionManager saveKey(String key, boolean value) {
 
-        checkStandarKey(key);
 
         write(key, value?value + "":null);
 
@@ -104,8 +102,6 @@ public class SessionManager {
 
     public SessionManager saveKey(String key, float value) {
 
-        checkStandarKey(key);
-
         write(key, value + "");
 
         return INSTANCE;
@@ -113,8 +109,6 @@ public class SessionManager {
     }
 
     public SessionManager saveKey(String key, long value) {
-
-        checkStandarKey(key);
 
         write(key, value + "");
 
@@ -124,7 +118,6 @@ public class SessionManager {
 
     public SessionManager saveKey(String key, String value) {
 
-        checkStandarKey(key);
 
         write(key, value + "");
 
@@ -136,7 +129,6 @@ public class SessionManager {
 
     public int getIntKey(String key) {
 
-        checkStandarKey(key);
 
         try {
             return Integer.parseInt(readVAlue(key));
@@ -149,7 +141,6 @@ public class SessionManager {
 
     public boolean getBooleanKey(String key) {
 
-        checkStandarKey(key);
 
         return Boolean.parseBoolean(readVAlue(key));
 
@@ -157,7 +148,6 @@ public class SessionManager {
 
     public float getFloatKey(String key) {
 
-        checkStandarKey(key);
 
         try {
             return Float.parseFloat(readVAlue(key));
@@ -169,7 +159,6 @@ public class SessionManager {
 
     public long getLongKey(String key) {
 
-        checkStandarKey(key);
 
         try {
             return Long.parseLong(readVAlue(key));
@@ -183,18 +172,8 @@ public class SessionManager {
 
     public String getStringKey(String key) {
 
-        checkStandarKey(key);
 
         return readVAlue(key);
 
-    }
-
-    private void checkStandarKey(String key) {
-        if (!key.equals(LOGIN_KEY) &&
-                !key.equals(SESSION_KEY) &&
-                !key.equals(USER_KEY) &&
-                !key.equals(NAME_KEY)) {
-            Log.w(LOG_TAG, "The passed key is not part of the standars key-set. Consider use another one of the standar set");
-        }
     }
 }

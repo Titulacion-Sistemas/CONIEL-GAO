@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -11,6 +11,7 @@
 
 
     <ScrollView
+        android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/scrollView2" >
@@ -78,6 +79,18 @@
                 </LinearLayout>
 
 
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:hint="Observaciones..."
+                    android:ems="10"
+                    android:layout_marginRight="28dp"
+                    android:layout_marginLeft="28dp"
+                    android:editable="true"
+                    android:id="@+id/edtObservaciones"/>
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -92,19 +105,42 @@
                         android:padding="5dp"
                         android:layout_below="@+id/texto1">
 
-                        <Button
-                            android:id="@+id/btnGuardar"
-                            android:layout_centerInParent="true"
-
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:textColor="@android:color/white"
-                            android:background="@drawable/border"
-                            android:textStyle="bold"
-                            android:textSize="18dp"
-                            android:padding="10dp"
-                            android:text="Guardar"/>
+                            android:layout_centerInParent="true">
+
+                            <Button
+                                android:id="@+id/btnGuardar"
+                                android:layout_centerInParent="true"
+                                android:layout_marginRight="10dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/border"
+                                android:textStyle="bold"
+                                android:textSize="18dp"
+                                android:padding="10dp"
+                                android:text="Guardar"/>
+
+                            <Button
+                                android:id="@+id/btnEliminarAct"
+                                android:layout_centerInParent="true"
+                                android:layout_marginLeft="10dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/border"
+                                android:textStyle="bold"
+                                android:textSize="18dp"
+                                android:padding="10dp"
+                                android:text="Eliminar"/>
+
+                            </LinearLayout>
+
+
 
                     </RelativeLayout>
 
@@ -116,4 +152,4 @@
 
     </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>

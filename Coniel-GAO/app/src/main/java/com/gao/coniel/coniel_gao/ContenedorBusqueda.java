@@ -16,6 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import clases.Abonado;
+import clases.Medidor;
 import clases.PagerItem;
 
 

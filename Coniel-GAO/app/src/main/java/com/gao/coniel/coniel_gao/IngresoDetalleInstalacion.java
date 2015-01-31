@@ -63,21 +63,32 @@ public class IngresoDetalleInstalacion extends android.support.v4.app.Fragment {
         //Guardar Sesion para evitar cierre
         SessionManagerIngreso.getManager(getActivity().getApplicationContext())
                 .saveKey("MATERIALRED", spMaterialRed.getSelectedItemPosition())
+                .saveKey("OBJMATERIALRED", spMaterialRed.getSelectedItem().toString())
                 .saveKey("FORMACONEXION", spFormaConexion.getSelectedItemPosition())
+                .saveKey("OBJFORMACONEXION", spFormaConexion.getSelectedItem().toString())
                 .saveKey("ESTADOINST", spEstadoInst.getSelectedItemPosition())
+                .saveKey("OBJESTADOINST", spEstadoInst.getSelectedItem().toString())
                 .saveKey("TIPOCONST", spTipoConst.getSelectedItemPosition())
+                .saveKey("OBJTIPOCONST", spTipoConst.getSelectedItem().toString())
                 .saveKey("UBICACIONMED", spUbicacionMed.getSelectedItemPosition())
+                .saveKey("OBJUBICACIONMED", spUbicacionMed.getSelectedItem().toString())
                 .saveKey("TIPOACOMETIDA", spTipoAcometida.getSelectedItemPosition())
+                .saveKey("OBJTIPOACOMETIDA", spTipoAcometida.getSelectedItem().toString())
                 .saveKey("CALIBRERED", spCalibreRed.getSelectedItemPosition())
+                .saveKey("OBJCALIBRERED", spCalibreRed.getSelectedItem().toString())
                 .saveKey("TIPOSERVICIO", spTipoServicio.getSelectedItemPosition())
+                .saveKey("OBJTIPOSERVICIO", spTipoServicio.getSelectedItem().toString())
                 .saveKey("USOINMUEBLE", spUsoInmueble.getSelectedItemPosition())
+                .saveKey("OBJUSOINMUEBLE", spUsoInmueble.getSelectedItem().toString())
                 .saveKey("DEMANDA", spDemanda.getSelectedItemPosition())
+                .saveKey("OBJDEMANDA", spDemanda.getSelectedItem().toString())
                 .saveKey("NIVELSOCIO", spNivelSocioEconomico.getSelectedItemPosition())
+                .saveKey("OBJNIVELSOCIO", spNivelSocioEconomico.getSelectedItem().toString())
                 .saveKey("USOENERGIA", spUsoDeEnergia.getSelectedItemPosition())
-                .saveKey("CLASERED", spClaseDeRed.getSelectedItemPosition());
+                .saveKey("OBJUSOENERGIA", spUsoDeEnergia.getSelectedItem().toString())
+                .saveKey("CLASERED", spClaseDeRed.getSelectedItemPosition())
+                .saveKey("OBJCLASERED", spClaseDeRed.getSelectedItem().toString());
     }
-
-
 
 
     //EN SEGUNDO PLANO
@@ -193,10 +204,9 @@ public class IngresoDetalleInstalacion extends android.support.v4.app.Fragment {
                             Log.e("Error al Cargar spNivelSocioEconomico: ",""+e);
                         }
                 }
-
-                recuperar();
             }
 
+            recuperar();
         }
 
         protected void onCancelled() {
@@ -346,8 +356,9 @@ public class IngresoDetalleInstalacion extends android.support.v4.app.Fragment {
             }catch (Exception e){
                 Log.e("Error al Cargar spNivelSocioEconomico: ",""+e);
             }
-
-            SessionManagerIngreso.getManager(getActivity().getApplicationContext()).saveKey("IDACTIVIDADSELECCIONADA3","");
+            try{
+                SessionManagerIngreso.getManager(getActivity().getApplicationContext()).saveKey("IDACTIVIDADSELECCIONADA3","");
+            }catch (Exception ignored){}
 
         }
 

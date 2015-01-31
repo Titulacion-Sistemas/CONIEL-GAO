@@ -43,8 +43,6 @@ public class SessionManagerIngreso {
      */
     public SessionManagerIngreso saveKey(String key, int value) {
 
-        checkStandarKey(key);
-
         edit = prefs.edit();
         edit.putInt(key, value);
         edit.commit();
@@ -60,9 +58,6 @@ public class SessionManagerIngreso {
      * @return The actual SessionManager singleton object
      */
     public SessionManagerIngreso saveKey(String key, boolean value) {
-
-        checkStandarKey(key);
-
         edit = prefs.edit();
         edit.putBoolean(key, value);
         edit.commit();
@@ -79,7 +74,6 @@ public class SessionManagerIngreso {
      */
     public SessionManagerIngreso saveKey(String key, float value) {
 
-        checkStandarKey(key);
 
         edit = prefs.edit();
         edit.putFloat(key, value);
@@ -97,7 +91,6 @@ public class SessionManagerIngreso {
      */
     public SessionManagerIngreso saveKey(String key, long value) {
 
-        checkStandarKey(key);
 
         edit = prefs.edit();
         edit.putLong(key, value);
@@ -114,9 +107,6 @@ public class SessionManagerIngreso {
      * @return The actual SessionManager singleton object
      */
     public SessionManagerIngreso saveKey(String key, String value) {
-
-        checkStandarKey(key);
-
         edit = prefs.edit();
         edit.putString(key, value);
         edit.commit();
@@ -133,7 +123,6 @@ public class SessionManagerIngreso {
      */
     public int getIntKey(String key) {
 
-        checkStandarKey(key);
 
         if (!prefs.contains(key)) {
             Log.e(LOG_TAG, "The requested key does not exists in preferences");
@@ -151,7 +140,6 @@ public class SessionManagerIngreso {
      */
     public boolean getBooleanKey(String key) {
 
-        checkStandarKey(key);
 
         if (!prefs.contains(key)) {
             Log.e(LOG_TAG, "The requested key does not exists in preferences");
@@ -169,8 +157,6 @@ public class SessionManagerIngreso {
      */
     public float getFloatKey(String key) {
 
-        checkStandarKey(key);
-
         if (!prefs.contains(key)) {
             Log.e(LOG_TAG, "The requested key does not exists in preferences");
             return -1f;
@@ -186,8 +172,6 @@ public class SessionManagerIngreso {
      * @return The key's value of -1 if key does not exists
      */
     public long getLongKey(String key) {
-
-        checkStandarKey(key);
 
         if (!prefs.contains(key)) {
             Log.e(LOG_TAG, "The requested key does not exists in preferences");
@@ -205,8 +189,6 @@ public class SessionManagerIngreso {
      */
     public String getStringKey(String key) {
 
-        checkStandarKey(key);
-
         if (!prefs.contains(key)) {
             Log.e(LOG_TAG, "The requested key does not exists in preferences");
             return "";
@@ -214,20 +196,6 @@ public class SessionManagerIngreso {
 
         return prefs.getString(key, "");
 
-    }
-
-    /**
-     * Display an error message if passed key is not part of
-     * the standard key-set
-     * @param key The key to test
-     */
-    private void checkStandarKey(String key) {
-        if (!key.equals(LOGIN_KEY) &&
-                !key.equals(REGISTER_KEY) &&
-                !key.equals(USER_KEY) &&
-                !key.equals(EMAIL_KEY)) {
-            Log.w(LOG_TAG, "The passed key is not part of the standars key-set. Consider use another one of the standar set");
-        }
     }
 
 
@@ -242,15 +210,24 @@ public class SessionManagerIngreso {
         saveKey("IDACTIVIDADSELECCIONADA5", "");
         saveKey("IDACTIVIDADSELECCIONADA6", "");
         saveKey("IDSOLICITUD", "0");
+        saveKey("OBSERVACIONESACT", "");
+        saveKey("RUTAACT", "");
+
+
+
 
         //ACTIVIDAD A REALIZAR - INSTALADOR ENCARGADO
         saveKey("INSTALADOR",0);
         saveKey("CUADRILLA", 0);
         saveKey("SOLICITUD", 2);
+        saveKey("OBJINSTALADOR","");
+        saveKey("OBJCUADRILLA", "");
+        saveKey("OBJSOLICITUD", "");
         saveKey("FECHA", "");
         saveKey("HORA", "");
 
         //DATOS ABONADOS
+        saveKey("IDCLIENTE", "");
         saveKey("CUENTA", "");
         saveKey("CEDULA", "");
         saveKey("NOMBRE", "");
@@ -279,6 +256,20 @@ public class SessionManagerIngreso {
         saveKey("DEMANDA", 0);
         saveKey("NIVELSOCIO", 1);
 
+        saveKey("OBJMATERIALRED", "");
+        saveKey("OBJFORMACONEXION", "");
+        saveKey("OBJESTADOINST", "");
+        saveKey("OBJTIPOCONST", "");
+        saveKey("OBJUBICACIONMED", "");
+        saveKey("OBJTIPOACOMETIDA", "");
+        saveKey("OBJCALIBRERED", "");
+        saveKey("OBJUSOENERGIA", "");
+        saveKey("OBJCLASERED", "");
+        saveKey("OBJTIPOSERVICIO", "");
+        saveKey("OBJUSOINMUEBLE", "");
+        saveKey("OBJDEMANDA", "");
+        saveKey("OBJNIVELSOCIO", "");
+
         //MATERIALES
         saveKey("CHECKDIRECTO", false);
         saveKey("CHECKCONTRASTACION", false);
@@ -296,6 +287,7 @@ public class SessionManagerIngreso {
         saveKey("LECTURABODEGA","");
 
         //REFERENCIA
+        saveKey("IDREFERENCIA", "");
         saveKey("FABRICAREF", "");
         saveKey("SERIALREF", "");
         saveKey("MARCAREF", "");
@@ -334,7 +326,6 @@ public class SessionManagerIngreso {
     public ArrayList<String[]> getListKey(String key) {
         ArrayList<String> var = new ArrayList<String>();
         ArrayList<String[]> variable = new ArrayList<String[]>();
-        checkStandarKey(key);
 
         if (!prefs.contains(key+"[0][0]")) {
             Log.e(LOG_TAG, "The requested key does not exists in preferences");

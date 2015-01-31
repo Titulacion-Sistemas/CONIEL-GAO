@@ -55,23 +55,21 @@ public class BusquedaDatosMedidor extends Fragment {
         listaCabecera = (ListView) rootView.findViewById(R.id.listaCabeceraMedidor);
         listaContenido = (ListView) rootView.findViewById(R.id.listaContenidoMedidor);
 
-        listaContenido.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (getMedidors() !=null){
-                    rellenarMedidor(getMedidors()[position]);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
         if (getMedidors() !=null){
             rellenar(getMedidors());
         }
+
+
+        listaContenido.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (getMedidors() != null) {
+                    rellenarMedidor(getMedidors()[position]);
+                }
+                Log.i("Medidores", getMedidors().length + "");
+            }
+        });
+
 
         Log.i("Info", "creado fragment 2");
         return rootView;
@@ -109,7 +107,7 @@ public class BusquedaDatosMedidor extends Fragment {
         map1.put("tipo", "Tipo Med.");
         map1.put("numero", " Nro. Med");
         map1.put("marca", " Marca");
-        map1.put("fecha", "Fecha Inst.");
+        map1.put("fecha", "Fecha Desins.");
 
         miListaCabecera.add(map1);
 
@@ -138,9 +136,18 @@ public class BusquedaDatosMedidor extends Fragment {
         }
 
         try {
-            adapterContenido = new SimpleAdapter(getActivity().getApplicationContext(), miLista, R.layout.rowsmedidores,
-                    new String[] {"tipo", "numero", "marca", "fecha"}, new int[] {
-                    R.id.textViewDato1, R.id.textViewDato2, R.id.textViewDato3, R.id.textViewDato4});
+            adapterContenido = new SimpleAdapter(
+                    getActivity().getApplicationContext(),
+                    miLista,
+                    R.layout.rowsmedidores,
+                    new String[] {"tipo", "numero", "marca", "fecha"},
+                    new int[] {
+                            R.id.textViewDato1,
+                            R.id.textViewDato2,
+                            R.id.textViewDato3,
+                            R.id.textViewDato4
+                    }
+            );
             listaContenido.setAdapter(adapterContenido);
         } catch (Exception e) {
             Log.e("Error : ", e.toString());

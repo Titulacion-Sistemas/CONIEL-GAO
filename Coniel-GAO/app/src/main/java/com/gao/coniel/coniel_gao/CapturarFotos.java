@@ -126,14 +126,14 @@ public class CapturarFotos extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 TextView textView = (TextView) view.findViewById(R.id.txtCuentaLista);
-                Log.i("Seleccion...","Se seleccionó el elemento "+textView.getText()+" en la posicion "+position);
+
                 ListaGaleriaCuentaAdapter lg = (ListaGaleriaCuentaAdapter) listaGaleriaCuenta.getAdapter();
 
                 /*Intent i = new Intent(CapturarFotos.this , Galeria.class);
                 i.putExtra("ruta", lg.itemCuenta.get(position));
                 startActivity(i);*/
 
-
+                Log.i("Seleccion...","Se seleccionó el elemento "+lg.itemCuenta.get(position)+" en la posicion "+position);
                 Bundle parametro = new Bundle();
                 parametro.putString("ruta",lg.itemCuenta.get(position));
                 ((Contenedor) getActivity()).displayView(9, parametro);

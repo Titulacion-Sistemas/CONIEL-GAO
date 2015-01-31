@@ -88,19 +88,19 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
                         tipo="1";
                         dato = cuenta.getText()+"";
                     }
-                }
+                }else
                 if (!(fabrica.getText().toString().equals(""))){
                     if (validar(1, fabrica.getText()+"")){
                         tipo="2";
                         dato = fabrica.getText()+"";
                     }
-                }
+                }else
                 if (!(nombre.getText().toString().equals(""))){
                     if (validar(2, nombre.getText()+"")){
                         tipo="3";
                         dato = nombre.getText()+"";
                     }
-                }
+                }else
                 if (!(geocodigo.getText().toString().equals(""))){
                     if (validar(3, geocodigo.getText()+"")){
                         tipo="4";
@@ -177,14 +177,15 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
 
         @Override
         protected Integer doInBackground(String... params) {
-            SW acc = new SW("busquedas.wsdl", "buscarMovil");
+            SW acc = new SW("busquedas.wsdl", "buscarDjango");
 
             acc.asignarPropiedades(
                     new Tupla[]{
                             new Tupla<String, Object>("idUsuario", params[0]),
                             new Tupla<String, Object>("sesion", params[1]),
                             new Tupla<String, Object>("tipo", params[2]),
-                            new Tupla<String, Object>("dato", params[3])
+                            new Tupla<String, Object>("dato", params[3]),
+                            new Tupla<String, Object>("esIngreso", true)
                     }
             );
             try{
@@ -290,6 +291,15 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
                     );
                 }
                 cliente.setMedidores(m);
+
+                try{
+                    data = (SoapObject) r.getProperty(3);
+                    SessionManagerIngreso.getManager(getActivity().getApplicationContext()).
+                            saveKey("IDCLIENTE", data.getProperty(0).toString());
+                    Log.i("Log-Guardado Cliente Buscado", "SE guardo CLIENTE");
+                }catch (Exception ignored) {
+                    Log.i("Log-Guardado Cliente Buscado", "NO SE guardo CLIENTE");
+                }
 
             }catch (Exception e){
                 toast = "Error, No se ha podido Buscar...";
@@ -465,7 +475,9 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
             marca.setText(data.getProperty(10).toString().replace("anyType{}",""));
             lectura.setText(data.getProperty(11).toString().replace("anyType{}",""));
 
-            SessionManagerIngreso.getManager(getActivity().getApplicationContext()).saveKey("IDACTIVIDADSELECCIONADA2","");
+            SessionManagerIngreso.getManager(getActivity().getApplicationContext()).
+                    saveKey("IDACTIVIDADSELECCIONADA2","")
+                    .saveKey("IDCLIENTE",data.getProperty(12).toString().replace("anyType{}",""));
 
         }
 

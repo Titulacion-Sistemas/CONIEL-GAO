@@ -64,7 +64,17 @@ public class ListaActividades extends android.support.v4.app.Fragment {
             );
             Object r = acc.ajecutar();
             try{
-                listaActividades.add(new ItemListaActividades("Id", "Cuenta", "Nombre", "Actividad", "Medidor", "idSolicitud"));
+                listaActividades.add(
+                        new ItemListaActividades(
+                            "Id",
+                            "Cuenta",
+                            "Nombre",
+                            "Actividad",
+                            "Medidor",
+                            "idSolicitud",
+                            "Observaciones"
+                        )
+                );
                 SoapObject data = (SoapObject)r;
                 System.out.print(data);
 
@@ -76,7 +86,8 @@ public class ListaActividades extends android.support.v4.app.Fragment {
                                 ""+(((SoapObject)data.getProperty(i)).getProperty(2)),
                                 ""+(((SoapObject)data.getProperty(i)).getProperty(3)),
                                 ""+(((SoapObject)data.getProperty(i)).getProperty(4)),
-                                ""+(((SoapObject)data.getProperty(i)).getProperty(5))
+                                ""+(((SoapObject)data.getProperty(i)).getProperty(5)),
+                                ""+(((SoapObject)data.getProperty(i)).getProperty(6))
                             )
                     );
                 }
@@ -118,6 +129,7 @@ public class ListaActividades extends android.support.v4.app.Fragment {
                         s.saveKey("IDACTIVIDADSELECCIONADA6", listaActividades.get(position).getIde());
                         s.saveKey("CUENTA", listaActividades.get(position).getCuenta());
                         s.saveKey("IDSOLICITUD", listaActividades.get(position).getIdSolicitud());
+                        s.saveKey("OBSERVACIONESACT", listaActividades.get(position).getObservaciones());
 
                         Toast t = Toast.makeText(
                                 getActivity().getApplicationContext(),

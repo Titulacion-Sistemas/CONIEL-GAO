@@ -365,6 +365,7 @@ public class Buscar extends Fragment {
                 for (Fragment f:getActivity().getSupportFragmentManager().getFragments())
                     try {
                         ((ContenedorBusqueda) f).cargarPager();
+                        break;
                     } catch (Exception ignored) {
                     }
 
