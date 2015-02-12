@@ -328,16 +328,16 @@ public class Buscar extends Fragment {
                 }
 
                 data=(SoapObject)r.getProperty(1);
-                getClientes()[0].setCi(data.getPropertyAsString(0).trim());
-                getClientes()[0].setCuenta(Integer.parseInt(data.getPropertyAsString(1).trim()));
-                getClientes()[0].setNombre(data.getPropertyAsString(2).trim());
-                getClientes()[0].setDireccion(data.getPropertyAsString(3).trim());
-                getClientes()[0].setInterseccion(data.getPropertyAsString(4).trim());
-                getClientes()[0].setUrbanizacion(data.getPropertyAsString(5).trim());
-                getClientes()[0].setEstado(data.getPropertyAsString(6).trim());
-                getClientes()[0].setGeocodigo(data.getPropertyAsString(7).trim());
-                getClientes()[0].setMesesAdeudado(Integer.parseInt(data.getPropertyAsString(8).trim()));
-                getClientes()[0].setDeuda(data.getPropertyAsString(9).trim());
+                getClientes()[0].setCi(data.getProperty(0).toString().trim().replace("anyType{}",""));
+                getClientes()[0].setCuenta(Integer.parseInt(data.getProperty(1).toString().trim().replace("anyType{}","")));
+                getClientes()[0].setNombre(data.getProperty(2).toString().trim().replace("anyType{}",""));
+                getClientes()[0].setDireccion(data.getProperty(3).toString().trim().replace("anyType{}",""));
+                getClientes()[0].setInterseccion(data.getProperty(4).toString().trim().replace("anyType{}",""));
+                getClientes()[0].setUrbanizacion(data.getProperty(5).toString().trim().replace("anyType{}",""));
+                getClientes()[0].setEstado(data.getProperty(6).toString().trim().replace("anyType{}",""));
+                getClientes()[0].setGeocodigo(data.getProperty(7).toString().trim().replace("anyType{}",""));
+                getClientes()[0].setMesesAdeudado(Integer.parseInt(data.getProperty(8).toString().trim().replace("anyType{}","")));
+                getClientes()[0].setDeuda(data.getProperty(9).toString().trim().replace("anyType{}",""));
 
                 data = (SoapObject)r.getProperty(2);
                 ncoincidencias=data.getPropertyCount()/14;

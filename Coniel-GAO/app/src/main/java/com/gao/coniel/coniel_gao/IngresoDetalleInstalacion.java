@@ -226,7 +226,7 @@ public class IngresoDetalleInstalacion extends android.support.v4.app.Fragment {
 
         @Override
         protected Object doInBackground(String... params) {
-            SW acc = new SW("ingresos.wsdl", "ingresoDatosAbonadoSeleccionado");
+            SW acc = new SW("ingresos.wsdl", "ingresoDetalleInstalacionSeleccionada");
             acc.asignarPropiedades(
                     new Tupla[]{
                             new Tupla<String, Object>("ide", params[0])
@@ -377,7 +377,7 @@ public class IngresoDetalleInstalacion extends android.support.v4.app.Fragment {
 
         SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
 
-        if (!((s.getStringKey("IDACTIVIDADSELECCIONADA3")+"").equals(""))){
+        if (!((s.getStringKey("IDACTIVIDADSELECCIONADA3")+"").trim().equals(""))){
 
             asyncRecuperar asb = new asyncRecuperar();
             asb.execute(

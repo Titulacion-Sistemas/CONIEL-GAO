@@ -81,13 +81,13 @@ public class ListaActividades extends android.support.v4.app.Fragment {
                 for (int i=0 ; i<data.getPropertyCount() ; i++){
                     listaActividades.add(
                             new ItemListaActividades(
-                                ""+(((SoapObject)data.getProperty(i)).getProperty(0)),
-                                ""+(((SoapObject)data.getProperty(i)).getProperty(1)),
-                                ""+(((SoapObject)data.getProperty(i)).getProperty(2)),
-                                ""+(((SoapObject)data.getProperty(i)).getProperty(3)),
-                                ""+(((SoapObject)data.getProperty(i)).getProperty(4)),
-                                ""+(((SoapObject)data.getProperty(i)).getProperty(5)),
-                                ""+(((SoapObject)data.getProperty(i)).getProperty(6))
+                                ""+(((SoapObject)data.getProperty(i)).getProperty(0).toString()).replace("anyType{}",""),
+                                ""+(((SoapObject)data.getProperty(i)).getProperty(1).toString()).replace("anyType{}",""),
+                                ""+(((SoapObject)data.getProperty(i)).getProperty(2).toString()).replace("anyType{}",""),
+                                ""+(((SoapObject)data.getProperty(i)).getProperty(3).toString()).replace("anyType{}",""),
+                                ""+(((SoapObject)data.getProperty(i)).getProperty(4).toString()).replace("anyType{}",""),
+                                ""+(((SoapObject)data.getProperty(i)).getProperty(5).toString()).replace("anyType{}",""),
+                                ""+(((SoapObject)data.getProperty(i)).getProperty(6).toString()).replace("anyType{}","")
                             )
                     );
                 }

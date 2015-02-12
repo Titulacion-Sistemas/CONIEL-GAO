@@ -202,7 +202,7 @@ public class IngresoMedidorInstalado extends Fragment {
 
                 ArrayList<String> valores = new ArrayList<String>();
                 for (int i=0 ; i<data.getPropertyCount() ; i++){
-                    valores.add(data.getProperty(i).toString());
+                    valores.add(data.getProperty(i).toString().replace("anyTypt{}",""));
                 }
                 if (valores.size()>0)
                     return valores;

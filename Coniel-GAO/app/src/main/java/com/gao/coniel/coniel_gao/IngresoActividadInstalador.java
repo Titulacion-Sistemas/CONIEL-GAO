@@ -56,9 +56,11 @@ public class IngresoActividadInstalador extends Fragment {
         super.onStop();
         Log.i("Se ha ejecutado el ", "  ONSTOP");
 
-        //Guardar variables
-        SessionManagerIngreso.getManager(getActivity().getApplicationContext())
-                .saveKey("FECHA", fecha.getDayOfMonth() + "/" + fecha.getMonth() + "/" + fecha.getYear())
+        SessionManagerIngreso smi = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
+
+        try {
+            //Guardar variables
+            smi.saveKey("FECHA", fecha.getDayOfMonth() + "/" + fecha.getMonth() + "/" + fecha.getYear())
                 .saveKey("HORA", tiempo.getCurrentHour() + ":" + tiempo.getCurrentMinute())
                 .saveKey("SOLICITUD", spinerSolicitud.getSelectedItemPosition())
                 .saveKey("OBJSOLICITUD", spinerSolicitud.getSelectedItem().toString())
@@ -66,6 +68,23 @@ public class IngresoActividadInstalador extends Fragment {
                 .saveKey("OBJINSTALADOR", spinerInstalador.getSelectedItem().toString())
                 .saveKey("CUADRILLA", spinerCuadrilla.getSelectedItemPosition())
                 .saveKey("OBJCUADRILLA", spinerCuadrilla.getSelectedItem().toString());
+
+        }catch (Exception e){
+            //Guardar variables
+            smi.saveKey("INSTALADOR", 0)
+                .saveKey("CUADRILLA", 0)
+                .saveKey("SOLICITUD", 2)
+                .saveKey("OBJINSTALADOR", "")
+                .saveKey("OBJCUADRILLA", "")
+                .saveKey("OBJSOLICITUD", "")
+                .saveKey("FECHA", "")
+                .saveKey("HORA", "");
+
+            smi.saveKey(
+                    "IDACTIVIDADSELECCIONADA1",
+                    smi.getStringKey("IDACTIVIDADSELECCIONADA")
+            );
+        }
     }
 
     // Metodo Agregar datos a Spinner
@@ -76,7 +95,6 @@ public class IngresoActividadInstalador extends Fragment {
         sp.setAdapter(dataAdapter);
 
     }
-
 
 
     //EN SEGUNDO PLANO
@@ -162,34 +180,37 @@ public class IngresoActividadInstalador extends Fragment {
     }
 
     private void recuperar() {
+        try {
 
-        SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
+            SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
 
-        if  ((s.getStringKey("IDACTIVIDADSELECCIONADA1")+"").equals("")){
+            if ((s.getStringKey("IDACTIVIDADSELECCIONADA1") + "").equals("")) {
 
-            String[] se = s.getStringKey("FECHA").split("/");
-            if (se.length == 3) {
-                Log.i("infoFecha", se.length + ", " + se[2] + "/" + se[1] + "/" + se[0]);
-                fecha.updateDate(Integer.parseInt(se[2]), Integer.parseInt(se[1]), Integer.parseInt(se[0]));
+                String[] se = s.getStringKey("FECHA").split("/");
+                if (se.length == 3) {
+                    Log.i("infoFecha", se.length + ", " + se[2] + "/" + se[1] + "/" + se[0]);
+                    fecha.updateDate(Integer.parseInt(se[2]), Integer.parseInt(se[1]), Integer.parseInt(se[0]));
+                }
+
+                String[] st = s.getStringKey("HORA").split(":");
+                if (st.length == 2) {
+                    Log.i("infoHora", st.length + ", " + st[0] + ":" + st[1]);
+                    tiempo.setCurrentHour(Integer.parseInt(st[0]));
+                    tiempo.setCurrentMinute(Integer.parseInt(st[1]));
+                }
+
+                spinerSolicitud.setSelection(s.getIntKey("SOLICITUD"));
+                spinerInstalador.setSelection(s.getIntKey("INSTALADOR"));
+                spinerCuadrilla.setSelection(s.getIntKey("CUADRILLA"));
+
+            } else {
+
+                asyncRecuperar ar = new asyncRecuperar();
+                ar.execute(s.getStringKey("IDACTIVIDADSELECCIONADA") + "");
+
             }
-
-            String[] st = s.getStringKey("HORA").split(":");
-            if (st.length == 2) {
-                Log.i("infoHora", st.length + ", " + st[0] + ":" + st[1]);
-                tiempo.setCurrentHour(Integer.parseInt(st[0]));
-                tiempo.setCurrentMinute(Integer.parseInt(st[1]));
-            }
-
-            spinerSolicitud.setSelection(s.getIntKey("SOLICITUD"));
-            spinerInstalador.setSelection(s.getIntKey("INSTALADOR"));
-            spinerCuadrilla.setSelection(s.getIntKey("CUADRILLA"));
-
-        }
-        else {
-
-            asyncRecuperar ar = new asyncRecuperar();
-            ar.execute(s.getStringKey("IDACTIVIDADSELECCIONADA")+"");
-
+        }catch (Exception e){
+            Log.e("Recuperar","Error, no se pudo recuperar: "+e.getMessage());
         }
     }
 
