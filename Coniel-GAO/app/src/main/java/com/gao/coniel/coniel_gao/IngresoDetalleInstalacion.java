@@ -15,6 +15,7 @@ import org.ksoap2.serialization.SoapObject;
 
 import java.util.ArrayList;
 
+import clases.SessionManager;
 import clases.SessionManagerIngreso;
 import clases.Tupla;
 import serviciosWeb.SW;
@@ -61,33 +62,68 @@ public class IngresoDetalleInstalacion extends android.support.v4.app.Fragment {
         super.onStop();
         Log.i("Se ha ejecutado el ", "  ONSTOP");
         //Guardar Sesion para evitar cierre
-        SessionManagerIngreso.getManager(getActivity().getApplicationContext())
-                .saveKey("MATERIALRED", spMaterialRed.getSelectedItemPosition())
-                .saveKey("OBJMATERIALRED", spMaterialRed.getSelectedItem().toString())
-                .saveKey("FORMACONEXION", spFormaConexion.getSelectedItemPosition())
-                .saveKey("OBJFORMACONEXION", spFormaConexion.getSelectedItem().toString())
-                .saveKey("ESTADOINST", spEstadoInst.getSelectedItemPosition())
-                .saveKey("OBJESTADOINST", spEstadoInst.getSelectedItem().toString())
-                .saveKey("TIPOCONST", spTipoConst.getSelectedItemPosition())
-                .saveKey("OBJTIPOCONST", spTipoConst.getSelectedItem().toString())
-                .saveKey("UBICACIONMED", spUbicacionMed.getSelectedItemPosition())
-                .saveKey("OBJUBICACIONMED", spUbicacionMed.getSelectedItem().toString())
-                .saveKey("TIPOACOMETIDA", spTipoAcometida.getSelectedItemPosition())
-                .saveKey("OBJTIPOACOMETIDA", spTipoAcometida.getSelectedItem().toString())
-                .saveKey("CALIBRERED", spCalibreRed.getSelectedItemPosition())
-                .saveKey("OBJCALIBRERED", spCalibreRed.getSelectedItem().toString())
-                .saveKey("TIPOSERVICIO", spTipoServicio.getSelectedItemPosition())
-                .saveKey("OBJTIPOSERVICIO", spTipoServicio.getSelectedItem().toString())
-                .saveKey("USOINMUEBLE", spUsoInmueble.getSelectedItemPosition())
-                .saveKey("OBJUSOINMUEBLE", spUsoInmueble.getSelectedItem().toString())
-                .saveKey("DEMANDA", spDemanda.getSelectedItemPosition())
-                .saveKey("OBJDEMANDA", spDemanda.getSelectedItem().toString())
-                .saveKey("NIVELSOCIO", spNivelSocioEconomico.getSelectedItemPosition())
-                .saveKey("OBJNIVELSOCIO", spNivelSocioEconomico.getSelectedItem().toString())
-                .saveKey("USOENERGIA", spUsoDeEnergia.getSelectedItemPosition())
-                .saveKey("OBJUSOENERGIA", spUsoDeEnergia.getSelectedItem().toString())
-                .saveKey("CLASERED", spClaseDeRed.getSelectedItemPosition())
-                .saveKey("OBJCLASERED", spClaseDeRed.getSelectedItem().toString());
+        SessionManagerIngreso smi = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
+
+        try {
+            smi.saveKey("MATERIALRED", spMaterialRed.getSelectedItemPosition())
+                    .saveKey("OBJMATERIALRED", spMaterialRed.getSelectedItem().toString())
+                    .saveKey("FORMACONEXION", spFormaConexion.getSelectedItemPosition())
+                    .saveKey("OBJFORMACONEXION", spFormaConexion.getSelectedItem().toString())
+                    .saveKey("ESTADOINST", spEstadoInst.getSelectedItemPosition())
+                    .saveKey("OBJESTADOINST", spEstadoInst.getSelectedItem().toString())
+                    .saveKey("TIPOCONST", spTipoConst.getSelectedItemPosition())
+                    .saveKey("OBJTIPOCONST", spTipoConst.getSelectedItem().toString())
+                    .saveKey("UBICACIONMED", spUbicacionMed.getSelectedItemPosition())
+                    .saveKey("OBJUBICACIONMED", spUbicacionMed.getSelectedItem().toString())
+                    .saveKey("TIPOACOMETIDA", spTipoAcometida.getSelectedItemPosition())
+                    .saveKey("OBJTIPOACOMETIDA", spTipoAcometida.getSelectedItem().toString())
+                    .saveKey("CALIBRERED", spCalibreRed.getSelectedItemPosition())
+                    .saveKey("OBJCALIBRERED", spCalibreRed.getSelectedItem().toString())
+                    .saveKey("TIPOSERVICIO", spTipoServicio.getSelectedItemPosition())
+                    .saveKey("OBJTIPOSERVICIO", spTipoServicio.getSelectedItem().toString())
+                    .saveKey("USOINMUEBLE", spUsoInmueble.getSelectedItemPosition())
+                    .saveKey("OBJUSOINMUEBLE", spUsoInmueble.getSelectedItem().toString())
+                    .saveKey("DEMANDA", spDemanda.getSelectedItemPosition())
+                    .saveKey("OBJDEMANDA", spDemanda.getSelectedItem().toString())
+                    .saveKey("NIVELSOCIO", spNivelSocioEconomico.getSelectedItemPosition())
+                    .saveKey("OBJNIVELSOCIO", spNivelSocioEconomico.getSelectedItem().toString())
+                    .saveKey("USOENERGIA", spUsoDeEnergia.getSelectedItemPosition())
+                    .saveKey("OBJUSOENERGIA", spUsoDeEnergia.getSelectedItem().toString())
+                    .saveKey("CLASERED", spClaseDeRed.getSelectedItemPosition())
+                    .saveKey("OBJCLASERED", spClaseDeRed.getSelectedItem().toString());
+        }catch (Exception e){
+           smi.saveKey("MATERIALRED", 0)
+            .saveKey("FORMACONEXION", 3)
+            .saveKey("ESTADOINST", 0)
+            .saveKey("TIPOCONST", 4)
+            .saveKey("UBICACIONMED", 4)
+            .saveKey("TIPOACOMETIDA", 1)
+            .saveKey("CALIBRERED", 9)
+            .saveKey("USOENERGIA", 0)
+            .saveKey("CLASERED", 0)
+            .saveKey("TIPOSERVICIO", 3)
+            .saveKey("USOINMUEBLE", 3)
+            .saveKey("DEMANDA", 0)
+            .saveKey("NIVELSOCIO", 1)
+            .saveKey("OBJMATERIALRED", "")
+            .saveKey("OBJFORMACONEXION", "")
+            .saveKey("OBJESTADOINST", "")
+            .saveKey("OBJTIPOCONST", "")
+            .saveKey("OBJUBICACIONMED", "")
+            .saveKey("OBJTIPOACOMETIDA", "")
+            .saveKey("OBJCALIBRERED", "")
+            .saveKey("OBJUSOENERGIA", "")
+            .saveKey("OBJCLASERED", "")
+            .saveKey("OBJTIPOSERVICIO", "")
+            .saveKey("OBJUSOINMUEBLE", "")
+            .saveKey("OBJDEMANDA", "")
+            .saveKey("OBJNIVELSOCIO", "");
+
+            smi.saveKey(
+                    "IDACTIVIDADSELECCIONADA3",
+                    smi.getStringKey("IDACTIVIDADSELECCIONADA")
+            );
+        }
     }
 
 
@@ -374,32 +410,34 @@ public class IngresoDetalleInstalacion extends android.support.v4.app.Fragment {
     }
 
     private void recuperar() {
+        try {
+            SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
 
-        SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
+            if (!((s.getStringKey("IDACTIVIDADSELECCIONADA3") + "").trim().equals(""))) {
 
-        if (!((s.getStringKey("IDACTIVIDADSELECCIONADA3")+"").trim().equals(""))){
+                asyncRecuperar asb = new asyncRecuperar();
+                asb.execute(
+                        s.getStringKey("IDACTIVIDADSELECCIONADA") + ""
+                );
 
-            asyncRecuperar asb = new asyncRecuperar();
-            asb.execute(
-                    s.getStringKey("IDACTIVIDADSELECCIONADA")+""
-            );
+            } else {
 
-        }
-        else {
-
-            spMaterialRed.setSelection(s.getIntKey("MATERIALRED"));
-            spFormaConexion.setSelection(s.getIntKey("FORMACONEXION"));
-            spEstadoInst.setSelection(s.getIntKey("ESTADOINST"));
-            spTipoConst.setSelection(s.getIntKey("TIPOCONST"));
-            spUbicacionMed.setSelection(s.getIntKey("UBICACIONMED"));
-            spTipoAcometida.setSelection(s.getIntKey("TIPOACOMETIDA"));
-            spCalibreRed.setSelection(s.getIntKey("CALIBRERED"));
-            spTipoServicio.setSelection(s.getIntKey("TIPOSERVICIO"));
-            spUsoInmueble.setSelection(s.getIntKey("USOINMUEBLE"));
-            spDemanda.setSelection(s.getIntKey("DEMANDA"));
-            spNivelSocioEconomico.setSelection(s.getIntKey("NIVELSOCIO"));
-            spUsoDeEnergia.setSelection(s.getIntKey("USOENERGIA"));
-            spClaseDeRed.setSelection(s.getIntKey("CLASERED"));
+                spMaterialRed.setSelection(s.getIntKey("MATERIALRED"));
+                spFormaConexion.setSelection(s.getIntKey("FORMACONEXION"));
+                spEstadoInst.setSelection(s.getIntKey("ESTADOINST"));
+                spTipoConst.setSelection(s.getIntKey("TIPOCONST"));
+                spUbicacionMed.setSelection(s.getIntKey("UBICACIONMED"));
+                spTipoAcometida.setSelection(s.getIntKey("TIPOACOMETIDA"));
+                spCalibreRed.setSelection(s.getIntKey("CALIBRERED"));
+                spTipoServicio.setSelection(s.getIntKey("TIPOSERVICIO"));
+                spUsoInmueble.setSelection(s.getIntKey("USOINMUEBLE"));
+                spDemanda.setSelection(s.getIntKey("DEMANDA"));
+                spNivelSocioEconomico.setSelection(s.getIntKey("NIVELSOCIO"));
+                spUsoDeEnergia.setSelection(s.getIntKey("USOENERGIA"));
+                spClaseDeRed.setSelection(s.getIntKey("CLASERED"));
+            }
+        }catch (Exception e){
+            Log.e("Recuperar","Error, no se pudo recuperar: "+e.getMessage());
         }
 
     }

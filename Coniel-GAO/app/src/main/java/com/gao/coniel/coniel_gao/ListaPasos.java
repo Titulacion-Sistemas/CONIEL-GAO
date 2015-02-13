@@ -36,6 +36,9 @@ import clases.MyLocation;
 import clases.Pasos;
 import clases.SessionManager;
 import clases.SessionManagerIngreso;
+import clases.ValidaCedula;
+import clases.ValidaRucEP;
+import clases.ValidaRucSociedades;
 import serviciosWeb.SWAct;
 
 
@@ -232,10 +235,28 @@ public class ListaPasos extends android.support.v4.app.Fragment {
                 );
 
                 Log.w("A wardar", Tsol+"");
+                String er = null;
+                if (fragmentos[5] instanceof IngresosReferencias){
+                    String c = s.getStringKey("CEDULA").trim();
+                    if (c.length()==10){
+                        ValidaCedula vc = new ValidaCedula();
+                        if (!vc.validacionCedula(c))
+                            er = "Cédula de Abonado no válida";
+                    }
+                    else if (c.length()==13){
+                        ValidaRucSociedades vrs = new ValidaRucSociedades();
+                        ValidaRucEP vrep = new ValidaRucEP();
+                        if (!(vrs.validacionRUC(c) || vrep.validaRucEP(c)))
+                            er = "Ruc no válido";
+                    }else {
+                        er = "Valor de cédula no válido";
+                    }
+                }
 
                 if(
                     !s.getStringKey("OBJINSTALADOR").trim().equals("") &&
-                    !s.getStringKey("CEDULA").trim().equals("") &&
+                    //!s.getStringKey("CEDULA").trim().equals("") &&
+                    er == null &&
                     !s.getStringKey("OBJESTADOINST").trim().equals("") &&
                     s.getListKey("LISTAMATERIALES").size()>0 &&
                     s.getListKey("LISTASELLOS").size()>0 &&
@@ -271,7 +292,9 @@ public class ListaPasos extends android.support.v4.app.Fragment {
                                     );
 
                                 }else{
-                                    error();
+                                    error(
+                                            "Error de geolocalización, Por favor active el GPS en su dispositivo"
+                                    );
                                 }
 
                             }
@@ -282,11 +305,11 @@ public class ListaPasos extends android.support.v4.app.Fragment {
 
                     }catch (Exception ignored){
                         ignored.printStackTrace();
-                        error();
+                        error(null);
                     }
 
                 }else{
-                    error();
+                    error(er);
                 }
             }
         });
@@ -350,11 +373,14 @@ public class ListaPasos extends android.support.v4.app.Fragment {
         );
     }
 
-    private void error() {
+    private void error(String data) {
+        if(data==null)
+            data="No se puede guardar aun, verifique los datos de actividad que desea " +
+                "guardar, su conexión a internet y el GPS...";
+
         Toast t = Toast.makeText(
                 getActivity().getApplicationContext(),
-                "No se puede guardar aun, verifique los datos de actividad que desea " +
-                        "guardar, su conexión a internet y el GPS...",
+                data,
                 Toast.LENGTH_LONG
         );
         t.show();
