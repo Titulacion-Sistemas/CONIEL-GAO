@@ -337,39 +337,44 @@ public class Galeria extends Fragment{
         @Override
         protected Object doInBackground(Integer... params) {
             try {
-                Thread.sleep(params[0]);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+                try {
+                    Thread.sleep(params[0]);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
-            lm.removeUpdates(locationListenerGps);
-            lm.removeUpdates(locationListenerNetwork);
+                lm.removeUpdates(locationListenerGps);
+                lm.removeUpdates(locationListenerNetwork);
 
-            Location net_loc=null, gps_loc=null;
-            if(gps_enabled)
-                gps_loc=lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if(network_enabled)
-                net_loc=lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                Location net_loc = null, gps_loc = null;
+                if (gps_enabled)
+                    gps_loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                if (network_enabled)
+                    net_loc = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-            //if there are both values use the latest one
-            if(gps_loc!=null && net_loc!=null){
-                if(gps_loc.getTime()>net_loc.getTime())
+                //if there are both values use the latest one
+                if (gps_loc != null && net_loc != null) {
+                    if (gps_loc.getTime() > net_loc.getTime())
+                        actualizarLoc(gps_loc);
+                    else
+                        actualizarLoc(net_loc);
+                    return null;
+                }
+
+                if (gps_loc != null) {
                     actualizarLoc(gps_loc);
-                else
+                    return null;
+                }
+                if (net_loc != null) {
                     actualizarLoc(net_loc);
-                return null;
-            }
+                    return null;
+                }
 
-            if(gps_loc!=null){
-                actualizarLoc(gps_loc);
-                return null;
-            }
-            if(net_loc!=null){
-                actualizarLoc(net_loc);
-                return null;
+            } catch (Exception e) {
+                Toast.makeText(getActivity().getApplicationContext(), "Ha ocurrido un error inesperado",
+                        Toast.LENGTH_LONG).show();
             }
             actualizarLoc(null);
-
             return null;
         }
     }

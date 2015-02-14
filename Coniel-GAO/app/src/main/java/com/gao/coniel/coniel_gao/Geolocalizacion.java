@@ -450,8 +450,9 @@ public class Geolocalizacion extends Fragment {
         @Override
         protected Object doInBackground(String... params) {
             SW acc = new SW("ingresos.wsdl", "ubicacion");
-            Object r = acc.ajecutar();
+
             try{
+                Object r = acc.ajecutar();
                 return r;
             }catch (Exception e){
                 toast = "Error, No se pudo cargar los datos requeridos";
@@ -466,40 +467,41 @@ public class Geolocalizacion extends Fragment {
             super.onPostExecute(r);
 
             System.out.print(r);
+            if(r != null) {
+                SoapObject data = (SoapObject) r;
+                System.out.print(data);
 
-            SoapObject data = (SoapObject)r;
-            System.out.print(data);
-
-            for (int j=0 ; j<data.getPropertyCount() ; j++){
-                listaCuadrillas.add(
-                        new ListaCuadrillas(
-                                ""+(((SoapObject)data.getProperty(j)).getProperty(0))+
-                                        " ("+(((SoapObject)data.getProperty(j)).getProperty(1))+")",
-                                ""+(((SoapObject)data.getProperty(j)).getProperty(2)),
-                                ""+(((SoapObject)data.getProperty(j)).getProperty(3))
-                        )
+                for (int j = 0; j < data.getPropertyCount(); j++) {
+                    listaCuadrillas.add(
+                            new ListaCuadrillas(
+                                    "" + (((SoapObject) data.getProperty(j)).getProperty(0)) +
+                                            " (" + (((SoapObject) data.getProperty(j)).getProperty(1)) + ")",
+                                    "" + (((SoapObject) data.getProperty(j)).getProperty(2)),
+                                    "" + (((SoapObject) data.getProperty(j)).getProperty(3))
+                            )
                     );
+                }
+                adapterCuadrillas = new AdapaterSpinnerCuadrillas(getActivity(), listaCuadrillas);
+                try {
+                    markerPoints.add(
+                            new LatLng(
+                                    adapterCuadrillas.getItem(0).getLat(),
+                                    adapterCuadrillas.getItem(0).getLongitud()
+                            )
+                    );
+                    markerPoints.add(
+                            new LatLng(
+                                    adapterCuadrillas.getItem(1).getLat(),
+                                    adapterCuadrillas.getItem(1).getLongitud()
+                            )
+                    );
+
+                    spInicioDes.setAdapter(adapterCuadrillas);
+                    spFinDes.setAdapter(adapterCuadrillas);
+
+                } catch (Exception ignored) {
+                }
             }
-            adapterCuadrillas = new AdapaterSpinnerCuadrillas(getActivity(), listaCuadrillas);
-            try {
-                markerPoints.add(
-                        new LatLng(
-                                adapterCuadrillas.getItem(0).getLat(),
-                                adapterCuadrillas.getItem(0).getLongitud()
-                        )
-                );
-                markerPoints.add(
-                        new LatLng(
-                                adapterCuadrillas.getItem(1).getLat(),
-                                adapterCuadrillas.getItem(1).getLongitud()
-                        )
-                );
-
-                spInicioDes.setAdapter(adapterCuadrillas);
-                spFinDes.setAdapter(adapterCuadrillas);
-
-            }catch (Exception ignored){}
-
 
         }
 

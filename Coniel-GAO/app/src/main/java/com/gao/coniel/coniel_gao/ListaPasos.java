@@ -500,8 +500,9 @@ public class ListaPasos extends android.support.v4.app.Fragment {
             acc.asignarPropiedades(
                     param
             );
-            Object r = acc.ajecutar();
+
             try{
+                Object r = acc.ajecutar();
                 return r;
             }catch (Exception e){
                 toast = "Error, No se pudo cargar los datos requeridos";
@@ -516,52 +517,52 @@ public class ListaPasos extends android.support.v4.app.Fragment {
             super.onPostExecute(r);
 
             System.out.print(r);
+            if (r != null) {
+                SoapObject data = (SoapObject) r;
+                System.out.print(data);
 
-            SoapObject data = (SoapObject)r;
-            System.out.print(data);
+                try {
+                    if (Integer.parseInt(data.getProperty(0).toString()) > 0) {
 
-            try {
-                if(Integer.parseInt(data.getProperty(0).toString())>0){
-
-                    try {
-                        if (!s.getStringKey("RUTAACT").equals("")) {
-                            File[] imagenes = new File(s.getStringKey("RUTAACT")).listFiles();
-                            for (File i : imagenes) {
-                                String path = (i.getPath());
-                                path = path.substring(path.length() - 3, path.length());
-                                Log.i("Extencion de Archivo", path);
-                                if (path.equals("jpg")) {
-                                    asyncFotos af = new asyncFotos();
-                                    af.execute(
-                                            data.getProperty(0).toString(),
-                                            i.getPath()
-                                    );
+                        try {
+                            if (!s.getStringKey("RUTAACT").equals("")) {
+                                File[] imagenes = new File(s.getStringKey("RUTAACT")).listFiles();
+                                for (File i : imagenes) {
+                                    String path = (i.getPath());
+                                    path = path.substring(path.length() - 3, path.length());
+                                    Log.i("Extencion de Archivo", path);
+                                    if (path.equals("jpg")) {
+                                        asyncFotos af = new asyncFotos();
+                                        af.execute(
+                                                data.getProperty(0).toString(),
+                                                i.getPath()
+                                        );
+                                    }
                                 }
                             }
+                        } catch (Exception e) {
+                            Log.e("Error-Enviar-Imagen", e.getMessage());
                         }
-                    }catch (Exception e){
-                        Log.e("Error-Enviar-Imagen",e.getMessage());
+
+                        resetFormulario();
+
+                        observaciones.setText("");
+                        Toast t = Toast.makeText(
+                                getActivity().getApplicationContext(),
+                                data.getProperty(1).toString(),
+                                Toast.LENGTH_SHORT
+                        );
+                        t.show();
                     }
-
-                    resetFormulario();
-
-                    observaciones.setText("");
+                } catch (Exception e) {
                     Toast t = Toast.makeText(
                             getActivity().getApplicationContext(),
-                            data.getProperty(1).toString(),
+                            "Error al guardar la actividad solicitada..., vuelva a intentarlo más tarde...",
                             Toast.LENGTH_SHORT
                     );
                     t.show();
                 }
-            }catch (Exception e){
-                Toast t = Toast.makeText(
-                        getActivity().getApplicationContext(),
-                        "Error al guardar la actividad solicitada..., vuelva a intentarlo más tarde...",
-                        Toast.LENGTH_SHORT
-                );
-                t.show();
             }
-
 
         }
 

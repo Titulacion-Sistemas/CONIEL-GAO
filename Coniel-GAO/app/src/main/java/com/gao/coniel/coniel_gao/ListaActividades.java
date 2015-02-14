@@ -62,8 +62,9 @@ public class ListaActividades extends android.support.v4.app.Fragment {
                             new Tupla<String, Object>("contrato", params[1])
                     }
             );
-            Object r = acc.ajecutar();
+
             try{
+                Object r = acc.ajecutar();
                 listaActividades.add(
                         new ItemListaActividades(
                             "Id",

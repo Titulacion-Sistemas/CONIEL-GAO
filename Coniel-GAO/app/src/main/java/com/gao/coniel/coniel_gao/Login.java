@@ -186,8 +186,9 @@ public class Login extends Activity {
                         new Tupla<String, Object>("c", params[2])
                 }
             );
-            Object r = acc.ajecutar();
+
             try{
+                Object r = acc.ajecutar();
                 SoapObject data = (SoapObject)r;
                 datos_de_Sesion = new String[data.getPropertyCount()];
                 for (int i=0 ; i<data.getPropertyCount() ; i++){

@@ -254,8 +254,9 @@ public class Contenedor extends FragmentActivity implements ListaPasos.OnPasoSel
                             new Tupla<String, Object>("s", params[2])
                     }
             );
-            Object r = acc.ajecutar();
+
             try{
+                Object r = acc.ajecutar();
                 SoapPrimitive data = (SoapPrimitive)r;
                 if (Boolean.parseBoolean(data+"")){
                     return 0;

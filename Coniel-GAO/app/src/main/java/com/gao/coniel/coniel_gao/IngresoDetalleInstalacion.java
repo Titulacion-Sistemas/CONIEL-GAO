@@ -15,7 +15,6 @@ import org.ksoap2.serialization.SoapObject;
 
 import java.util.ArrayList;
 
-import clases.SessionManager;
 import clases.SessionManagerIngreso;
 import clases.Tupla;
 import serviciosWeb.SW;
@@ -135,8 +134,9 @@ public class IngresoDetalleInstalacion extends android.support.v4.app.Fragment {
         @Override
         protected Object doInBackground(String... params) {
             SW acc = new SW("ingresos.wsdl", "ingresoDetalleInstalacion");
-            Object r = acc.ajecutar();
+
             try{
+                Object r = acc.ajecutar();
                 return r;
             }catch (Exception e){
                 toast = "Error, No se pudo cargar los datos requeridos";
@@ -149,7 +149,7 @@ public class IngresoDetalleInstalacion extends android.support.v4.app.Fragment {
         @Override
         protected void onPostExecute(Object r) {
             super.onPostExecute(r);
-
+            if (r != null){
             SoapObject data = (SoapObject)r;
             Log.i("Info-Retorno", data.toString());
 
@@ -243,6 +243,7 @@ public class IngresoDetalleInstalacion extends android.support.v4.app.Fragment {
             }
 
             recuperar();
+            }
         }
 
         protected void onCancelled() {
@@ -268,8 +269,9 @@ public class IngresoDetalleInstalacion extends android.support.v4.app.Fragment {
                             new Tupla<String, Object>("ide", params[0])
                     }
             );
-            Object r = acc.ajecutar();
+
             try{
+                Object r = acc.ajecutar();
                 return r;
             }catch (Exception e){
                 toast = "Error, No se pudo cargar los datos requeridos";
@@ -284,118 +286,119 @@ public class IngresoDetalleInstalacion extends android.support.v4.app.Fragment {
             super.onPostExecute(r);
 
             System.out.print(r);
+            if (r != null) {
+                SoapObject data = (SoapObject) r;
+                System.out.print(data);
+                ArrayAdapter<String> ad = null;
+                int pos = 0;
+                try {
+                    ad = (ArrayAdapter<String>) spMaterialRed.getAdapter();
+                    pos = ad.getPosition(data.getProperty(0).toString());
+                    spMaterialRed.setSelection(pos);
+                } catch (Exception e) {
+                    Log.e("Error al Cargar spMaterialRed: ", "" + e);
+                }
 
-            SoapObject data = (SoapObject)r;
-            System.out.print(data);
-            ArrayAdapter<String> ad=null;
-            int pos=0;
-            try{
-                ad = (ArrayAdapter<String>)spMaterialRed.getAdapter();
-                pos = ad.getPosition(data.getProperty(0).toString());
-                spMaterialRed.setSelection(pos);
-            }catch (Exception e){
-                Log.e("Error al Cargar spMaterialRed: ",""+e);
+                try {
+                    ad = (ArrayAdapter<String>) spFormaConexion.getAdapter();
+                    pos = ad.getPosition(data.getProperty(1).toString());
+                    spFormaConexion.setSelection(pos);
+                } catch (Exception e) {
+                    Log.e("Error al Cargar spFormaConexion: ", "" + e);
+                }
+
+                try {
+                    ad = (ArrayAdapter<String>) spEstadoInst.getAdapter();
+                    pos = ad.getPosition(data.getProperty(2).toString());
+                    spEstadoInst.setSelection(pos);
+                } catch (Exception e) {
+                    Log.e("Error al Cargar spEstadoInst: ", "" + e);
+                }
+
+                try {
+                    ad = (ArrayAdapter<String>) spTipoConst.getAdapter();
+                    pos = ad.getPosition(data.getProperty(3).toString());
+                    spTipoConst.setSelection(pos);
+                } catch (Exception e) {
+                    Log.e("Error al Cargar spTipoConst: ", "" + e);
+                }
+
+                try {
+                    ad = (ArrayAdapter<String>) spUbicacionMed.getAdapter();
+                    pos = ad.getPosition(data.getProperty(4).toString());
+                    spUbicacionMed.setSelection(pos);
+                } catch (Exception e) {
+                    Log.e("Error al Cargar spUbicacionMed: ", "" + e);
+                }
+
+                try {
+                    ad = (ArrayAdapter<String>) spTipoAcometida.getAdapter();
+                    pos = ad.getPosition(data.getProperty(5).toString());
+                    spTipoAcometida.setSelection(pos);
+                } catch (Exception e) {
+                    Log.e("Error al Cargar spTipoAcometida: ", "" + e);
+                }
+
+                try {
+                    ad = (ArrayAdapter<String>) spCalibreRed.getAdapter();
+                    pos = ad.getPosition(data.getProperty(6).toString());
+                    spCalibreRed.setSelection(pos);
+                } catch (Exception e) {
+                    Log.e("Error al Cargar spCalibreRed: ", "" + e);
+                }
+
+                try {
+                    ad = (ArrayAdapter<String>) spUsoDeEnergia.getAdapter();
+                    pos = ad.getPosition(data.getProperty(7).toString());
+                    spUsoDeEnergia.setSelection(pos);
+                } catch (Exception e) {
+                    Log.e("Error al Cargar spUsoDeEnergia: ", "" + e);
+                }
+
+                try {
+                    ad = (ArrayAdapter<String>) spClaseDeRed.getAdapter();
+                    pos = ad.getPosition(data.getProperty(8).toString());
+                    spClaseDeRed.setSelection(pos);
+                } catch (Exception e) {
+                    Log.e("Error al Cargar spClaseDeRed: ", "" + e);
+                }
+
+                try {
+                    ad = (ArrayAdapter<String>) spTipoServicio.getAdapter();
+                    pos = ad.getPosition(data.getProperty(9).toString());
+                    spTipoServicio.setSelection(pos);
+                } catch (Exception e) {
+                    Log.e("Error al Cargar spTipoServicio: ", "" + e);
+                }
+
+                try {
+                    ad = (ArrayAdapter<String>) spUsoInmueble.getAdapter();
+                    pos = ad.getPosition(data.getProperty(10).toString());
+                    spUsoInmueble.setSelection(pos);
+                } catch (Exception e) {
+                    Log.e("Error al Cargar spUsoInmueble: ", "" + e);
+                }
+
+                try {
+                    ad = (ArrayAdapter<String>) spDemanda.getAdapter();
+                    pos = ad.getPosition(data.getProperty(11).toString());
+                    spDemanda.setSelection(pos);
+                } catch (Exception e) {
+                    Log.e("Error al Cargar spDemanda: ", "" + e);
+                }
+
+                try {
+                    ad = (ArrayAdapter<String>) spNivelSocioEconomico.getAdapter();
+                    pos = ad.getPosition(data.getProperty(12).toString());
+                    spNivelSocioEconomico.setSelection(pos);
+                } catch (Exception e) {
+                    Log.e("Error al Cargar spNivelSocioEconomico: ", "" + e);
+                }
+                try {
+                    SessionManagerIngreso.getManager(getActivity().getApplicationContext()).saveKey("IDACTIVIDADSELECCIONADA3", "");
+                } catch (Exception ignored) {
+                }
             }
-
-            try{
-                ad = (ArrayAdapter<String>)spFormaConexion.getAdapter();
-                pos = ad.getPosition(data.getProperty(1).toString());
-                spFormaConexion.setSelection(pos);
-            }catch (Exception e){
-                Log.e("Error al Cargar spFormaConexion: ",""+e);
-            }
-
-            try{
-                ad = (ArrayAdapter<String>)spEstadoInst.getAdapter();
-                pos = ad.getPosition(data.getProperty(2).toString());
-                spEstadoInst.setSelection(pos);
-            }catch (Exception e){
-                Log.e("Error al Cargar spEstadoInst: ",""+e);
-            }
-
-            try{
-                ad = (ArrayAdapter<String>)spTipoConst.getAdapter();
-                pos = ad.getPosition(data.getProperty(3).toString());
-                spTipoConst.setSelection(pos);
-            }catch (Exception e){
-                Log.e("Error al Cargar spTipoConst: ",""+e);
-            }
-
-            try{
-                ad = (ArrayAdapter<String>)spUbicacionMed.getAdapter();
-                pos = ad.getPosition(data.getProperty(4).toString());
-                spUbicacionMed.setSelection(pos);
-            }catch (Exception e){
-                Log.e("Error al Cargar spUbicacionMed: ",""+e);
-            }
-
-            try{
-                ad = (ArrayAdapter<String>)spTipoAcometida.getAdapter();
-                pos = ad.getPosition(data.getProperty(5).toString());
-                spTipoAcometida.setSelection(pos);
-            }catch (Exception e){
-                Log.e("Error al Cargar spTipoAcometida: ",""+e);
-            }
-
-            try{
-                ad = (ArrayAdapter<String>)spCalibreRed.getAdapter();
-                pos = ad.getPosition(data.getProperty(6).toString());
-                spCalibreRed.setSelection(pos);
-            }catch (Exception e){
-                Log.e("Error al Cargar spCalibreRed: ",""+e);
-            }
-
-            try{
-                ad = (ArrayAdapter<String>)spUsoDeEnergia.getAdapter();
-                pos = ad.getPosition(data.getProperty(7).toString());
-                spUsoDeEnergia.setSelection(pos);
-            }catch (Exception e){
-                Log.e("Error al Cargar spUsoDeEnergia: ",""+e);
-            }
-
-            try{
-                ad = (ArrayAdapter<String>)spClaseDeRed.getAdapter();
-                pos = ad.getPosition(data.getProperty(8).toString());
-                spClaseDeRed.setSelection(pos);
-            }catch (Exception e){
-                Log.e("Error al Cargar spClaseDeRed: ",""+e);
-            }
-
-            try{
-                ad = (ArrayAdapter<String>)spTipoServicio.getAdapter();
-                pos = ad.getPosition(data.getProperty(9).toString());
-                spTipoServicio.setSelection(pos);
-            }catch (Exception e){
-                Log.e("Error al Cargar spTipoServicio: ",""+e);
-            }
-
-            try{
-                ad = (ArrayAdapter<String>)spUsoInmueble.getAdapter();
-                pos = ad.getPosition(data.getProperty(10).toString());
-                spUsoInmueble.setSelection(pos);
-            }catch (Exception e){
-                Log.e("Error al Cargar spUsoInmueble: ",""+e);
-            }
-
-            try{
-                ad = (ArrayAdapter<String>)spDemanda.getAdapter();
-                pos = ad.getPosition(data.getProperty(11).toString());
-                spDemanda.setSelection(pos);
-            }catch (Exception e){
-                Log.e("Error al Cargar spDemanda: ",""+e);
-            }
-
-            try{
-                ad = (ArrayAdapter<String>)spNivelSocioEconomico.getAdapter();
-                pos = ad.getPosition(data.getProperty(12).toString());
-                spNivelSocioEconomico.setSelection(pos);
-            }catch (Exception e){
-                Log.e("Error al Cargar spNivelSocioEconomico: ",""+e);
-            }
-            try{
-                SessionManagerIngreso.getManager(getActivity().getApplicationContext()).saveKey("IDACTIVIDADSELECCIONADA3","");
-            }catch (Exception ignored){}
-
         }
 
         protected void onCancelled() {

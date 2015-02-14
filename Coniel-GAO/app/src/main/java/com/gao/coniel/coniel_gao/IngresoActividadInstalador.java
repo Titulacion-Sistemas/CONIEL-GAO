@@ -111,8 +111,9 @@ public class IngresoActividadInstalador extends Fragment {
                             new Tupla<String, Object>("contrato", params[1])
                     }
             );*/
-            Object r = acc.ajecutar();
+
             try{
+                Object r = acc.ajecutar();
                 return r;
             }catch (Exception e){
                 toast = "Error, No se pudo cargar los datos requeridos";
@@ -127,45 +128,45 @@ public class IngresoActividadInstalador extends Fragment {
             super.onPostExecute(r);
 
             System.out.print(r);
+            if(r !=null) {
+                SoapObject data = (SoapObject) r;
+                System.out.print(data);
 
-            SoapObject data = (SoapObject)r;
-            System.out.print(data);
+                ArrayList<String> instalador = new ArrayList<String>();
+                for (int j = 0; j < ((SoapObject) data.getProperty(0)).getPropertyCount(); j++) {
+                    instalador.add("" + (((SoapObject) data.getProperty(0)).getProperty(j)));
+                }
 
-            ArrayList<String> instalador = new ArrayList<String>();
-            for (int j=0 ; j<((SoapObject)data.getProperty(0)).getPropertyCount() ; j++){
-                instalador.add(""+(((SoapObject)data.getProperty(0)).getProperty(j)));
+                try {
+                    addDynamic(spinerInstalador, instalador);
+                } catch (Exception e) {
+                    Log.e("Error al Cargar Instaladores: ", "" + e);
+                }
+
+                ArrayList<String> cuadrilla = new ArrayList<String>();
+                for (int j = 0; j < ((SoapObject) data.getProperty(1)).getPropertyCount(); j++) {
+                    cuadrilla.add("" + (((SoapObject) data.getProperty(1)).getProperty(j)));
+                }
+
+                try {
+                    addDynamic(spinerCuadrilla, cuadrilla);
+                } catch (Exception e) {
+                    Log.e("Error al Cargar Cuadrillas: ", "" + e);
+                }
+
+                ArrayList<String> tSolicitud = new ArrayList<String>();
+                for (int j = 0; j < ((SoapObject) data.getProperty(2)).getPropertyCount(); j++) {
+                    tSolicitud.add("" + (((SoapObject) data.getProperty(2)).getProperty(j)));
+                }
+
+                try {
+                    addDynamic(spinerSolicitud, tSolicitud);
+                } catch (Exception e) {
+                    Log.e("Error al Cargar Tipos de Solicitud: ", "" + e);
+                }
+
+                recuperar();
             }
-
-            try{
-                addDynamic(spinerInstalador, instalador);
-            }catch (Exception e){
-                Log.e("Error al Cargar Instaladores: ",""+e);
-            }
-
-            ArrayList<String> cuadrilla = new ArrayList<String>();
-            for (int j=0 ; j<((SoapObject)data.getProperty(1)).getPropertyCount() ; j++){
-                cuadrilla.add(""+(((SoapObject)data.getProperty(1)).getProperty(j)));
-            }
-
-            try{
-                addDynamic(spinerCuadrilla, cuadrilla);
-            }catch (Exception e){
-                Log.e("Error al Cargar Cuadrillas: ",""+e);
-            }
-
-            ArrayList<String> tSolicitud = new ArrayList<String>();
-            for (int j=0 ; j<((SoapObject)data.getProperty(2)).getPropertyCount() ; j++){
-                tSolicitud.add(""+(((SoapObject)data.getProperty(2)).getProperty(j)));
-            }
-
-            try{
-                addDynamic(spinerSolicitud, tSolicitud);
-            }catch (Exception e){
-                Log.e("Error al Cargar Tipos de Solicitud: ",""+e);
-            }
-
-            recuperar();
-
         }
 
         protected void onCancelled() {
@@ -228,8 +229,9 @@ public class IngresoActividadInstalador extends Fragment {
                             new Tupla<String, Object>("ide", params[0])
                     }
             );
-            Object r = acc.ajecutar();
+
             try{
+                Object r = acc.ajecutar();
                 return r;
             }catch (Exception e){
                 toast = "Error, No se pudo cargar los datos requeridos";
@@ -244,33 +246,33 @@ public class IngresoActividadInstalador extends Fragment {
             super.onPostExecute(r);
 
             System.out.print(r);
+            if(r !=null) {
+                SoapObject data = (SoapObject) r;
+                System.out.print(data);
 
-            SoapObject data = (SoapObject)r;
-            System.out.print(data);
+                ArrayAdapter<String> ad = (ArrayAdapter<String>) spinerInstalador.getAdapter();
+                int pos = ad.getPosition(data.getProperty(0).toString());
+                spinerInstalador.setSelection(pos);
 
-            ArrayAdapter<String> ad = (ArrayAdapter<String>)spinerInstalador.getAdapter();
-            int pos = ad.getPosition(data.getProperty(0).toString());
-            spinerInstalador.setSelection(pos);
+                ad = (ArrayAdapter<String>) spinerCuadrilla.getAdapter();
+                pos = ad.getPosition(data.getProperty(1).toString());
+                spinerInstalador.setSelection(pos);
 
-            ad = (ArrayAdapter<String>)spinerCuadrilla.getAdapter();
-            pos = ad.getPosition(data.getProperty(1).toString());
-            spinerInstalador.setSelection(pos);
+                ad = (ArrayAdapter<String>) spinerSolicitud.getAdapter();
+                pos = ad.getPosition(data.getProperty(2).toString());
+                spinerSolicitud.setSelection(pos);
 
-            ad = (ArrayAdapter<String>)spinerSolicitud.getAdapter();
-            pos = ad.getPosition(data.getProperty(2).toString());
-            spinerSolicitud.setSelection(pos);
+                String[] se = data.getProperty(3).toString().split("-");
+                fecha.updateDate(Integer.parseInt(se[0]), Integer.parseInt(se[1]) - 1, Integer.parseInt(se[2]));
 
-            String[] se = data.getProperty(3).toString().split("-");
-            fecha.updateDate(Integer.parseInt(se[0]), Integer.parseInt(se[1])-1, Integer.parseInt(se[2]));
-
-            String[] st = data.getProperty(4).toString().split(":");
-            tiempo.setCurrentHour(Integer.parseInt(st[0]));
-            tiempo.setCurrentMinute(Integer.parseInt(st[1]));
-
-
-            SessionManagerIngreso.getManager(getActivity().getApplicationContext()).saveKey("IDACTIVIDADSELECCIONADA1","");
+                String[] st = data.getProperty(4).toString().split(":");
+                tiempo.setCurrentHour(Integer.parseInt(st[0]));
+                tiempo.setCurrentMinute(Integer.parseInt(st[1]));
 
 
+                SessionManagerIngreso.getManager(getActivity().getApplicationContext()).saveKey("IDACTIVIDADSELECCIONADA1", "");
+
+            }
         }
 
         protected void onCancelled() {

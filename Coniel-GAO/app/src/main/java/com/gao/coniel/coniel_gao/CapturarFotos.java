@@ -373,8 +373,9 @@ public class CapturarFotos extends Fragment {
                             new Tupla<String, Object>("longitud", params[3])
                     }
             );
-            Object r = acc.ajecutar();
+
             try{
+                Object r = acc.ajecutar();
                 SoapObject data = (SoapObject)r;
                 Log.i("Info-Retorno", data.toString());
 
@@ -389,16 +390,17 @@ public class CapturarFotos extends Fragment {
         @Override
         protected void onPostExecute(Object r) {
             super.onPostExecute(r);
+            if(r != null){
+                Boolean valor = (Boolean) r;
 
-            Boolean valor = (Boolean)r;
-
-            if (valor){
-                getToast("La ubicación de la foto ha sido almacenada");
-            }else{
-                getToast("Error, Ubicación NO detectada");
-                GuardarFotos.getManager(directorioc)
-                        .saveKey("Latitud", "Por favor, actualice")
-                        .saveKey("Longitud", "datos de ubicación...");
+                if (valor) {
+                    getToast("La ubicación de la foto ha sido almacenada");
+                } else {
+                    getToast("Error, Ubicación NO detectada");
+                    GuardarFotos.getManager(directorioc)
+                            .saveKey("Latitud", "Por favor, actualice")
+                            .saveKey("Longitud", "datos de ubicación...");
+                }
             }
         }
 
