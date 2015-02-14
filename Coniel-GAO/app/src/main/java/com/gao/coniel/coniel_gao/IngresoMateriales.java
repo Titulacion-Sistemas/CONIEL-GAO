@@ -80,42 +80,54 @@ public class IngresoMateriales extends Fragment {
         Log.i("Se ha ejecutado el ", "  ONSTOP");
 
         //Guardar variables
-        SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext())
-            .saveKey("CHECKDIRECTO", checkDirecto.isChecked())
-            .saveKey("CHECKCONTRASTACION", checkContrastacion.isChecked())
-            .saveKey("CHECKREUBICACION", checkReubicacion.isChecked());
+        SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
+        try {
+            s.saveKey("CHECKDIRECTO", checkDirecto.isChecked())
+                    .saveKey("CHECKCONTRASTACION", checkContrastacion.isChecked())
+                    .saveKey("CHECKREUBICACION", checkReubicacion.isChecked());
 
-        ListaMaterialesAdapter ad = (ListaMaterialesAdapter) listViewMateriales.getAdapter();
-        ArrayList<String[]> lista = null;
-        //Log.i("Info-ListViewMateriales-Count", ad.getCount()+"");
-        if (ad!=null) {
-            lista = new ArrayList<String[]>();
-            for (int i = 0; i < ad.getCount(); i++)
-                lista.add(
-                        new String[]{
-                                ad.getItem(i).getItemMateriales(),
-                                ad.getItem(i).getDescripcion(),
-                                ad.getItem(i).getCantidad()
-                        }
-                );
+            ListaMaterialesAdapter ad = (ListaMaterialesAdapter) listViewMateriales.getAdapter();
+            ArrayList<String[]> lista = null;
+            //Log.i("Info-ListViewMateriales-Count", ad.getCount()+"");
+            if (ad != null) {
+                lista = new ArrayList<String[]>();
+                for (int i = 0; i < ad.getCount(); i++)
+                    lista.add(
+                            new String[]{
+                                    ad.getItem(i).getItemMateriales(),
+                                    ad.getItem(i).getDescripcion(),
+                                    ad.getItem(i).getCantidad()
+                            }
+                    );
+            }
+            s.saveKey("LISTAMATERIALES", lista);
+            lista = null;
+
+            ListaContenidoSellosAdapter ads = (ListaContenidoSellosAdapter) listViewSellos.getAdapter();
+            if (ads != null) {
+                lista = new ArrayList<String[]>();
+                for (int i = 0; i < ads.getCount(); i++)
+                    lista.add(
+                            new String[]{
+                                    ads.getItem(i).getDato1(),
+                                    ads.getItem(i).getDato2(),
+                                    ads.getItem(i).getDato3()
+                            }
+                    );
+            }
+            s.saveKey("LISTASELLOS", lista);
+        }catch (Exception e){
+           s.saveKey("CHECKDIRECTO", false)
+            .saveKey("CHECKCONTRASTACION", false)
+            .saveKey("CHECKREUBICACION", false)
+            .saveKey("LISTAMATERIALES", new ArrayList<String[]>())
+            .saveKey("LISTASELLOS", new ArrayList<String[]>());
+
+            s.saveKey(
+                    "IDACTIVIDADSELECCIONADA4",
+                    s.getStringKey("IDACTIVIDADSELECCIONADA")
+            );
         }
-        s.saveKey("LISTAMATERIALES", lista);
-        lista = null;
-
-        ListaContenidoSellosAdapter ads = (ListaContenidoSellosAdapter) listViewSellos.getAdapter();
-        if (ads!=null) {
-            lista = new ArrayList<String[]>();
-            for (int i = 0; i < ads.getCount(); i++)
-                lista.add(
-                        new String[]{
-                                ads.getItem(i).getDato1(),
-                                ads.getItem(i).getDato2(),
-                                ads.getItem(i).getDato3()
-                        }
-                );
-        }
-        s.saveKey("LISTASELLOS", lista);
-
     }
 
 
@@ -439,24 +451,25 @@ public class IngresoMateriales extends Fragment {
     }
 
     private void recuperar() {
+        try {
+            SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
 
-        SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
+            if (!((s.getStringKey("IDACTIVIDADSELECCIONADA4") + "").equals(""))) {
 
-        if (!((s.getStringKey("IDACTIVIDADSELECCIONADA4")+"").equals(""))){
+                asyncRecuperar asb = new asyncRecuperar();
+                asb.execute(
+                        s.getStringKey("IDACTIVIDADSELECCIONADA") + "",
+                        SessionManager.getManager(getActivity()).getStringKey("contrato")
+                );
 
-            asyncRecuperar asb = new asyncRecuperar();
-            asb.execute(
-                    s.getStringKey("IDACTIVIDADSELECCIONADA")+"",
-                    SessionManager.getManager(getActivity()).getStringKey("contrato")
-            );
+            } else {
 
+                recuperarDeArchivo();
+
+            }
+        }catch (Exception e){
+            Log.e("Recuperar","Error, no se pudo recuperar: "+e.getMessage());
         }
-        else {
-
-            recuperarDeArchivo();
-
-        }
-
     }
 
 

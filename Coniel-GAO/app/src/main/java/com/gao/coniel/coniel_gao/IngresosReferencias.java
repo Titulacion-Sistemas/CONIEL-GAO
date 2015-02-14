@@ -75,37 +75,50 @@ public class IngresosReferencias extends Fragment {
     public void onStop(){
         super.onStop();
         Log.i("Se ha ejecutado el ", "  ONSTOP");
-
        //Guardar Sesion para evitar cierre
-        SessionManagerIngreso.getManager(getActivity().getApplicationContext())
-                .saveKey("FABRICAREF", edtFabricaRef.getText().toString())
-                .saveKey("SERIALREF", edtSerialRef.getText().toString())
-                .saveKey("MARCAREF", edtMarcaRef.getText().toString())
-                .saveKey("CUENTAREF", edtCuentaRef.getText().toString());
+       SessionManagerIngreso smi = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
+        try {
+            smi.saveKey("FABRICAREF", edtFabricaRef.getText().toString())
+                    .saveKey("SERIALREF", edtSerialRef.getText().toString())
+                    .saveKey("MARCAREF", edtMarcaRef.getText().toString())
+                    .saveKey("CUENTAREF", edtCuentaRef.getText().toString());
+        }catch (Exception e){
+            smi.saveKey("IDREFERENCIA", "")
+            .saveKey("FABRICAREF", "")
+            .saveKey("SERIALREF", "")
+            .saveKey("MARCAREF", "")
+            .saveKey("CUENTAREF", "");
+
+            smi.saveKey(
+                    "IDACTIVIDADSELECCIONADA6",
+                    smi.getStringKey("IDACTIVIDADSELECCIONADA")
+            );
+        }
     }
 
     private void recuperar() {
+        try {
+            SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
 
-        SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
+            if (!((s.getStringKey("IDACTIVIDADSELECCIONADA6") + "").equals(""))) {
 
-        if (!((s.getStringKey("IDACTIVIDADSELECCIONADA6")+"").equals(""))){
+                asyncSeleccion asb = new asyncSeleccion();
+                asb.execute(
+                        s.getStringKey("IDACTIVIDADSELECCIONADA") + ""
+                );
 
-            asyncSeleccion asb = new asyncSeleccion();
-            asb.execute(
-                    s.getStringKey("IDACTIVIDADSELECCIONADA")+""
-            );
+            } else {
 
+                //recuperar Variables de Sesion
+                edtFabricaRef.setText(s.getStringKey("FABRICAREF"));
+                edtSerialRef.setText(s.getStringKey("SERIALREF"));
+                edtMarcaRef.setText(s.getStringKey("MARCAREF"));
+                edtCuentaRef.setText(s.getStringKey("CUENTAREF"));
+
+            }
+        }catch (Exception e){
+            Log.e("Recuperar","Error, no se pudo recuperar: "+e.getMessage());
         }
-        else {
-
-            //recuperar Variables de Sesion
-            edtFabricaRef.setText(s.getStringKey("FABRICAREF"));
-            edtSerialRef.setText(s.getStringKey("SERIALREF"));
-            edtMarcaRef.setText(s.getStringKey("MARCAREF"));
-            edtCuentaRef.setText(s.getStringKey("CUENTAREF"));
-
-        }
-
     }
 
 
@@ -298,8 +311,9 @@ public class IngresosReferencias extends Fragment {
                             new Tupla<String, Object>("ide", params[0])
                     }
             );
-            Object r = acc.ajecutar();
+
             try{
+                Object r = acc.ajecutar();
                 SoapObject data = (SoapObject)r;
 
                 ArrayList<String> valores = new ArrayList<String>();
@@ -317,21 +331,19 @@ public class IngresosReferencias extends Fragment {
         @Override
         protected void onPostExecute(Object r) {
             super.onPostExecute(r);
+            if (r != null) {
+                ArrayList<String> valores = (ArrayList<String>) r;
 
-            ArrayList<String> valores = (ArrayList<String>)r;
-
-            if (valores != null){
-                edtFabricaRef.setText(valores.get(0));
-                edtSerialRef.setText(valores.get(1));
-                edtMarcaRef.setText(valores.get(2));
-                edtCuentaRef.setText(valores.get(3));
-                SessionManagerIngreso.getManager(getActivity().getApplicationContext())
-                        .saveKey("IDACTIVIDADSELECCIONADA6","")
-                        .saveKey("IDREFERENCIA",valores.get(4).replace("anyType{}",""));
+                if (valores != null) {
+                    edtFabricaRef.setText(valores.get(0));
+                    edtSerialRef.setText(valores.get(1));
+                    edtMarcaRef.setText(valores.get(2));
+                    edtCuentaRef.setText(valores.get(3));
+                    SessionManagerIngreso.getManager(getActivity().getApplicationContext())
+                            .saveKey("IDACTIVIDADSELECCIONADA6", "")
+                            .saveKey("IDREFERENCIA", valores.get(4).replace("anyType{}", ""));
+                }
             }
-
-
-
         }
 
         protected void onCancelled() {

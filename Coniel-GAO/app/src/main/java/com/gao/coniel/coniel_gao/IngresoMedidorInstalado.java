@@ -54,14 +54,28 @@ public class IngresoMedidorInstalado extends Fragment {
         Log.i("Se ha ejecutado el ", "  ONSTOP");
 
         //Guardar Sesion para evitar cierre
-        SessionManagerIngreso.getManager(getActivity().getApplicationContext())
-                .saveKey("MEDIDORESBODEGA", spMedidoresBodega.getSelectedItemPosition())
-                .saveKey("NUMFABRICABODEGA", edtFabricaBodega.getText().toString())
-                .saveKey("SERIEBODEGA", edtSerieBodega.getText().toString())
-                .saveKey("MARCABODEGA", edtMarcaBodega.getText().toString())
-                .saveKey("TIPOBODEGA", edtTipoBodega.getText().toString())
-                .saveKey("IDMEDIDORSELECCIONADO",id)
-                .saveKey("LECTURABODEGA", edtLecturaBodega.getText().toString());
+        SessionManagerIngreso smi = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
+        try {
+            smi.saveKey("MEDIDORESBODEGA", spMedidoresBodega.getSelectedItemPosition())
+                    .saveKey("NUMFABRICABODEGA", edtFabricaBodega.getText().toString())
+                    .saveKey("SERIEBODEGA", edtSerieBodega.getText().toString())
+                    .saveKey("MARCABODEGA", edtMarcaBodega.getText().toString())
+                    .saveKey("TIPOBODEGA", edtTipoBodega.getText().toString())
+                    .saveKey("IDMEDIDORSELECCIONADO", id)
+                    .saveKey("LECTURABODEGA", edtLecturaBodega.getText().toString());
+        }catch (Exception e){
+            smi.saveKey("MEDIDORESBODEGA", 0)
+            .saveKey("NUMFABRICABODEGA", "")
+            .saveKey("SERIEBODEGA", "")
+            .saveKey("MARCABODEGA", "")
+            .saveKey("TIPOBODEGA", "")
+            .saveKey("LECTURABODEGA", "");
+
+            smi.saveKey(
+                    "IDACTIVIDADSELECCIONADA5",
+                    smi.getStringKey("IDACTIVIDADSELECCIONADA")
+            );
+        }
     }
 
 
@@ -79,8 +93,9 @@ public class IngresoMedidorInstalado extends Fragment {
                             new Tupla<String, Object>("contrato", params[0])
                     }
             );
-            Object r = acc.ajecutar();
+
             try{
+                Object r = acc.ajecutar();
                 SoapObject data = (SoapObject)r;
                 Log.i("Info-Retorno", data.toString());
 
@@ -99,17 +114,18 @@ public class IngresoMedidorInstalado extends Fragment {
         @Override
         protected void onPostExecute(Object r) {
             super.onPostExecute(r);
+            if (r != null) {
+                ArrayList<String> valores = (ArrayList<String>) r;
 
-            ArrayList<String> valores = (ArrayList<String>)r;
+                if (valores != null)
+                    try {
+                        addDynamic(spMedidoresBodega, valores);
+                    } catch (Exception e) {
+                        Log.e("Error al Cargar spMedidoresBodega: ", "" + e);
+                    }
 
-            if (valores != null)
-                try{
-                    addDynamic(spMedidoresBodega, valores);
-                }catch (Exception e){
-                    Log.e("Error al Cargar spMedidoresBodega: ",""+e);
-                }
-
-            recuperar();
+                recuperar();
+            }
         }
 
         protected void onCancelled() {
@@ -124,47 +140,49 @@ public class IngresoMedidorInstalado extends Fragment {
     }
 
     private void recuperar() {
+        try {
+            SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
 
-        SessionManagerIngreso s = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
-
-        if (!((s.getStringKey("IDACTIVIDADSELECCIONADA5")+"").equals(""))){
+            if (!((s.getStringKey("IDACTIVIDADSELECCIONADA5") + "").equals(""))) {
 
 
-            asyncActSeleccion asb = new asyncActSeleccion();
-            asb.execute(
-                    SessionManager.getManager(getActivity()).getStringKey("contrato"),
-                    s.getStringKey("IDACTIVIDADSELECCIONADA")+""
-            );
+                asyncActSeleccion asb = new asyncActSeleccion();
+                asb.execute(
+                        SessionManager.getManager(getActivity()).getStringKey("contrato"),
+                        s.getStringKey("IDACTIVIDADSELECCIONADA") + ""
+                );
 
-        }
-        else {
-            //Recuperar Variables de Sesion
-            spMedidoresBodega.setSelection(s.getIntKey("MEDIDORESBODEGA"));
-            edtFabricaBodega.setText(s.getStringKey("NUMFABRICABODEGA"));
-            edtSerieBodega.setText(s.getStringKey("SERIEBODEGA"));
-            edtMarcaBodega.setText(s.getStringKey("MARCABODEGA"));
-            edtTipoBodega.setText(s.getStringKey("TIPOBODEGA"));
-            edtLecturaBodega.setText(s.getStringKey("LECTURABODEGA"));
+            } else {
+                //Recuperar Variables de Sesion
+                spMedidoresBodega.setSelection(s.getIntKey("MEDIDORESBODEGA"));
+                edtFabricaBodega.setText(s.getStringKey("NUMFABRICABODEGA"));
+                edtSerieBodega.setText(s.getStringKey("SERIEBODEGA"));
+                edtMarcaBodega.setText(s.getStringKey("MARCABODEGA"));
+                edtTipoBodega.setText(s.getStringKey("TIPOBODEGA"));
+                edtLecturaBodega.setText(s.getStringKey("LECTURABODEGA"));
 
-            spMedidoresBodega.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    String seleccion = spMedidoresBodega.getItemAtPosition(position).toString();
-                    Log.i("Info - medidor Seleccionado", seleccion);
-                    asyncSeleccion as = new asyncSeleccion();
-                    as.execute(
-                            SessionManager.getManager(getActivity().getApplicationContext()).getStringKey("contrato"),
-                            seleccion,
-                            ""
-                    );
-                }
+                spMedidoresBodega.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        String seleccion = spMedidoresBodega.getItemAtPosition(position).toString();
+                        Log.i("Info - medidor Seleccionado", seleccion);
+                        asyncSeleccion as = new asyncSeleccion();
+                        as.execute(
+                                SessionManager.getManager(getActivity().getApplicationContext()).getStringKey("contrato"),
+                                seleccion,
+                                ""
+                        );
+                    }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
 
-                }
-            });
+                    }
+                });
 
+            }
+        }catch (Exception e){
+            Log.e("Recuperar","Error, no se pudo recuperar: "+e.getMessage());
         }
     }
 
@@ -195,8 +213,9 @@ public class IngresoMedidorInstalado extends Fragment {
                             new Tupla<String, Object>("ide", params[2])
                     }
             );
-            Object r = acc.ajecutar();
+
             try{
+                Object r = acc.ajecutar();
                 SoapObject data = (SoapObject)r;
                 Log.i("Info-Retorno", data.toString());
 
@@ -215,16 +234,17 @@ public class IngresoMedidorInstalado extends Fragment {
         @Override
         protected void onPostExecute(Object r) {
             super.onPostExecute(r);
+            if(r != null) {
+                ArrayList<String> valores = (ArrayList<String>) r;
 
-            ArrayList<String> valores = (ArrayList<String>)r;
-
-            if (valores != null){
-                edtFabricaBodega.setText(valores.get(1));
-                edtSerieBodega.setText(valores.get(2));
-                edtMarcaBodega.setText(valores.get(3));
-                edtTipoBodega.setText(valores.get(4));
-                id=valores.get(0);
-                edtLecturaBodega.setText(valores.get(5));
+                if (valores != null) {
+                    edtFabricaBodega.setText(valores.get(1));
+                    edtSerieBodega.setText(valores.get(2));
+                    edtMarcaBodega.setText(valores.get(3));
+                    edtTipoBodega.setText(valores.get(4));
+                    id = valores.get(0);
+                    edtLecturaBodega.setText(valores.get(5));
+                }
             }
 
         }
@@ -254,8 +274,9 @@ public class IngresoMedidorInstalado extends Fragment {
                             new Tupla<String, Object>("ide", params[1])
                     }
             );
-            Object r = acc.ajecutar();
+
             try{
+                Object r = acc.ajecutar();
                 SoapObject data = (SoapObject)r;
 
                 ArrayList<String> valores = new ArrayList<String>();
@@ -273,49 +294,49 @@ public class IngresoMedidorInstalado extends Fragment {
         @Override
         protected void onPostExecute(Object r) {
             super.onPostExecute(r);
+            if (r != null) {
+                ArrayList<String> valores = (ArrayList<String>) r;
 
-            ArrayList<String> valores = (ArrayList<String>)r;
+                if (valores != null) {
 
-            if (valores != null){
-
-                spMedidoresBodega.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        String seleccion = spMedidoresBodega.getItemAtPosition(position).toString();
-                        Log.i("Info - medidor Seleccionado", seleccion);
-                        String idAct="";
-                        if (!(SessionManagerIngreso.getManager(getActivity().getApplicationContext())
-                                    .getStringKey("IDACTIVIDADSELECCIONADA")+"").equals("") &&
-                                position==0){
-                            idAct = (SessionManagerIngreso.getManager(getActivity().getApplicationContext())
-                                    .getStringKey("IDACTIVIDADSELECCIONADA")+"");
-                            Log.i("Info - Act", idAct);
+                    spMedidoresBodega.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            String seleccion = spMedidoresBodega.getItemAtPosition(position).toString();
+                            Log.i("Info - medidor Seleccionado", seleccion);
+                            String idAct = "";
+                            if (!(SessionManagerIngreso.getManager(getActivity().getApplicationContext())
+                                    .getStringKey("IDACTIVIDADSELECCIONADA") + "").equals("") &&
+                                    position == 0) {
+                                idAct = (SessionManagerIngreso.getManager(getActivity().getApplicationContext())
+                                        .getStringKey("IDACTIVIDADSELECCIONADA") + "");
+                                Log.i("Info - Act", idAct);
+                            }
+                            asyncSeleccion as = new asyncSeleccion();
+                            as.execute(
+                                    SessionManager.getManager(getActivity().getApplicationContext()).getStringKey("contrato"),
+                                    seleccion,
+                                    idAct
+                            );
                         }
-                        asyncSeleccion as = new asyncSeleccion();
-                        as.execute(
-                                SessionManager.getManager(getActivity().getApplicationContext()).getStringKey("contrato"),
-                                seleccion,
-                                idAct
-                        );
-                    }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
 
-                    }
-                });
+                        }
+                    });
 
-                ArrayAdapter<String> ad =(ArrayAdapter<String>) spMedidoresBodega.getAdapter();
-                ad.insert(valores.get(0), 0);
-                ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spMedidoresBodega.setAdapter(ad);
-                spMedidoresBodega.setSelection(0);
+                    ArrayAdapter<String> ad = (ArrayAdapter<String>) spMedidoresBodega.getAdapter();
+                    ad.insert(valores.get(0), 0);
+                    ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spMedidoresBodega.setAdapter(ad);
+                    spMedidoresBodega.setSelection(0);
 
+                }
+
+                SessionManagerIngreso.getManager(getActivity().getApplicationContext())
+                        .saveKey("IDACTIVIDADSELECCIONADA5", "");
             }
-
-            SessionManagerIngreso.getManager(getActivity().getApplicationContext())
-                    .saveKey("IDACTIVIDADSELECCIONADA5","");
-
         }
 
         protected void onCancelled() {

@@ -80,45 +80,45 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
         btnBuscarDatos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SessionManager s = SessionManager.getManager(getActivity().getApplicationContext());
-                asyncBuscar asb = new asyncBuscar(sfvTrack);
-                String tipo ="", dato="";
-                if (!(cuenta.getText().toString().equals(""))){
-                    if (validar(0, cuenta.getText()+"")){
-                        tipo="1";
-                        dato = cuenta.getText()+"";
+                try {
+                    SessionManager s = SessionManager.getManager(getActivity().getApplicationContext());
+                    asyncBuscar asb = new asyncBuscar(sfvTrack);
+                    String tipo = "", dato = "";
+                    if (!(cuenta.getText().toString().equals(""))) {
+                        if (validar(0, cuenta.getText() + "")) {
+                            tipo = "1";
+                            dato = cuenta.getText() + "";
+                        }
+                    } else if (!(fabrica.getText().toString().equals(""))) {
+                        if (validar(1, fabrica.getText() + "")) {
+                            tipo = "2";
+                            dato = fabrica.getText() + "";
+                        }
+                    } else if (!(nombre.getText().toString().equals(""))) {
+                        if (validar(2, nombre.getText() + "")) {
+                            tipo = "3";
+                            dato = nombre.getText() + "";
+                        }
+                    } else if (!(geocodigo.getText().toString().equals(""))) {
+                        if (validar(3, geocodigo.getText() + "")) {
+                            tipo = "4";
+                            dato = geocodigo.getText() + "";
+                        }
                     }
-                }else
-                if (!(fabrica.getText().toString().equals(""))){
-                    if (validar(1, fabrica.getText()+"")){
-                        tipo="2";
-                        dato = fabrica.getText()+"";
+
+
+                    if (!tipo.equals("")) {
+                        habilitarComponentes(false);
+                        asb.execute(
+                                s.getStringKey(SessionManager.LOGIN_KEY),
+                                s.getStringKey(SessionManager.SESSION_KEY),
+                                tipo,
+                                dato
+                        );
                     }
-                }else
-                if (!(nombre.getText().toString().equals(""))){
-                    if (validar(2, nombre.getText()+"")){
-                        tipo="3";
-                        dato = nombre.getText()+"";
-                    }
-                }else
-                if (!(geocodigo.getText().toString().equals(""))){
-                    if (validar(3, geocodigo.getText()+"")){
-                        tipo="4";
-                        dato = geocodigo.getText()+"";
-                    }
+                }catch (Exception e){
+                    Log.i("Error Buscar ", "  btnBuscar");
                 }
-
-
-                if (!tipo.equals("")){
-                    habilitarComponentes(false);
-                    asb.execute(
-                            s.getStringKey(SessionManager.LOGIN_KEY),
-                            s.getStringKey(SessionManager.SESSION_KEY),
-                            tipo,
-                            dato
-                    );
-                }
-
             }
         });
 
@@ -136,19 +136,41 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
         super.onStop();
         Log.i("Se ha ejecutado el ", "  ONSTOP");
         //Guardar Sesion para evitar cierre
-       SessionManagerIngreso.getManager(getActivity().getApplicationContext())
-                .saveKey("CUENTA", cuenta.getText().toString())
-                .saveKey("CEDULA", cedula.getText().toString())
-                .saveKey("NOMBRE", nombre.getText().toString())
-                .saveKey("ESTADO", estado.getText().toString())
-                .saveKey("TELEFONO", telefono.getText().toString())
-                .saveKey("LUGAR", lugar.getText().toString())
-                .saveKey("CALLE", calle.getText().toString())
-                .saveKey("GEOCODIGO", geocodigo.getText().toString())
-                .saveKey("FABRICA", fabrica.getText().toString())
-                .saveKey("SERIAL", serial.getText().toString())
-                .saveKey("MARCA", marca.getText().toString())
-                .saveKey("LECTURA", lectura.getText().toString());
+        SessionManagerIngreso smi = SessionManagerIngreso.getManager(getActivity().getApplicationContext());
+        try {
+
+            smi.saveKey("CUENTA", cuenta.getText().toString())
+                    .saveKey("CEDULA", cedula.getText().toString())
+                    .saveKey("NOMBRE", nombre.getText().toString())
+                    .saveKey("ESTADO", estado.getText().toString())
+                    .saveKey("TELEFONO", telefono.getText().toString())
+                    .saveKey("LUGAR", lugar.getText().toString())
+                    .saveKey("CALLE", calle.getText().toString())
+                    .saveKey("GEOCODIGO", geocodigo.getText().toString())
+                    .saveKey("FABRICA", fabrica.getText().toString())
+                    .saveKey("SERIAL", serial.getText().toString())
+                    .saveKey("MARCA", marca.getText().toString())
+                    .saveKey("LECTURA", lectura.getText().toString());
+        }catch (Exception e){
+           smi.saveKey("IDCLIENTE", "")
+            .saveKey("CUENTA", "")
+            .saveKey("CEDULA", "")
+            .saveKey("NOMBRE", "")
+            .saveKey("ESTADO", "")
+            .saveKey("TELEFONO", "")
+            .saveKey("LUGAR", "")
+            .saveKey("CALLE", "")
+            .saveKey("GEOCODIGO", "")
+            .saveKey("FABRICA", "")
+            .saveKey("SERIAL", "")
+            .saveKey("MARCA", "")
+            .saveKey("LECTURA", "");
+
+            smi.saveKey(
+                    "IDACTIVIDADSELECCIONADA2",
+                    smi.getStringKey("IDACTIVIDADSELECCIONADA")
+            );
+        }
     }
 
 
