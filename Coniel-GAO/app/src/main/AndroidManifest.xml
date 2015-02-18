@@ -37,13 +37,13 @@
             android:name="com.google.android.gms.version"
             android:value="5208000" />
         <!--fingerprint laptop       -->
-        <!--<meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDKjw0OY_bz5t2yAzRrgSEEpb8pzC5Es1E" />-->
-        <!--fingerprint pc casa jhonsson       -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDhlgmMmhamm3-Yh-lkFHv5DkNiBSzx4SY" />
+            android:value="AIzaSyDKjw0OY_bz5t2yAzRrgSEEpb8pzC5Es1E" />
+        <!--fingerprint pc casa jhonsson       -->
+        <!--<meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyDhlgmMmhamm3-Yh-lkFHv5DkNiBSzx4SY" />-->
 
         <activity
             android:name=".Login"

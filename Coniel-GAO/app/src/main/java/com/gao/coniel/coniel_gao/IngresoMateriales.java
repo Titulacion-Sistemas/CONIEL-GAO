@@ -348,7 +348,7 @@ public class IngresoMateriales extends Fragment {
             listViewMateriales.setLayoutParams(
                     new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.FILL_PARENT,
-                            contenidoMaterialesLista.size() * 50
+                            contenidoMaterialesLista.size() * 70
                     )
             );
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -375,7 +375,7 @@ public class IngresoMateriales extends Fragment {
             listViewSellos.setLayoutParams(
                     new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.FILL_PARENT,
-                            contenidoSellos.size() * 50
+                            contenidoSellos.size() * 70
                     )
             );
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -404,7 +404,7 @@ public class IngresoMateriales extends Fragment {
                     listViewSellos.setLayoutParams(
                             new LinearLayout.LayoutParams(
                                     LinearLayout.LayoutParams.FILL_PARENT,
-                                    contenidoSellos.size() * 50
+                                    contenidoSellos.size() * 70
                             )
                     );
                     ArrayAdapter<String> dataAdapter = (ArrayAdapter<String>)spSellos.getAdapter();
@@ -436,7 +436,7 @@ public class IngresoMateriales extends Fragment {
                     listViewMateriales.setLayoutParams(
                             new LinearLayout.LayoutParams(
                                     LinearLayout.LayoutParams.FILL_PARENT,
-                                    contenidoMaterialesLista.size() * 50
+                                    contenidoMaterialesLista.size() * 70
                             )
                     );
 

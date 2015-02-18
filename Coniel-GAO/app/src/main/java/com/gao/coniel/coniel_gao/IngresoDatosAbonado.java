@@ -182,10 +182,8 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
     private class asyncBuscar extends AsyncTask<String, Float, Integer> {
 
         private String toast=null;
-
         private SurfaceView img;
         private GifRun w;
-
         public asyncBuscar(SurfaceView sfvTrack) {
             img = sfvTrack;
             w=new GifRun();
@@ -353,6 +351,7 @@ public class IngresoDatosAbonado extends android.support.v4.app.Fragment {
             w.DestroyGiff(img);
             habilitarComponentes(true);
         }
+        //AQUI
     }
 
     private void rellenar() {

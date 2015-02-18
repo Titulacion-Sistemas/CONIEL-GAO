@@ -452,8 +452,7 @@ public class Geolocalizacion extends Fragment {
             SW acc = new SW("ingresos.wsdl", "ubicacion");
 
             try{
-                Object r = acc.ajecutar();
-                return r;
+                return acc.ajecutar();
             }catch (Exception e){
                 toast = "Error, No se pudo cargar los datos requeridos";
                 this.cancel(true);
@@ -466,41 +465,45 @@ public class Geolocalizacion extends Fragment {
         protected void onPostExecute(Object r) {
             super.onPostExecute(r);
 
-            System.out.print(r);
-            if(r != null) {
-                SoapObject data = (SoapObject) r;
-                System.out.print(data);
+            try {
 
-                for (int j = 0; j < data.getPropertyCount(); j++) {
-                    listaCuadrillas.add(
-                            new ListaCuadrillas(
-                                    "" + (((SoapObject) data.getProperty(j)).getProperty(0)) +
-                                            " (" + (((SoapObject) data.getProperty(j)).getProperty(1)) + ")",
-                                    "" + (((SoapObject) data.getProperty(j)).getProperty(2)),
-                                    "" + (((SoapObject) data.getProperty(j)).getProperty(3))
-                            )
-                    );
+                if (r != null) {
+                    SoapObject data = (SoapObject) r;
+                    System.out.print(data);
+
+                    for (int j = 0; j < data.getPropertyCount(); j++) {
+                        listaCuadrillas.add(
+                                new ListaCuadrillas(
+                                        "" + (((SoapObject) data.getProperty(j)).getProperty(0)) +
+                                                " (" + (((SoapObject) data.getProperty(j)).getProperty(1)) + ")",
+                                        "" + (((SoapObject) data.getProperty(j)).getProperty(2)),
+                                        "" + (((SoapObject) data.getProperty(j)).getProperty(3))
+                                )
+                        );
+                    }
+                    adapterCuadrillas = new AdapaterSpinnerCuadrillas(getActivity(), listaCuadrillas);
+                    try {
+                        markerPoints.add(
+                                new LatLng(
+                                        adapterCuadrillas.getItem(0).getLat(),
+                                        adapterCuadrillas.getItem(0).getLongitud()
+                                )
+                        );
+                        markerPoints.add(
+                                new LatLng(
+                                        adapterCuadrillas.getItem(1).getLat(),
+                                        adapterCuadrillas.getItem(1).getLongitud()
+                                )
+                        );
+
+                        spInicioDes.setAdapter(adapterCuadrillas);
+                        spFinDes.setAdapter(adapterCuadrillas);
+
+                    } catch (Exception ignored) {
+                    }
                 }
-                adapterCuadrillas = new AdapaterSpinnerCuadrillas(getActivity(), listaCuadrillas);
-                try {
-                    markerPoints.add(
-                            new LatLng(
-                                    adapterCuadrillas.getItem(0).getLat(),
-                                    adapterCuadrillas.getItem(0).getLongitud()
-                            )
-                    );
-                    markerPoints.add(
-                            new LatLng(
-                                    adapterCuadrillas.getItem(1).getLat(),
-                                    adapterCuadrillas.getItem(1).getLongitud()
-                            )
-                    );
-
-                    spInicioDes.setAdapter(adapterCuadrillas);
-                    spFinDes.setAdapter(adapterCuadrillas);
-
-                } catch (Exception ignored) {
-                }
+            }catch (Exception e){
+                Log.e("Error en Geolocalizacion", ""+e.getMessage());
             }
 
         }

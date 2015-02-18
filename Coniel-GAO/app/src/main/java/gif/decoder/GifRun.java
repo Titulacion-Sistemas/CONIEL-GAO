@@ -4,9 +4,8 @@ package gif.decoder;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
@@ -45,13 +44,17 @@ public class GifRun implements Runnable, Callback {
 	}
     public void DestroyGiff(SurfaceView v)
     {
-        surfaceExists=false;
-        t.interrupt();
-        bmb = decode.next();
-        Canvas rCanvas = mSurfaceHolder.lockCanvas();
-        rCanvas.drawBitmap(bmb, 0, 0, new Paint());
-        mSurfaceHolder.unlockCanvasAndPost(rCanvas);
-        v.setVisibility(View.INVISIBLE);
+        try {
+            surfaceExists = false;
+            t.interrupt();
+            bmb = decode.next();
+            Canvas rCanvas = mSurfaceHolder.lockCanvas();
+            rCanvas.drawBitmap(bmb, 0, 0, new Paint());
+            mSurfaceHolder.unlockCanvasAndPost(rCanvas);
+            v.setVisibility(View.INVISIBLE);
+        }catch (Exception e){
+            Log.i("Error Gif", "Salir de búsqueda");
+        }
     }
 
 	public void run()
@@ -69,7 +72,6 @@ public class GifRun implements Runnable, Callback {
 
 			}
 		}
-		
 	}
 
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
